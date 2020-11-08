@@ -3,6 +3,7 @@ npm install react-router-dom -save
 npm install react-bootstrap bootstrap
 npm i react-responsive-carousel   
 
+npm install popper.js --save
 
 npm i --save @fortawesome/fontawesome-svg-core
 npm install --save @fortawesome/free-solid-svg-icons

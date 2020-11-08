@@ -11,8 +11,8 @@ select {
     border-radius:50px;
     margin: 20px;
     background-color:transparent;
-    width: 110px;
-    height:110px;
+    width: 95px;
+    height:95px;
     background-color:white;
 }
 
@@ -25,3 +25,55 @@ select {
     max-width: 80%;
     margin:auto;
 }
+
+.experiment-wrapper .experiment-image,
+.experiment-wrapper .experiment-options,
+.experiment-wrapper .experiment-buttons{
+    display: inline-block;
+}
+
+.experiment-wrapper .experiment-buttons button{
+    min-width: 75px;
+}
+
+.experiment-wrapper .experiment-image{
+    position: relative;
+    height: 500px;
+    width: 500px;
+    max-width: 20%;
+}
+
+.experiment-wrapper .experiment-image img{
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.experiment-wrapper .experiment-options{
+    max-width: 70%;
+}
+.experiment-wrapper .experiment-buttons{
+    max-width: 10%;
+}
+
+html, body{
+
+    height: 100%;
+    margin: 0;
+  }
+
+  .image-selects .take, 
+  .image-selects .choose{
+      display: inline-block;
+  }
+  .image-selects svg{
+    width:100% !important; 
+    font-size: 60px
+  }

@@ -23,7 +23,7 @@ class ExpPupilOrientation extends React.Component{
                     emotion.boolean = !emotion.boolean;
                     tempExpObject.map(expEmotion =>{
                         if (expEmotion.emotionCat == emObj.emotionCat){
-                            expEmotion.value += 1;
+                            emotion.boolean ? expEmotion.value += 1 : expEmotion.value -= 1;
                             this.props.callbackFromParent(tempExpObject);
                         }
                     })

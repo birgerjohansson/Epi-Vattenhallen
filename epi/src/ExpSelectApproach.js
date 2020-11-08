@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faCamera, faCoffee, faImage } from '@fortawesome/free-solid-svg-icons'
 
 class ExpSelectApproach extends React.Component{
     constructor(props) {
@@ -22,12 +22,21 @@ class ExpSelectApproach extends React.Component{
         return (
             <div>
                 <div className= "jumbotron text-center"> 
-                    <div>
-                        {/* <FontAwesomeIcon icon={["fal", "coffee"]} /> */}
-                        <FontAwesomeIcon icon={faCoffee} />
-                        <button  onClick={(e) => this.handleClick(e, '/ExpTakePicture')} type="submit" className="btn btn-primary">Ta bild</button>
+                    <div className="info-text">
+                        Lorem Ipsum
                     </div>
-                    <button  onClick={(e) => this.handleClick(e, '/ExpChoosePicture')} type="submit" className="btn btn-primary">Välj bild</button>
+                    <div className="image-selects">
+                        <div className="take">
+                            {/* <FontAwesomeIcon icon={["fal", "coffee"]} /> */}
+                            <FontAwesomeIcon icon={faCamera} />
+                            <button  onClick={(e) => this.handleClick(e, '/ExpTakePicture')} type="submit" className="btn btn-primary">Ta bild</button>
+                        </div>
+                        <div className="choose">
+                            <FontAwesomeIcon icon={faImage}/>
+                            <button  onClick={(e) => this.handleClick(e, '/ExpChoosePicture')} type="submit" className="btn btn-primary">Välj bild</button>
+                        </div>
+                    </div>
+                    
                     <button  onClick={(e) => this.exitExperiment(e, '/')} type="submit" className="btn btn-primary">Tillbaka</button>
                 </div>
                 

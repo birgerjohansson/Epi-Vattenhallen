@@ -1,5 +1,7 @@
 import React from 'react';
 import ai_image from './images/abstract_ai.jpg';
+import profilePic from './images/profilePic.jpg';
+import { Container, Row, Col } from 'react-bootstrap';
 
 class ExpEyeColor extends React.Component{
     constructor(props) {
@@ -23,7 +25,7 @@ class ExpEyeColor extends React.Component{
                     emotion.boolean = !emotion.boolean;
                     tempExpObject.map(expEmotion =>{
                         if (expEmotion.emotionCat == emObj.emotionCat){
-                            expEmotion.value += 1;
+                            emotion.boolean ? expEmotion.value += 1 : expEmotion.value -= 1;
                             this.props.callbackFromParent(tempExpObject);
                         }
                     })
@@ -58,17 +60,39 @@ class ExpEyeColor extends React.Component{
 
     render() {
         return (
-                <div  className="p-3 mb-2 bg-info text-white" style={{backgroundImage: `url(${ai_image}` }}>
+            // <Container>
+            //     <Row>
+            //         <Col xs={2}><img src={profilePic}/></Col>
+            //         <Col xs={7}>
+            //             <div  className="p-3 mb-2 bg-info text-white" style={{backgroundImage: `url(${ai_image}` }}>
+            //                 <div required  multiple={true} id="emotionSelect"  type="button"  onClick={(e) => this.handleEmotionChange(e)}>
+            //                     {this.renderItems()}
+            //                 </div>
+            //             </div>
+            //         </Col>
+            //         <Col xs={1}>
+            //             <div className="">
+            //                 <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-danger">Avbryt</button>
+            //                 <button  onClick={(e) => this.handleClick(e, '/PrevResult')} type="submit" className="btn btn-success">Nästa</button>
+            //             </div>
+            //         </Col>
+            //     </Row>
+            // </Container>
+            <div className="experiment-wrapper">
+                <div className="experiment-image">
+                    <img src={profilePic}/>
+                </div>
+                <div  className="experiment-options" style={{backgroundImage: `url(${ai_image}` }}>
                     <div required  multiple={true} id="emotionSelect"  type="button"  onClick={(e) => this.handleEmotionChange(e)}>
                         {this.renderItems()}
                     </div>
-
-                    <div className="">
-                        <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-danger">Avbryt</button>
-                        <button  onClick={(e) => this.handleClick(e, '/PrevResult')} type="submit" className="btn btn-success">Nästa</button>
-                    </div>
                 </div>
-            );
+                <div className="experiment-buttons">
+                    <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-danger">Avbryt</button>
+                    <button  onClick={(e) => this.handleClick(e, '/PrevResult')} type="submit" className="btn btn-success">Nästa</button>
+                </div>
+            </div>
+        );
     }
 }
 
