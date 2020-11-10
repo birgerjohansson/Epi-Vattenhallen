@@ -87,3 +87,11 @@ html, body{
     width:100% !important; 
     font-size: 60px
   }
+
+
+
+
+
+.result-wrapper .emotion-category{
+    display: inline-block;
+}
