@@ -64,25 +64,26 @@ class ExpPreGameInstruction extends React.Component{
                                         .withFaceExpressions();
 
 
-        console.log(detection);
-        console.log(detection.expressions);
+        // console.log(detection);
+        // console.log(detection.expressions);
 
         let emotions = {...detection.expressions};
         console.log(emotions);
-        console.log(image.width);
+        // console.log(this.props.currentState);
+        // console.log(image.width);
 
-        const dimensions = {
-            width: image.width,
-            height: image.height
-        };
+        // const dimensions = {
+        //     width: image.width,
+        //     height: image.height
+        // };
 
-        const resizedDimensions = faceapi.resizeResults(detection, dimensions);
+        // const resizedDimensions = faceapi.resizeResults(detection, dimensions);
 
-        document.body.append(canvas);
+        // document.body.append(canvas);
 
-        faceapi.draw.drawDetections(canvas, resizedDimensions);
-        faceapi.draw.drawFaceLandmarks(canvas, resizedDimensions);
-        faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
+        // faceapi.draw.drawDetections(canvas, resizedDimensions);
+        // faceapi.draw.drawFaceLandmarks(canvas, resizedDimensions);
+        // faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
     }
 
     render() {
@@ -91,8 +92,7 @@ class ExpPreGameInstruction extends React.Component{
             <div>
                 <div className= "jumbotron text-center">
                 <button  onClick={(e) => this.handleClick(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Tillbaka</button>
-                {/* <button  onClick={(e) => this.handleClick(e, '/ExpEyeColor')} type="submit" className="btn btn-primary">Starta spelet</button> */}
-                <button  onClick={() => this.getfacerec()} type="submit" className="btn btn-primary">Starta spelet</button>
+                <button  onClick={(e) => this.handleClick(e, '/ExpEyeColor')} type="submit" className="btn btn-primary">Starta spelet</button>
                 </div>
 
                 <div className="form-group mt-20">

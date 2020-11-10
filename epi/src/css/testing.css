@@ -26,14 +26,24 @@ select {
     margin:auto;
 }
 
+.experiment-wrapper{
+    height:100vh !important;
+}
+
 .experiment-wrapper .experiment-image,
 .experiment-wrapper .experiment-options,
 .experiment-wrapper .experiment-buttons{
     display: inline-block;
+    height:100vh !important;
+    float: right;
 }
 
 .experiment-wrapper .experiment-buttons button{
     min-width: 75px;
+}
+
+.experiment-wrapper .experiment-buttons .button-next{
+    margin-top: calc(100vh - 90px);   
 }
 
 .experiment-wrapper .experiment-image{

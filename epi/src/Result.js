@@ -1,7 +1,15 @@
 import React from 'react';
-import { ProgressBar } from 'react-bootstrap';
+// import { ProgressBar } from 'react-bootstrap';
 import ExpEyeColor from './ExpEyeColor';
+import Progress from 'react-progressbar';
 // import ReactWordcloud from 'react-wordcloud';
+import ProgressBar from "./progress-bar.component";
+
+const testData = [
+    { bgcolor: "#6a1b9a", completed: 60 },
+    { bgcolor: "#00695c", completed: 30 },
+    { bgcolor: "#ef6c00", completed: 53 },
+  ];
 
 class Result extends React.Component {
     constructor(props){
@@ -32,9 +40,23 @@ class Result extends React.Component {
 
             <div>
                 <img />
-                <div>
+                {/* <div>
                     <div>EmotionCat</div>
                     <ProgressBar now={now} label={`${now}%`}/>
+                </div> */}
+                <div>
+                    <div>EmotionCat 2</div>
+                    <div>
+                        <Progress completed={75} />
+                    </div>
+                </div>
+                <div>
+                {testData.map((item, idx) => (
+                    <div>
+                    <div>emotionCat</div>                    
+                    <ProgressBar key={idx} bgcolor={item.bgcolor} completed={item.completed} />
+                    </div>
+                ))}
                 </div>
             </div>
 

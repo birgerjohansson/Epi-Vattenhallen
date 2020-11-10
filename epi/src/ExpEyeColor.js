@@ -78,18 +78,18 @@ class ExpEyeColor extends React.Component{
             //         </Col>
             //     </Row>
             // </Container>
-            <div className="experiment-wrapper">
-                <div className="experiment-image">
-                    <img src={profilePic}/>
+            <div className="experiment-wrapper" style={{backgroundImage: `url(${ai_image}` }}>
+                <div className="experiment-buttons">
+                    <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-danger">Avbryt</button>
+                    <button  onClick={(e) => this.handleClick(e, '/PrevResult')} type="submit" className="btn btn-success button-next">Nästa</button>
                 </div>
-                <div  className="experiment-options" style={{backgroundImage: `url(${ai_image}` }}>
-                    <div required  multiple={true} id="emotionSelect"  type="button"  onClick={(e) => this.handleEmotionChange(e)}>
+                <div  className="experiment-options" >
+                    <div onClick={(e) => this.handleEmotionChange(e)}>
                         {this.renderItems()}
                     </div>
                 </div>
-                <div className="experiment-buttons">
-                    <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-danger">Avbryt</button>
-                    <button  onClick={(e) => this.handleClick(e, '/PrevResult')} type="submit" className="btn btn-success">Nästa</button>
+                <div className="experiment-image">
+                    <img src={profilePic}/>
                 </div>
             </div>
         );
