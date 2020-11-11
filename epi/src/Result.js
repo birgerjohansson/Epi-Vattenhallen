@@ -35,6 +35,8 @@ class Result extends React.Component {
 
     render() {
         const expObject = this.props.expObject
+        console.log(this.props);
+        console.log(this.props.counter)
         // console.log(expObject);
         // console.log(typeof(expObject));
         // console.log(expObject[0].expOne);
