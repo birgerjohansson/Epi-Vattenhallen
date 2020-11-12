@@ -24,6 +24,12 @@ const images = [
       thumbnail: 'https://picsum.photos/id/1019/250/150/',
       legend: 'bild 3',
     },
+    {
+        id: 3,
+        original: '/images/stock_disgusted2.jpg',
+        thumbnail: '/images/stock_disgusted2.jpg',
+        legend: 'Disgusted 2',
+    },
   ];
 
 class ExpChoosePicture extends React.Component{

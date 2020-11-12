@@ -28,17 +28,15 @@ import * as faceapi from 'face-api.js';
 class App extends React.Component{
   constructor(props) {
     super();
-    this.state = {expObject : [], emotionsObject : [], emotionDisplay: '', counter : 1, currentState: 0};
+    this.state = {expObject : [], emotionsObject : [], emotionDisplay: '', counter : 1, currentState: 0, selectedImage: '', faceRecEmotions: {}};
+    this.faceRec = this.faceRec.bind(this)
   }
 
   async faceRec(imgSrc) {
-    debugger;
-    console.log('Component did mount');
     await faceapi.nets.ssdMobilenetv1.loadFromUri('/models');
     await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
     await faceapi.nets.faceExpressionNet.loadFromUri('/models');
 
-    // const image = document.querySelector('img');
     const image = await faceapi.fetchImage('/images/stock_disgusted2.jpg');
     const canvas = faceapi.createCanvasFromMedia(image);
     // const detection = await faceapi.detectAllFaces(image)
@@ -69,6 +67,9 @@ class App extends React.Component{
     // faceapi.draw.drawDetections(canvas, resizedDimensions);
     // faceapi.draw.drawFaceLandmarks(canvas, resizedDimensions);
     // faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
+
+    this.setState({selectedImage: imgSrc, faceRecEmotions: emotions});
+    console.log(this.state);
 }
 
 
@@ -122,6 +123,8 @@ class App extends React.Component{
 
   //Update the current experiment-state and set this.state
   updateExp = (expNumberObject) => {
+    console.log('state')
+    console.log(this.state)
     let tempExp = [...this.state.expObject];
     if (this.state.currentState == 0){
       tempExp[this.state.currentState].expOne = expNumberObject;
@@ -146,9 +149,10 @@ class App extends React.Component{
     let emDisplay = this.state.emotionDisplay;
     let stateValue = this.state.currentState;
     let experiment = this.state.expObject;
+    let selectedImage = this.state.selectedImage;
 
 
-    const expEyeColorElem = (params) => <ExpEyeColor {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
+    const expEyeColorElem = (params) => <ExpEyeColor {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} selectedImage={selectedImage} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
     const expPupilSizeElem = (params) => <ExpPupilSize {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
     const expPupilOrientationElem = (params) => <ExpPupilOrientation {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
     const prevResultElem = (params) => <PrevResult {...params} currentState={stateValue} callbackFromParent={this.changeCurrentState}/>;
