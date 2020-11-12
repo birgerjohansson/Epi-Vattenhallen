@@ -45,8 +45,7 @@ class App extends React.Component{
     const detection = await faceapi.detectSingleFace(image)
                                     .withFaceLandmarks()
                                     .withFaceExpressions();
-
-
+                                    
     // console.log(detection);
     // console.log(detection.expressions);
 
@@ -71,7 +70,6 @@ class App extends React.Component{
     this.setState({selectedImage: imgSrc, faceRecEmotions: emotions});
     console.log(this.state);
 }
-
 
   //Application mount and the emotionObjects is imported and set this.state (emotionsObject)
   componentDidMount() {
@@ -106,7 +104,6 @@ class App extends React.Component{
     let randomEmotion = Math.floor((Math.random() * objectList.length ) + 1);
     this.setState({expObject: newExpObject.expObject, emotionDisplay:  randomEmotion});
   }
-  
 
   //Change the current state and reset all emotions chosen by click
   changeCurrentState = (stateValue) => {
