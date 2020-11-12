@@ -144,13 +144,11 @@ class App extends React.Component{
   };
 
   render() {
-
     let emotions = this.state.emotionsObject;
     let emDisplay = this.state.emotionDisplay;
     let stateValue = this.state.currentState;
     let experiment = this.state.expObject;
     let selectedImage = this.state.selectedImage;
-
 
     const expEyeColorElem = (params) => <ExpEyeColor {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} selectedImage={selectedImage} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
     const expPupilSizeElem = (params) => <ExpPupilSize {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
@@ -167,44 +165,33 @@ class App extends React.Component{
 
         return (
           <Router>
-          <div>
-            {/* <div className="jumbotron text-center" style={{backgroundColor: 'white'}}>
-              <img src={robot_image} />
-              <spam>{val}</spam>
-              <div className="jumbotron text-center" style={{backgroundColor: 'white'}}>
-            </div>
-            </div> */}
-            
-            
-              
-              
-            <div className="form-group mt-20"> 
-            <Switch>
-              <Route exact path="/">
-                <Redirect to="/ExpMain" />
-              </Route>
-              <Route path='/ExpChoosePicture' component = {expChoosePictureElem}/>
-              <Route path='/ExpSelectApproach' component = {expSelectApproachElem}/>
-              <Route path='/ExpPreGameInstruction' component = {expPreGameInstructionElem}/>
-              <Route path='/ExpTakePicture' component = {expTakePictureElem}/>
-              <Route path='/ExpMain' component = {expMainElem}/>
-              <Route path='/ExpEyeColor' component={expEyeColorElem}/>
-              <Route path='/ExpPupilSize' component={expPupilSizeElem}/>
-              <Route path='/ExpPupilOrientation' component={expPupilOrientationElem}/>
-              <Route path='/PrevResult' component={prevResultElem}/>
-              <Route path='/Result' component={resultElem}/>
-            </Switch>
-               
-            </div>
             <div>
-          
-
+              {/* <div className="jumbotron text-center" style={{backgroundColor: 'white'}}>
+                <img src={robot_image} />
+                <spam>{val}</spam>
+                <div className="jumbotron text-center" style={{backgroundColor: 'white'}}>
+              </div>
+              </div> */}              
+                <div className="form-group mt-20"> 
+                  <Switch>
+                    <Route exact path="/">
+                      <Redirect to="/ExpMain" />
+                    </Route>
+                    <Route path='/ExpChoosePicture' component = {expChoosePictureElem}/>
+                    <Route path='/ExpSelectApproach' component = {expSelectApproachElem}/>
+                    <Route path='/ExpPreGameInstruction' component = {expPreGameInstructionElem}/>
+                    <Route path='/ExpTakePicture' component = {expTakePictureElem}/>
+                    <Route path='/ExpMain' component = {expMainElem}/>
+                    <Route path='/ExpEyeColor' component={expEyeColorElem}/>
+                    <Route path='/ExpPupilSize' component={expPupilSizeElem}/>
+                    <Route path='/ExpPupilOrientation' component={expPupilOrientationElem}/>
+                    <Route path='/PrevResult' component={prevResultElem}/>
+                    <Route path='/Result' component={resultElem}/>
+                  </Switch>
+                </div>
             </div>
-          </div>
-          
           </Router>
-
-        );    
+      );    
   } 
 }
 
