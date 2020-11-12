@@ -14,7 +14,6 @@ class ExpTakePicture extends React.Component{
     }
 
     render() {
-
         return (
             <div>
                 <div className= "jumbotron text-center"> 

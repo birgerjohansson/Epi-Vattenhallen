@@ -3,6 +3,7 @@ import React from 'react';
 // import "react-image-gallery/styles/css/image-gallery.css";
 import {Carousel} from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import $ from 'jquery';
 
 const images = [
     {
@@ -37,10 +38,16 @@ class ExpChoosePicture extends React.Component{
 
     clickedThisBitch = (id) => {
         console.log("clickedThisBitch" + id);
-      }
+    }
+
+    choosePicture = (event) => {
+        let image = $('.selected img').attr('src');
+        console.log(image);
+        this.props.callbackFromParent(image); //pass image
+        this.handleClick(event, '/ExpPreGameInstruction')
+    }
 
     render() {
-
         return (
             <div>
                 <div className="CarouselWrapper">
@@ -60,7 +67,7 @@ class ExpChoosePicture extends React.Component{
                 {/* Removed class jumbotron */}
                 <div className= "text-center"> 
                     <button  onClick={(e) => this.handleClick(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Tillbaka</button>
-                    <button  onClick={(e) => this.handleClick(e, '/ExpPreGameInstruction')} type="submit" className="btn btn-primary">Nästa</button>
+                    <button  onClick={(e) => this.choosePicture(e)} type="submit" className="btn btn-primary">Nästa</button>
                 </div>
                 <div className="form-group mt-20"></div>
             </div>

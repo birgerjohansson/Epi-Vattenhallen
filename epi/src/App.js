@@ -17,6 +17,8 @@ import ExpPreGameInstruction from './ExpPreGameInstruction';
 import ExpTakePicture from './ExpTakePicture';
 import ExpSelectApproach from './ExpSelectApproach';
 
+import * as faceapi from 'face-api.js';
+
 //expObject will hold the result of all the different views/state
 //emotionsObject will store the importen emotionsObject
 //emotionDisplay will store the emotion category acting as basis for the interaction
@@ -29,10 +31,49 @@ class App extends React.Component{
     this.state = {expObject : [], emotionsObject : [], emotionDisplay: '', counter : 1, currentState: 0};
   }
 
+  async faceRec(imgSrc) {
+    debugger;
+    console.log('Component did mount');
+    await faceapi.nets.ssdMobilenetv1.loadFromUri('/models');
+    await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
+    await faceapi.nets.faceExpressionNet.loadFromUri('/models');
+
+    // const image = document.querySelector('img');
+    const image = await faceapi.fetchImage('/images/stock_disgusted2.jpg');
+    const canvas = faceapi.createCanvasFromMedia(image);
+    // const detection = await faceapi.detectAllFaces(image)
+    //                                 .withFaceLandmarks()
+    //                                 .withFaceExpressions();
+    const detection = await faceapi.detectSingleFace(image)
+                                    .withFaceLandmarks()
+                                    .withFaceExpressions();
+
+
+    // console.log(detection);
+    // console.log(detection.expressions);
+
+    let emotions = {...detection.expressions};
+    console.log(emotions);
+    // console.log(this.props.currentState);
+    // console.log(image.width);
+
+    // const dimensions = {
+    //     width: image.width,
+    //     height: image.height
+    // };
+
+    // const resizedDimensions = faceapi.resizeResults(detection, dimensions);
+
+    // document.body.append(canvas);
+
+    // faceapi.draw.drawDetections(canvas, resizedDimensions);
+    // faceapi.draw.drawFaceLandmarks(canvas, resizedDimensions);
+    // faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
+}
+
 
   //Application mount and the emotionObjects is imported and set this.state (emotionsObject)
   componentDidMount() {
-
     let emotionsObject = new EmotionObject();
     const data = objectList;
     const mapRows = data.map(emotion => (
@@ -114,7 +155,7 @@ class App extends React.Component{
     const resultElem = (params) => <Result {...params} expObject={experiment} callbackFromParent={this.exitExp}/>;
     const expMainElem = (params) => <ExpMain {...params}  callbackFromParent={this.startExp}/>;
     const expSelectApproachElem = (params) => <ExpSelectApproach {...params}  callbackFromParent={this.exitExp}/>;
-    const expChoosePictureElem = (params) => <ExpChoosePicture {...params}  />;
+    const expChoosePictureElem = (params) => <ExpChoosePicture {...params}  callbackFromParent={this.faceRec}/>;
     const expTakePictureElem = (params) => <ExpTakePicture {...params}  callbackFromParent={this.takePicture}/>;
     const expPreGameInstructionElem = (params) => <ExpPreGameInstruction {...params}  />;
 
@@ -162,6 +203,5 @@ class App extends React.Component{
         );    
   } 
 }
-
 
 export default App;

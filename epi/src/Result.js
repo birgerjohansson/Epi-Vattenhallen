@@ -5,10 +5,10 @@ import Progress from 'react-progressbar';
 // import ReactWordcloud from 'react-wordcloud';
 import ProgressBar from "./progress-bar.component";
 
-const testData = [
-    { bgcolor: "#6a1b9a", completed: 60 },
-    { bgcolor: "#00695c", completed: 30 },
-    { bgcolor: "#ef6c00", completed: 53 },
+const barColors = [
+    { emotion: 'Anger', bgcolor: "#ff0000"},
+    { emotion: '', bgcolor: "#00695c"},
+    { bgcolor: '', bgcolor: "#ef6c00"},
   ];
 
   const emotionData = [
@@ -27,11 +27,6 @@ class Result extends React.Component {
         this.props.callbackFromParent();
         this.props.history.push('/')
     }
-
-    calculateResult = (expobject) => {
-
-    }
-    
 
     render() {
         const expObject = this.props.expObject
@@ -53,21 +48,21 @@ class Result extends React.Component {
         for (const [key, value] of Object.entries(expObject[0].expOne)) {            
             if(value.value > 0)
             {
-                emotionData.[0].expOne.push({'emotionCat': value.emotionCat, 'value': value.value})
-                emotionData.[0].totVal += value.value;
+                emotionData[0].expOne.push({'emotionCat': value.emotionCat, 'value': value.value})
+                emotionData[0].totVal += value.value;
             }
         }
 
         for (const [key, value] of Object.entries(expObject[1].expTwo)) {
-            emotionData.[1].totVal += value.value;
+            emotionData[1].totVal += value.value;
             if(value.value > 0)
-                emotionData.[1].expTwo.push({'emotionCat': value.emotionCat, 'value': value.value})
+                emotionData[1].expTwo.push({'emotionCat': value.emotionCat, 'value': value.value})
         }
 
         for (const [key, value] of Object.entries(expObject[2].expThree)) {
-            emotionData.[2].totVal += value.value;
+            emotionData[2].totVal += value.value;
             if(value.value > 0)
-                emotionData.[2].expThree.push({'emotionCat': value.emotionCat, 'value': value.value})
+                emotionData[2].expThree.push({'emotionCat': value.emotionCat, 'value': value.value})
         }
 
         console.log(emotionData);
@@ -98,24 +93,24 @@ class Result extends React.Component {
                     <ProgressBar key={idx} bgcolor={item.bgcolor} completed={item.completed} />
                     </div>
                 ))} */}
-                {emotionData.[0].expOne.map((item, idx) => (
+                {emotionData[0].expOne.map((item, idx) => (
                     <div>
                     <div className="emotion-category">{item.emotionCat}</div>                    
-                    <ProgressBar key={idx} bgcolor={"#6a1b9a"} completed={item.value/emotionData.[0].totVal*100} />
+                    <ProgressBar key={idx} bgcolor={"#6a1b9a"} completed={item.value/emotionData[0].totVal*100} />
                     </div>
                 ))}
 
-                {emotionData.[1].expTwo.map((item, ids) => (
+                {emotionData[1].expTwo.map((item, ids) => (
                     <div>
                     <div className="emotion-category">{item.emotionCat}</div>                    
-                    <ProgressBar key={ids} bgcolor={"#6a1b9a"} completed={item.value/emotionData.[1].totVal*100} />
+                    <ProgressBar key={ids} bgcolor={"#6a1b9a"} completed={item.value/emotionData[1].totVal*100} />
                     </div>
                 ))}
 
-                {emotionData.[2].expThree.map((item, id) => (
+                {emotionData[2].expThree.map((item, id) => (
                     <div>
                     <div className="emotion-category">{item.emotionCat}</div>                    
-                    <ProgressBar key={id} bgcolor={"#6a1b9a"} completed={item.value/emotionData.[2].totVal*100} />
+                    <ProgressBar key={id} bgcolor={"#6a1b9a"} completed={item.value/emotionData[2].totVal*100} />
                     </div>
                 ))}
             

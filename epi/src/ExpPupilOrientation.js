@@ -1,5 +1,6 @@
 import React from 'react';
 import ai_image from './images/abstract_ai.jpg';
+import profilePic from './images/profilePic.jpg';
 
 class ExpPupilOrientation extends React.Component{
     constructor(props) {
@@ -57,35 +58,22 @@ class ExpPupilOrientation extends React.Component{
     }
 
     render() {
-
         return (
-            
-            <div  className="jumbotron text-center">
-            <div  className="p-3 mb-2 bg-info text-white" style={{backgroundImage: `url(${ai_image}` }}>
-                    
-            <div className="container"></div>
-            
-            {/*             
-            <div className="form-group">
-            <div className="form-group mr-5"> */}
-            <div required  multiple={true} id="emotionSelect"  type="button"  onClick={(e) => this.handleEmotionChange(e)}>
-                {this.renderItems()}
-            </div>
-            {/* </div>
-            </div> */}
-            <div className="row">
-            <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-primary">Exit</button>
-            <button  onClick={(e) => this.handleClick(e, '/PrevResult')} type="submit" className="btn btn-primary">Next</button>
-            </div>
-        
-            </div>
-            <div class="form-group mt-20"> 
-                
-            </div>
-            </div>
-            
-             
-            );
+            <div className="experiment-wrapper" style={{backgroundImage: `url(${ai_image}` }}>
+                <div className="experiment-buttons">
+                    <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-danger">Avbryt</button>
+                    <button  onClick={(e) => this.handleClick(e, '/PrevResult')} type="submit" className="btn btn-success button-next">Nästa</button>
+                </div>
+                <div  className="experiment-options" >
+                    <div onClick={(e) => this.handleEmotionChange(e)}>
+                        {this.renderItems()}
+                    </div>
+                </div>
+                <div className="experiment-image">
+                    <img src={profilePic}/>
+                </div>
+            </div> 
+        );
     }
 }
 
