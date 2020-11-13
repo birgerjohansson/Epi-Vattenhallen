@@ -88,10 +88,9 @@ class ExpEyeColor extends React.Component{
                         {this.renderItems()}
                     </div>
                 </div>
-                <div className="experiment-image">
-                    {/* <img src={profilePic}/> */}
+                {/* <div className="experiment-image">
                     <img src={this.props.selectedImage}/>
-                </div>
+                </div> */}
             </div>
         );
     }

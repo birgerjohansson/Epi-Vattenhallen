@@ -16,6 +16,21 @@ const barColors = [
       {expTwo: [], totVal: 0},
       {expThree: [], totVal: 0}
   ]
+  
+  let epiResult = [];
+
+  const imageStyle = {
+    maxWidth: '300px'
+  }
+
+  const divInlineBlock = {
+      display: 'inline-block'
+  }
+
+  const epiEmotionBar = {
+    display: 'inline-block',
+    width: '70%'
+}
 
 class Result extends React.Component {
     constructor(props){
@@ -28,23 +43,38 @@ class Result extends React.Component {
         this.props.history.push('/')
     }
 
+    componentDidMount(){
+        const eR = Object.entries(this.props.faceRecEmotions);
+
+        eR.forEach(([key, value]) => {
+            console.log(key)
+            // epiResult.push({[key]: value})
+            epiResult.push({emotionCat: key, value: value});
+        })
+    }
+
+    renderEpiResults(){
+        return(
+            <div>
+                <div style={divInlineBlock}>
+                    <img style={imageStyle} src={this.props.selectedImage}/>
+                </div>  
+                <div style={divInlineBlock}>
+                    {epiResult.map((item) => (
+                        <div style={({display: item.value * 100 > 5  ? 'inline-block' : 'none', width: '70%'})}>
+                        {/* <div style={epiEmotionBar} style={({display: item.value * 100 > 5  ? 'inline-block' : 'none', width: '70%'})}> */}
+                            { item.value * 100 > 5 ? <div className="emotion-category">{item.emotionCat}</div> : null}
+                            { item.value * 100 > 5 ?<ProgressBar bgcolor={"#6a1b9a"} completed={item.value * 100} /> : null}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        )
+    }
+
     render() {
         const expObject = this.props.expObject
-        console.log(this.props);
-        console.log(this.props.counter)
-        // console.log(expObject);
-        // console.log(typeof(expObject));
-        // console.log(expObject[0].expOne);
-        let val = JSON.stringify(expObject);
 
-        // console.log(expObject);
-        console.log(expObject[0].expOne);
-
-        // let expOneTotVal = 0;
-        // let expTwoTotVal = 0;
-        // let expThreeTotVal = 0;
-
-        
         for (const [key, value] of Object.entries(expObject[0].expOne)) {            
             if(value.value > 0)
             {
@@ -69,11 +99,7 @@ class Result extends React.Component {
 
     return (
         <div className="result-wrapper">
-            {/* <div className="jumbotron text-center" >
-                {val}
-            </div> */}
             <div>Dina bedömningar / Vad epi har lärt sig</div>
-
             <div>
                 <img />
                 {/* <div>
@@ -115,6 +141,20 @@ class Result extends React.Component {
                 ))}
             
                 </div>
+            </div>
+
+            <div className="epiEmotionRec">
+                {/* <div>
+                    <img style={imageStyle} src={this.props.selectedImage}/>
+                </div> */}
+                <div>Hur epi analyserade dina känslor</div>
+                {this.renderEpiResults()}
+                {/* {epiResult.map((item, idx) => (
+                    <div>
+                        <div className="emotion-category">{item.emotionCat}</div>                    
+                        <ProgressBar key={idx} bgcolor={"#6a1b9a"} completed={item.value * 100} />
+                    </div>
+                ))} */}
             </div>
 
             <div className="jumbotron text-center" style={{backgroundColor: 'white'}}>
