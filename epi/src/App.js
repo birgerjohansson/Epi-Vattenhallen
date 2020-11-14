@@ -81,9 +81,18 @@ class App extends React.Component{
 
   //Trigger an Image from IKAROS and the response is converted to json if the repsonse is to be used
   takePicture = () => {
-    fetch('http://127.0.0.1:8000/control/ImageTrigger.data/0/0/1')
+    fetch('http://localhost:8000/control/ImageTrigger.data/0/0/1')
         .then(response => response.json());
     fetch('http://127.0.0.1:8000/control/ImageTrigger.data/0/0/0')
+        .then(response => response.json());
+  }
+
+  getPicture = () => {
+
+  }
+
+  playEmotion = () => {
+    fetch('http://127.0.0.1:8000/control/MotionTrigger.data/0/0/1 ')
         .then(response => response.json());
   }
 
