@@ -6,9 +6,13 @@ import Progress from 'react-progressbar';
 import ProgressBar from "./progress-bar.component";
 
 const barColors = [
-    { emotion: 'Anger', bgcolor: "#ff0000"},
-    { emotion: '', bgcolor: "#00695c"},
-    { bgcolor: '', bgcolor: "#ef6c00"},
+    { emotion: 'Anger', bgcolor: "#FB525A"},
+    { emotion: 'Sadness', bgcolor: "#2884C6"},
+    { emotion: 'Happiness', bgcolor: "#FFD65D"},
+    { emotion: 'Surprise', bgcolor: "#67F4D8"},
+    { emotion: 'Disgust', bgcolor: "#3CA938"},
+    { emotion: 'Fear', bgcolor: "#784DA3"},
+    { emotion: 'Neutral', bgcolor: "#FFFFFF"},
   ];
 
   const emotionData = [
@@ -51,6 +55,9 @@ class Result extends React.Component {
             // epiResult.push({[key]: value})
             epiResult.push({emotionCat: key, value: value});
         })
+
+        console.log('epiResult');
+        console.log(epiResult);
     }
 
     renderEpiResults(){
@@ -122,21 +129,21 @@ class Result extends React.Component {
                 {emotionData[0].expOne.map((item, idx) => (
                     <div>
                     <div className="emotion-category">{item.emotionCat}</div>                    
-                    <ProgressBar key={idx} bgcolor={"#6a1b9a"} completed={item.value/emotionData[0].totVal*100} />
+                    <ProgressBar key={idx} bgcolor={barColors.find(x => x.emotion === item.emotionCat).bgcolor} completed={item.value/emotionData[0].totVal*100} />
                     </div>
                 ))}
 
                 {emotionData[1].expTwo.map((item, ids) => (
                     <div>
                     <div className="emotion-category">{item.emotionCat}</div>                    
-                    <ProgressBar key={ids} bgcolor={"#6a1b9a"} completed={item.value/emotionData[1].totVal*100} />
+                    <ProgressBar key={ids} bgcolor={barColors.find(x => x.emotion === item.emotionCat).bgcolor} completed={item.value/emotionData[1].totVal*100} />
                     </div>
                 ))}
 
                 {emotionData[2].expThree.map((item, id) => (
                     <div>
                     <div className="emotion-category">{item.emotionCat}</div>                    
-                    <ProgressBar key={id} bgcolor={"#6a1b9a"} completed={item.value/emotionData[2].totVal*100} />
+                    <ProgressBar key={id} bgcolor={barColors.find(x => x.emotion === item.emotionCat).bgcolor} completed={item.value/emotionData[2].totVal*100} />
                     </div>
                 ))}
             
@@ -158,7 +165,7 @@ class Result extends React.Component {
             </div>
 
             <div className="jumbotron text-center" style={{backgroundColor: 'white'}}>
-                <button  onClick={(e) => this.exitExperiment(e)} type="submit" class="btn btn-primary">Exit</button>  
+                <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-primary">Exit</button>  
             </div>
 
         </div>
