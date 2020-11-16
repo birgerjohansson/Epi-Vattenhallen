@@ -23,7 +23,13 @@ class ExpSelectApproach extends React.Component{
             <div>
                 <div className= "jumbotron text-center"> 
                     <div className="info-text">
-                        Lorem Ipsum
+                        Välj input
+                    </div>
+                    <div>
+                        Epi försöker förstå och uttrycka känslor hon ser i människors ansiktsuttryck.
+                    </div>
+                    <div>
+                        Låt Epi spara en bild av ditt ansikte i minnet (Epi har fotografiskt minne) eller välj en bild åt Epi från galleriet.
                     </div>
                     <div className="image-selects">
                         <div className="take">

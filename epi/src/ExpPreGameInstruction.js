@@ -34,12 +34,19 @@ class ExpPreGameInstruction extends React.Component{
     }
 
     render() {
-
         return (
             <div>
                 <div style={imageWrapper}>
                     <img style={imageStyle} src={this.props.selectedImage}/>
                 </div>
+
+                <div>
+                    Epi kommer försöka lära sig känslan som du har demonstrerat (input), men eftersom att Epi inte har något självmedvetande måste han få en bedömning (feedback) på hur hans känslouttryck (output) uppdattas, dvs, hur han ser ut, så att han kan lära sig att försbättra sitt uttryck.
+                </div>
+                <div>
+                    Epi kommer försöka uttrycka känslan fler gånger. Efter varje försök bedömer du Epis uttryck. Epi använder din bedömning för att justera sitt nästa försök.
+                </div>
+                
                 <div className= "jumbotron text-center">
                     <button  onClick={(e) => this.handleClick(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Tillbaka</button>
                     <button  onClick={(e) => this.handleClick(e, '/ExpEyeColor')} type="submit" className="btn btn-primary">Starta spelet</button>

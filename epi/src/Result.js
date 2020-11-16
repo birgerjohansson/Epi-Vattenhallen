@@ -6,13 +6,13 @@ import Progress from 'react-progressbar';
 import ProgressBar from "./progress-bar.component";
 
 const barColors = [
-    { emotion: 'Anger', bgcolor: "#FB525A"},
-    { emotion: 'Sadness', bgcolor: "#2884C6"},
-    { emotion: 'Happiness', bgcolor: "#FFD65D"},
-    { emotion: 'Surprise', bgcolor: "#67F4D8"},
-    { emotion: 'Disgust', bgcolor: "#3CA938"},
-    { emotion: 'Fear', bgcolor: "#784DA3"},
-    { emotion: 'Neutral', bgcolor: "#FFFFFF"},
+    { emotion: 'Anger', faceRecEmotion: 'angry' ,bgcolor: "#FB525A"},
+    { emotion: 'Sadness', faceRecEmotion: 'sad' ,bgcolor: "#2884C6"},
+    { emotion: 'Happiness', faceRecEmotion: 'happy' ,bgcolor: "#FFD65D"},
+    { emotion: 'Surprise', faceRecEmotion: 'surprised' ,bgcolor: "#67F4D8"},
+    { emotion: 'Disgust', faceRecEmotion: 'disgusted' ,bgcolor: "#3CA938"},
+    { emotion: 'Fear', faceRecEmotion: 'fearful' ,bgcolor: "#784DA3"},
+    { emotion: 'Neutral', faceRecEmotion: 'neutral' ,bgcolor: "#FFFFFF"},
   ];
 
   const emotionData = [
@@ -30,6 +30,11 @@ const barColors = [
   const divInlineBlock = {
       display: 'inline-block'
   }
+
+  const epiEmotionBarWrapper = {
+    display: 'inline-block',
+    width: '70%'
+}
 
   const epiEmotionBar = {
     display: 'inline-block',
@@ -66,12 +71,14 @@ class Result extends React.Component {
                 <div style={divInlineBlock}>
                     <img style={imageStyle} src={this.props.selectedImage}/>
                 </div>  
-                <div style={divInlineBlock}>
+                <div style={epiEmotionBarWrapper}>
                     {epiResult.map((item) => (
-                        <div style={({display: item.value * 100 > 5  ? 'inline-block' : 'none', width: '70%'})}>
+                        <div>
+                         {/* <div style={({display: item.value * 100 > 5  ? 'inline-block' : 'none', width: '70%'})}> */}
                         {/* <div style={epiEmotionBar} style={({display: item.value * 100 > 5  ? 'inline-block' : 'none', width: '70%'})}> */}
                             { item.value * 100 > 5 ? <div className="emotion-category">{item.emotionCat}</div> : null}
-                            { item.value * 100 > 5 ?<ProgressBar bgcolor={"#6a1b9a"} completed={item.value * 100} /> : null}
+                            {/* { item.value * 100 > 5 ?<ProgressBar bgcolor={"#6a1b9a"} completed={item.value * 100} /> : null} */}
+                            { item.value * 100 > 5 ?<ProgressBar bgcolor={barColors.find(x => x.faceRecEmotion === item.emotionCat).bgcolor} completed={item.value * 100} /> : null}
                         </div>
                     ))}
                 </div>

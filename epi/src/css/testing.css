@@ -95,3 +95,16 @@ html, body{
 .result-wrapper .emotion-category{
     display: inline-block;
 }
+
+/* .slider-wrapper{
+    max-height:80vh;
+} */
+¨
+.slider .slide div{
+    width: auto;
+    text-align: center;
+}
+.carousel .slide img {
+    max-width: 50%;
+    height: auto;
+}
