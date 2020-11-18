@@ -1,5 +1,6 @@
 import React from 'react';
 import Webcam from 'react-webcam';
+
 class ExpTakePicture extends React.Component{
     constructor(props) {
         super()
@@ -29,34 +30,6 @@ class ExpTakePicture extends React.Component{
             iamgeData: imageSrc
         })
     };
-
-    onClickRetake = (e) => {
-        e.persist();
-        this.setState({
-            imageData: null
-        })
-    }
-
-    onClickSave = (e) => {
-        e.persist();
-        this.setState((previousState) =>{
-            return{
-                saveImage: !previousState.saveImage
-            }
-        });
-    }
-
-    handleChange = (e) => {
-        e.persist();
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    handleSaveSubmit = (e) => {
-        e.preventDefault();
-
-    }
 
     render() {
 
