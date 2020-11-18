@@ -4,6 +4,7 @@ import ExpEyeColor from './ExpEyeColor';
 import Progress from 'react-progressbar';
 // import ReactWordcloud from 'react-wordcloud';
 import ProgressBar from "./progress-bar.component";
+import ai_image from './images/robot_illu.png';
 
 const barColors = [
     { emotion: 'Anger', faceRecEmotion: 'angry' ,bgcolor: "#FB525A"},
@@ -31,14 +32,23 @@ const barColors = [
       display: 'inline-block'
   }
 
-  const epiEmotionBarWrapper = {
-    display: 'inline-block',
-    width: '70%'
+const epiResultWrapper = {
+    display: 'flex'
 }
 
-  const epiEmotionBar = {
-    display: 'inline-block',
-    width: '70%'
+const epiEmotionBar = {
+    flex: '8'
+}
+
+const resultImageWrapper ={
+    flex:'2', 
+    width:'200px',
+    height:'200px'
+}
+
+const resultImage = {
+    width: '100%',
+    height: '100%'
 }
 
 class Result extends React.Component {
@@ -53,25 +63,25 @@ class Result extends React.Component {
     }
 
     componentDidMount(){
-        const eR = Object.entries(this.props.faceRecEmotions);
-
-        eR.forEach(([key, value]) => {
-            console.log(key)
-            // epiResult.push({[key]: value})
-            epiResult.push({emotionCat: key, value: value});
-        })
-
-        console.log('epiResult');
-        console.log(epiResult);
     }
 
     renderEpiResults(){
+        const eR = Object.entries(this.props.faceRecEmotions);
+
+        eR.forEach(([key, value]) => {
+            epiResult.push({emotionCat: key, value: value});
+        })
+
+        // epiResult.map((item) => (
+        //     console.log(item.value)
+        // ))
+        
         return(
-            <div>
-                <div style={divInlineBlock}>
-                    <img style={imageStyle} src={this.props.selectedImage}/>
+            <div style={epiResultWrapper}>
+                <div style={resultImageWrapper}>
+                    <img style={resultImage} src={this.props.selectedImage}/>
                 </div>  
-                <div style={epiEmotionBarWrapper}>
+                <div style={epiEmotionBar}>
                     {epiResult.map((item) => (
                         <div>
                          {/* <div style={({display: item.value * 100 > 5  ? 'inline-block' : 'none', width: '70%'})}> */}
@@ -109,52 +119,53 @@ class Result extends React.Component {
                 emotionData[2].expThree.push({'emotionCat': value.emotionCat, 'value': value.value})
         }
 
-        console.log(emotionData);
-
     return (
         <div className="result-wrapper">
             <div>Dina bedömningar / Vad epi har lärt sig</div>
             <div>
-                <img />
-                {/* <div>
-                    <div>EmotionCat</div>
-                    <ProgressBar now={now} label={`${now}%`}/>
-                </div> */}
-                {/* <div>
-                    <div>EmotionCat 2</div>
-                    <div>
-                        <Progress completed={75} />
+                <div style={epiResultWrapper}>
+                    <div style={resultImageWrapper}>
+                        <img style={resultImage} src={ai_image}/>
                     </div>
-                </div> */}
-                <div>
-                {/* {testData.map((item, idx) => (
-                    <div>
-                    <div className="emotion-category">emotionCat</div>                    
-                    <ProgressBar key={idx} bgcolor={item.bgcolor} completed={item.completed} />
+                    <div style={epiEmotionBar}>
+                        {emotionData[0].expOne.map((item, idx) => (
+                            <div>
+                            <div className="emotion-category">{item.emotionCat}</div>                    
+                            <ProgressBar key={idx} bgcolor={barColors.find(x => x.emotion === item.emotionCat).bgcolor} completed={item.value/emotionData[0].totVal*100} />
+                            </div>
+                        ))}
                     </div>
-                ))} */}
-                {emotionData[0].expOne.map((item, idx) => (
-                    <div>
-                    <div className="emotion-category">{item.emotionCat}</div>                    
-                    <ProgressBar key={idx} bgcolor={barColors.find(x => x.emotion === item.emotionCat).bgcolor} completed={item.value/emotionData[0].totVal*100} />
-                    </div>
-                ))}
-
-                {emotionData[1].expTwo.map((item, ids) => (
-                    <div>
-                    <div className="emotion-category">{item.emotionCat}</div>                    
-                    <ProgressBar key={ids} bgcolor={barColors.find(x => x.emotion === item.emotionCat).bgcolor} completed={item.value/emotionData[1].totVal*100} />
-                    </div>
-                ))}
-
-                {emotionData[2].expThree.map((item, id) => (
-                    <div>
-                    <div className="emotion-category">{item.emotionCat}</div>                    
-                    <ProgressBar key={id} bgcolor={barColors.find(x => x.emotion === item.emotionCat).bgcolor} completed={item.value/emotionData[2].totVal*100} />
-                    </div>
-                ))}
-            
                 </div>
+
+                <div style={epiResultWrapper}>
+                    <div  style={resultImageWrapper}>
+                        <img style={resultImage} src={ai_image}/>
+                    </div>
+                    <div style={epiEmotionBar}>
+                        {emotionData[1].expTwo.map((item, ids) => (
+                            <div>
+                            <div className="emotion-category">{item.emotionCat}</div>                    
+                            <ProgressBar key={ids} bgcolor={barColors.find(x => x.emotion === item.emotionCat).bgcolor} completed={item.value/emotionData[1].totVal*100} />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div style={epiResultWrapper}>
+                    <div  style={resultImageWrapper}>
+                        <img style={resultImage} src={ai_image}/>
+                    </div>
+                    <div style={epiEmotionBar}>
+                        {emotionData[2].expThree.map((item, id) => (
+                            <div>
+                            <div className="emotion-category">{item.emotionCat}</div>                    
+                            <ProgressBar key={id} bgcolor={barColors.find(x => x.emotion === item.emotionCat).bgcolor} completed={item.value/emotionData[2].totVal*100} />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            
+
             </div>
 
             <div className="epiEmotionRec">
