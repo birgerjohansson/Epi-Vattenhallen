@@ -16,16 +16,16 @@ class ExpMain extends React.Component{
     render() {
         return (
             <div>
-    <Loader type="Grid" color="#00BFFF" height={80} width={80} />
-    <Loader type="Circles" color="#00BFFF" height={80} width={80}/> 
-    <Loader type="BallTriangle" color="#00BFFF" height={80} width={80} />
-    <Loader type="Audio" color="#00BFFF" height={80} width={80} />
-    <Loader type="Hearts" color="#00BFFF" height={80} width={80} />
-    <Loader type="Oval" color="#00BFFF" height={80} width={80} />
-    <Loader type="Puff" color="#00BFFF" height={80} width={80} />
-    <Loader type="Rings" color="#00BFFF" height={80} width={80} />
-    <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
-    <Loader type="ThreeDots" color="#00BFFF" height={80} width={80} />
+                <Loader type="Grid" color="#00BFFF" height={80} width={80} />
+                <Loader type="Circles" color="#00BFFF" height={80} width={80}/> 
+                <Loader type="BallTriangle" color="#00BFFF" height={80} width={80} />
+                <Loader type="Audio" color="#00BFFF" height={80} width={80} />
+                <Loader type="Hearts" color="#00BFFF" height={80} width={80} />
+                <Loader type="Oval" color="#00BFFF" height={80} width={80} />
+                <Loader type="Puff" color="#00BFFF" height={80} width={80} />
+                <Loader type="Rings" color="#00BFFF" height={80} width={80} />
+                <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
+                <Loader type="ThreeDots" color="#00BFFF" height={80} width={80} />
                 <div className= "jumbotron text-center">
                     <div>Emotion AI:</div>
                     <div>Träningsprogram</div>
@@ -42,13 +42,9 @@ class ExpMain extends React.Component{
                 </div>
                 
                 <div className="form-group mt-20">
-                
-                
                 </div>
             </div>
-          
-             
-            );
+        );
     }
 }
 

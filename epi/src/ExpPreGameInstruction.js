@@ -1,6 +1,7 @@
 import React from 'react';
 // import * as canvas from 'canvas';
-
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import Loader from 'react-loader-spinner'
 import * as faceapi from 'face-api.js';
 
 const imageWrapper = {
@@ -9,6 +10,10 @@ const imageWrapper = {
 
 const imageStyle = {
     maxWidth: '300px'
+}
+
+const loaderWrapper = {
+    textAlign: 'center'
 }
 
 class ExpPreGameInstruction extends React.Component{
@@ -30,11 +35,10 @@ class ExpPreGameInstruction extends React.Component{
         // faceapi.draw.drawDetections(canvas, resizedDimensions);
         // faceapi.draw.drawFaceLandmarks(canvas, resizedDimensions);
         // faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
-
     }
 
-    render() {
-        return (
+    renderInstructions(){        
+        return(
             <div>
                 <div style={imageWrapper}>
                     <img style={imageStyle} src={this.props.selectedImage}/>
@@ -54,6 +58,17 @@ class ExpPreGameInstruction extends React.Component{
 
                 <div className="form-group mt-20">
                 </div>
+            </div>
+        )
+    }
+
+    render() {
+        return (
+            <div>
+                { 
+                    Object.entries(this.props.faceRecEmotions).length === 0 ? <div style={loaderWrapper}><Loader type="Circles" color="#00BFFF" height={300} width={300}/></div>  
+                    : this.renderInstructions()
+                }
             </div>
         );
     }
