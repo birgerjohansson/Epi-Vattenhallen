@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react';import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import Loader from 'react-loader-spinner'
 
 class ExpMain extends React.Component{
     constructor(props) {
@@ -13,11 +14,18 @@ class ExpMain extends React.Component{
     }
 
     render() {
-
         return (
-            
-        
             <div>
+    <Loader type="Grid" color="#00BFFF" height={80} width={80} />
+    <Loader type="Circles" color="#00BFFF" height={80} width={80}/> 
+    <Loader type="BallTriangle" color="#00BFFF" height={80} width={80} />
+    <Loader type="Audio" color="#00BFFF" height={80} width={80} />
+    <Loader type="Hearts" color="#00BFFF" height={80} width={80} />
+    <Loader type="Oval" color="#00BFFF" height={80} width={80} />
+    <Loader type="Puff" color="#00BFFF" height={80} width={80} />
+    <Loader type="Rings" color="#00BFFF" height={80} width={80} />
+    <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
+    <Loader type="ThreeDots" color="#00BFFF" height={80} width={80} />
                 <div className= "jumbotron text-center">
                     <div>Emotion AI:</div>
                     <div>Träningsprogram</div>

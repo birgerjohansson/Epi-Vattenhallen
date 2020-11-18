@@ -7,6 +7,7 @@ npm install popper.js --save
 
 npm i face-api.js
 npm i react-progressbar
+npm install react-loader-spinner --save
 
 npm i react-webcam
 
