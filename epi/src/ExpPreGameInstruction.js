@@ -1,8 +1,7 @@
 import React from 'react';
 // import * as canvas from 'canvas';
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
-import Loader from 'react-loader-spinner'
 import * as faceapi from 'face-api.js';
+import Spinner from 'react-bootstrap/Spinner'
 
 const imageWrapper = {
     textAlign: 'center'
@@ -14,6 +13,11 @@ const imageStyle = {
 
 const loaderWrapper = {
     textAlign: 'center'
+}
+
+const spinner = {
+    width: '300px',
+    height: '300px'
 }
 
 class ExpPreGameInstruction extends React.Component{
@@ -66,7 +70,10 @@ class ExpPreGameInstruction extends React.Component{
         return (
             <div>
                 { 
-                    Object.entries(this.props.faceRecEmotions).length === 0 ? <div style={loaderWrapper}><Loader type="Circles" color="#00BFFF" height={300} width={300}/></div>  
+                    Object.entries(this.props.faceRecEmotions).length === 0 ? 
+                        <div style={loaderWrapper}> 
+                            <Spinner style={spinner} animation="border" variant="primary" />
+                        </div>  
                     : this.renderInstructions()
                 }
             </div>
