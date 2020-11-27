@@ -59,6 +59,24 @@ class ExpPupilOrientation extends React.Component{
 
     render() {
         return (
+            // <Container>
+            //     <Row>
+            //         <Col xs={2}><img src={profilePic}/></Col>
+            //         <Col xs={7}>
+            //             <div  className="p-3 mb-2 bg-info text-white" style={{backgroundImage: `url(${ai_image}` }}>
+            //                 <div required  multiple={true} id="emotionSelect"  type="button"  onClick={(e) => this.handleEmotionChange(e)}>
+            //                     {this.renderItems()}
+            //                 </div>
+            //             </div>
+            //         </Col>
+            //         <Col xs={1}>
+            //             <div className="">
+            //                 <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-danger">Avbryt</button>
+            //                 <button  onClick={(e) => this.handleClick(e, '/PrevResult')} type="submit" className="btn btn-success">Nästa</button>
+            //             </div>
+            //         </Col>
+            //     </Row>
+            // </Container>
             <div className="experiment-wrapper" style={{backgroundImage: `url(${ai_image}` }}>
                 <div className="experiment-buttons">
                     <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-danger">Avbryt</button>
@@ -69,10 +87,10 @@ class ExpPupilOrientation extends React.Component{
                         {this.renderItems()}
                     </div>
                 </div>
-                <div className="experiment-image">
-                    <img src={profilePic}/>
-                </div>
-            </div> 
+                {/* <div className="experiment-image">
+                    <img src={this.props.selectedImage}/>
+                </div> */}
+            </div>
         );
     }
 }

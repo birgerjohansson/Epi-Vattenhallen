@@ -7,70 +7,85 @@ import $ from 'jquery';
 
 const images = [
     {
+        id: 1436436,
+        original: '/images/EpiImage.jpg',
+        thumbnail: '/images/EpiImage.jpg',
+      },
+      {
+        id: 164363,
+        original: '/images/EpiImage2.jpg',
+        thumbnail: '/images/EpiImage2.jpg',
+      },
+      {
+        id: 1344,
+        original: '/images/EpiImage3.jpg',
+        thumbnail: '/images/EpiImage.jpg',
+      },
+      {
+        id: 1456,
+        original: '/images/EpiImage4.jpg',
+        thumbnail: '/images/EpiImage4.jpg',
+      },
+      {
+        id: 1345,
+        original: '/images/EpiImage5.jpg',
+        thumbnail: '/images/EpiImage5.jpg',
+      },
+      {
+        id: 145,
+        original: '/images/EpiImage.jpg',
+        thumbnail: '/images/EpiImage6.jpg',
+      },
+    {
       id: 1,
       original: '/images/anger1.jpg',
       thumbnail: '/images/anger1.jpg',
-      legend: 'bild 1',
     },
     {
       id: 2,
       original: '/images/anger2.jpg',
       thumbnail: '/images/anger2.jpg',
-      legend: 'bild 2',
+    //   legend: 'bild 2',
     },
     {
         id: 3,
         original: '/images/anger3.jpg',
         thumbnail: '/images/anger3.jpg',
-        legend: 'bild 2',
     },
     {
         id: 4,
         original: '/images/anger4.jpg',
         thumbnail: '/images/anger4.jpg',
-        legend: 'bild 2',
     },
     {
         id: 5,
         original: '/images/stock_disgusted2.jpg',
         thumbnail: '/images/stock_disgusted2.jpg',
-        legend: 'Disgusted 2',
     },
     {
         id: 6,
         original: '/images/disgust1.jpg',
         thumbnail: '/images/disgust1.jpg',
-        legend: 'Disgusted 2',
     },
     {
         id: 7,
         original: '/images/disgust2.jpg',
         thumbnail: '/images/disgust2.jpg',
-        legend: 'Disgusted 2',
     },
     {
         id: 8,
         original: '/images/disgust4.jpg',
         thumbnail: '/images/disgust4.jpg',
-        legend: 'Disgusted 2',
     },
     {
         id: 9,
         original: '/images/fear1.jpg',
         thumbnail: '/images/fear1.jpg',
-        legend: 'Disgusted 2',
     },
     {
         id: 10,
         original: '/images/fear2.jpg',
         thumbnail: '/images/fear2.jpg',
-        legend: 'Disgusted 2',
-    },
-    {
-        id: 11,
-        original: '/images/fear3.jpg',
-        thumbnail: '/images/fear3.jpg',
-        legend: 'Disgusted 2',
     },
     {
         id: 12,
@@ -82,43 +97,36 @@ const images = [
         id: 13,
         original: '/images/joy3.jpg',
         thumbnail: '/images/joy3.jpg',
-        legend: 'joy3',
     },
     {
         id: 14,
         original: '/images/joy4.jpg',
         thumbnail: '/images/joy4.jpg',
-        legend: 'joy4',
     },
     {
         id: 15,
         original: '/images/sad1.jpg',
         thumbnail: '/images/sad1.jpg',
-        legend: 'sad1',
     },
     {
         id: 16,
         original: '/images/sad2.jpg',
         thumbnail: '/images/sad2.jpg',
-        legend: 'sad2',
     },
     {
         id: 16,
         original: '/images/surprise1.jpg',
         thumbnail: '/images/surprise1.jpg',
-        legend: 'surprise1',
     },
     {
         id: 16,
         original: '/images/surprise2.jpg',
         thumbnail: '/images/surprise2.jpg',
-        legend: 'sasurprise1d2',
     },
     {
         id: 16,
         original: '/images/surprise3.jpg',
         thumbnail: '/images/surprise3.jpg',
-        legend: 'surprise3',
     },
   ];
 
