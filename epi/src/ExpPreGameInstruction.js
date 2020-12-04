@@ -27,6 +27,7 @@ class ExpPreGameInstruction extends React.Component{
     
     componentDidMount(){
         console.log(this.props.faceRecEmotions);
+        this.drawCanvas();
     }
 
     handleClick = (event, path) => {
@@ -34,18 +35,25 @@ class ExpPreGameInstruction extends React.Component{
     }
 
     drawCanvas = () => {
-        // document.body.append(canvas);
+        // const dimensions = {
+        //     width: 640,
+        //     height: 640
+        // };
 
-        // faceapi.draw.drawDetections(canvas, resizedDimensions);
-        // faceapi.draw.drawFaceLandmarks(canvas, resizedDimensions);
-        // faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
+        // const resizedDimensions = faceapi.resizeResults(this.props.faceRecEmotions, dimensions);
+        // console.log(this.props.landsmarks);
+        // document.body.append(this.props.landsmarks);
+
+        // faceapi.draw.drawDetections(this.props.landsmarks, resizedDimensions);
+        // faceapi.draw.drawFaceLandmarks(this.props.landsmarks, resizedDimensions);
+        // faceapi.draw.drawFaceExpressions(this.props.landsmarks, resizedDimensions);
     }
 
     renderInstructions(){        
         return(
             <div>
-                <div style={imageWrapper}>
-                    <img style={imageStyle} src={this.props.selectedImage}/>
+                <div style={imageWrapper} id="faceImageWrapper">
+                    <img id="faceImage" style={imageStyle} src={this.props.selectedImage}/>
                 </div>
 
                 <div>
@@ -56,7 +64,7 @@ class ExpPreGameInstruction extends React.Component{
                 </div>
                 
                 <div className= "jumbotron text-center">
-                    <button  onClick={(e) => this.handleClick(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Tillbaka</button>
+                    <button  onClick={(e) => this.handleClick(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Ny bild</button>
                     <button  onClick={(e) => this.handleClick(e, '/ExpEyeColor')} type="submit" className="btn btn-primary">Starta spelet</button>
                 </div>
 

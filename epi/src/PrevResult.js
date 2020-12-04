@@ -45,7 +45,8 @@ class PrevResult extends React.Component {
             }else{
                 this.state.tempPath = 0
             }
-            this.setState({ })}, 12000);
+            // this.setState({ })}, 12000);
+            this.setState({ })}, 10);
         }
     
     //Transition to the next path/state
@@ -81,8 +82,7 @@ class PrevResult extends React.Component {
     return (
         <div>
             {/* <ReactWordcloud words={words} /> */}
-            <video src={'./videos/Epi_sad.MOV'} width="1224" height="768" controls autoPlay>
-            </video>
+            {/* <video src={'./videos/Epi_sad.MOV'} width="1224" height="768" controls autoPlay></video> */}
         </div>
     );
     }

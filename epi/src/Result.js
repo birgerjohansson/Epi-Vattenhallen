@@ -62,6 +62,11 @@ class Result extends React.Component {
         this.props.history.push('/')
     }
 
+    newExperiment = (event, path) => {
+        this.props.callbackFromParent();
+        this.props.history.push(path)
+    }
+
     componentDidMount(){
     }
 
@@ -183,6 +188,7 @@ class Result extends React.Component {
             </div>
 
             <div className="jumbotron text-center" style={{backgroundColor: 'white'}}>
+                <button  onClick={(e) => this.newExperiment(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Ny emotion</button>  
                 <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-primary">Exit</button>  
             </div>
 

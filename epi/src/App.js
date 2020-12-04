@@ -28,7 +28,7 @@ import * as faceapi from 'face-api.js';
 class App extends React.Component{
   constructor(props) {
     super();
-    this.state = {expObject : [], emotionsObject : [], emotionDisplay: '', counter : 1, currentState: 0, selectedImage: '', faceRecEmotions: {}};
+    this.state = {expObject : [], emotionsObject : [], emotionDisplay: '', counter : 1, currentState: 0, selectedImage: '', faceRecEmotions: {}, landmarks: {}};
     this.faceRec = this.faceRec.bind(this)
   }
 
@@ -40,6 +40,8 @@ class App extends React.Component{
     const image = await faceapi.fetchImage(imgSrc);
     // const image = await faceapi.fetchImage('/images/stock_disgusted2.jpg');
     const canvas = faceapi.createCanvasFromMedia(image);
+
+    // console.log(canvas);
     // const detection = await faceapi.detectAllFaces(image)
     //                                 .withFaceLandmarks()
     //                                 .withFaceExpressions();
@@ -52,20 +54,23 @@ class App extends React.Component{
 
     let emotions = {...detection.expressions};
 
-    // const dimensions = {
-    //     width: image.width,
-    //     height: image.height
-    // };
+    //  const dimensions = {
+    //      width: image.width,
+    //      height: image.height
+    //  };
 
-    // const resizedDimensions = faceapi.resizeResults(detection, dimensions);
+    //  const resizedDimensions = faceapi.resizeResults(detection, dimensions);
 
-    // document.body.append(canvas);
+    //  document.body.append(canvas);
+    // document.getElementById("faceImageWrapper").append(canvas);
+    // var c = document.getElementById("faceImageWrapper");
+    // console.log(c);
 
     // faceapi.draw.drawDetections(canvas, resizedDimensions);
-    // faceapi.draw.drawFaceLandmarks(canvas, resizedDimensions);
+    //  faceapi.draw.drawFaceLandmarks(canvas, resizedDimensions);
     // faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
 
-    this.setState({selectedImage: imgSrc, faceRecEmotions: emotions});
+    this.setState({selectedImage: imgSrc, faceRecEmotions: emotions, landmarks: canvas});
     // console.log(this.state);
 }
 
@@ -77,6 +82,7 @@ class App extends React.Component{
           emotionsObject.addEmotion(emotion.id, emotion.emotionCat, emotion.emotions, emotion.boolean, emotion.value)
     ));
     this.setState({emotionsObject: emotionsObject.emotionsObject});
+    
   }
 
   //Trigger an Image from IKAROS and the response is converted to json if the repsonse is to be used
@@ -127,8 +133,8 @@ class App extends React.Component{
 
   //Update the current experiment-state and set this.state
   updateExp = (expNumberObject) => {
-    console.log('state')
-    console.log(this.state)
+    // console.log('state')
+    // console.log(this.state)
     let tempExp = [...this.state.expObject];
     if (this.state.currentState == 0){
       tempExp[this.state.currentState].expOne = expNumberObject;
@@ -154,6 +160,7 @@ class App extends React.Component{
     let experiment = this.state.expObject;
     let selectedImage = this.state.selectedImage;
     let faceRecEmotions = this.state.faceRecEmotions;
+    let landmarks = this.state.landmarks;
 
     const expEyeColorElem = (params) => <ExpEyeColor {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
     const expPupilSizeElem = (params) => <ExpPupilSize {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
@@ -164,7 +171,7 @@ class App extends React.Component{
     const expSelectApproachElem = (params) => <ExpSelectApproach {...params}  callbackFromParent={this.exitExp}/>;
     const expChoosePictureElem = (params) => <ExpChoosePicture {...params}  callbackFromParent={this.faceRec}/>;
     const expTakePictureElem = (params) => <ExpTakePicture {...params}  callbackFromParent={this.takePicture}/>;
-    const expPreGameInstructionElem = (params) => <ExpPreGameInstruction {...params} selectedImage={selectedImage} faceRecEmotions = {faceRecEmotions} />;
+    const expPreGameInstructionElem = (params) => <ExpPreGameInstruction {...params} selectedImage={selectedImage} faceRecEmotions = {faceRecEmotions} landmarks = {landmarks}/>;
 
     let val = JSON.stringify(this.state.expObject);
 
