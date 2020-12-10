@@ -5,16 +5,17 @@ import Progress from 'react-progressbar';
 // import ReactWordcloud from 'react-wordcloud';
 import ProgressBar from "./progress-bar.component";
 import ai_image from './images/robot_illu.png';
+import {objectList} from './ExpObjectData';
 
-const barColors = [
-    { emotion: 'Anger', faceRecEmotion: 'angry' ,bgcolor: "#FB525A"},
-    { emotion: 'Sadness', faceRecEmotion: 'sad' ,bgcolor: "#2884C6"},
-    { emotion: 'Happiness', faceRecEmotion: 'happy' ,bgcolor: "#FFD65D"},
-    { emotion: 'Surprise', faceRecEmotion: 'surprised' ,bgcolor: "#67F4D8"},
-    { emotion: 'Disgust', faceRecEmotion: 'disgusted' ,bgcolor: "#3CA938"},
-    { emotion: 'Fear', faceRecEmotion: 'fearful' ,bgcolor: "#784DA3"},
-    { emotion: 'Neutral', faceRecEmotion: 'neutral' ,bgcolor: "#FFFFFF"},
-  ];
+// const barColors = [
+//     { emotion: 'Anger', faceRecEmotion: 'angry' ,bgcolor: "#FB525A"},
+//     { emotion: 'Sadness', faceRecEmotion: 'sad' ,bgcolor: "#2884C6"},
+//     { emotion: 'Happiness', faceRecEmotion: 'happy' ,bgcolor: "#FFD65D"},
+//     { emotion: 'Surprise', faceRecEmotion: 'surprised' ,bgcolor: "#67F4D8"},
+//     { emotion: 'Disgust', faceRecEmotion: 'disgusted' ,bgcolor: "#3CA938"},
+//     { emotion: 'Fear', faceRecEmotion: 'fearful' ,bgcolor: "#784DA3"},
+//     { emotion: 'Neutral', faceRecEmotion: 'neutral' ,bgcolor: "#FFFFFF"},
+//   ];
 
   const emotionData = [
       {expOne: [], totVal: 0},
@@ -68,6 +69,27 @@ class Result extends React.Component {
     }
 
     componentDidMount(){
+        //console.log(this.props.faceRecEmotions);
+        // console.log(this.props.emotionsObject);
+        // this.getResultImage(0, this.props.faceRecEmotions);
+        // this.getResultImage(1, this.props.faceRecEmotions);
+        // this.getResultImage(2, this.props.faceRecEmotions);
+    }
+
+    getResultImage(curr, faceRecEmotions){
+        // console.log(faceRecEmotions)
+
+        // const sortable = Object.fromEntries(
+        //     Object.entries(faceRecEmotions).sort(([,a],[,b]) => a-b)
+        // );
+        
+        // console.log(sortable);
+        //flytta till en global constant, då det endast behövs beräknas en gång per experiment
+        const max = Object.keys(faceRecEmotions).reduce((a, b) => faceRecEmotions[a] > faceRecEmotions[b] ? a : b);
+        // console.log(max);
+
+        const currImg = objectList.find(x => x.faceRecEmotion === max).resultImages[curr].src;
+        return currImg;
     }
 
     renderEpiResults(){
@@ -93,7 +115,7 @@ class Result extends React.Component {
                         {/* <div style={epiEmotionBar} style={({display: item.value * 100 > 5  ? 'inline-block' : 'none', width: '70%'})}> */}
                             { item.value * 100 > 5 ? <div className="emotion-category">{item.emotionCat}</div> : null}
                             {/* { item.value * 100 > 5 ?<ProgressBar bgcolor={"#6a1b9a"} completed={item.value * 100} /> : null} */}
-                            { item.value * 100 > 5 ?<ProgressBar bgcolor={barColors.find(x => x.faceRecEmotion === item.emotionCat).bgcolor} completed={item.value * 100} /> : null}
+                            { item.value * 100 > 5 ?<ProgressBar bgcolor={objectList.find(x => x.faceRecEmotion === item.emotionCat).barColor} completed={item.value * 100} /> : null}
                         </div>
                     ))}
                 </div>
@@ -130,13 +152,13 @@ class Result extends React.Component {
             <div>
                 <div style={epiResultWrapper}>
                     <div style={resultImageWrapper}>
-                        <img style={resultImage} src={ai_image}/>
+                        <img style={resultImage} src={this.getResultImage(0, this.props.faceRecEmotions)}/>
                     </div>
                     <div style={epiEmotionBar}>
                         {emotionData[0].expOne.map((item, idx) => (
                             <div>
                             <div className="emotion-category">{item.emotionCat}</div>                    
-                            <ProgressBar key={idx} bgcolor={barColors.find(x => x.emotion === item.emotionCat).bgcolor} completed={item.value/emotionData[0].totVal*100} />
+                            <ProgressBar key={idx} bgcolor={objectList.find(x => x.emotionCat === item.emotionCat).barColor} completed={item.value/emotionData[0].totVal*100} />
                             </div>
                         ))}
                     </div>
@@ -144,13 +166,13 @@ class Result extends React.Component {
 
                 <div style={epiResultWrapper}>
                     <div  style={resultImageWrapper}>
-                        <img style={resultImage} src={ai_image}/>
+                        <img style={resultImage} src={this.getResultImage(1, this.props.faceRecEmotions)}/>
                     </div>
                     <div style={epiEmotionBar}>
                         {emotionData[1].expTwo.map((item, ids) => (
                             <div>
                             <div className="emotion-category">{item.emotionCat}</div>                    
-                            <ProgressBar key={ids} bgcolor={barColors.find(x => x.emotion === item.emotionCat).bgcolor} completed={item.value/emotionData[1].totVal*100} />
+                            <ProgressBar key={ids} bgcolor={objectList.find(x => x.emotionCat === item.emotionCat).barColor} completed={item.value/emotionData[1].totVal*100} />
                             </div>
                         ))}
                     </div>
@@ -158,13 +180,13 @@ class Result extends React.Component {
 
                 <div style={epiResultWrapper}>
                     <div  style={resultImageWrapper}>
-                        <img style={resultImage} src={ai_image}/>
+                        <img style={resultImage} src={this.getResultImage(2, this.props.faceRecEmotions)}/>
                     </div>
                     <div style={epiEmotionBar}>
                         {emotionData[2].expThree.map((item, id) => (
                             <div>
                             <div className="emotion-category">{item.emotionCat}</div>                    
-                            <ProgressBar key={id} bgcolor={barColors.find(x => x.emotion === item.emotionCat).bgcolor} completed={item.value/emotionData[2].totVal*100} />
+                            <ProgressBar key={id} bgcolor={objectList.find(x => x.emotionCat === item.emotionCat).barColor} completed={item.value/emotionData[2].totVal*100} />
                             </div>
                         ))}
                     </div>

@@ -17,7 +17,7 @@ import ExpPreGameInstruction from './ExpPreGameInstruction';
 import ExpTakePicture from './ExpTakePicture';
 import ExpSelectApproach from './ExpSelectApproach';
 
-import * as faceapi from 'face-api.js';
+// import * as faceapi from 'face-api.js';
 
 //expObject will hold the result of all the different views/state
 //emotionsObject will store the importen emotionsObject
@@ -28,31 +28,31 @@ import * as faceapi from 'face-api.js';
 class App extends React.Component{
   constructor(props) {
     super();
-    this.state = {expObject : [], emotionsObject : [], emotionDisplay: '', counter : 1, currentState: 0, selectedImage: '', faceRecEmotions: {}, landmarks: {}};
+    this.state = {expObject : [], emotionsObject : [], emotionDisplay: '', counter : 1, currentState: 0, selectedImage: '', faceRecEmotions: {}};
     this.faceRec = this.faceRec.bind(this)
   }
 
-  async faceRec(imgSrc) {
-    await faceapi.nets.ssdMobilenetv1.loadFromUri('/models');
-    await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
-    await faceapi.nets.faceExpressionNet.loadFromUri('/models');
+  faceRec(imgSrc) {
+    // await faceapi.nets.ssdMobilenetv1.loadFromUri('/models');
+    // await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
+    // await faceapi.nets.faceExpressionNet.loadFromUri('/models');
 
-    const image = await faceapi.fetchImage(imgSrc);
-    // const image = await faceapi.fetchImage('/images/stock_disgusted2.jpg');
-    const canvas = faceapi.createCanvasFromMedia(image);
+    // const image = await faceapi.fetchImage(imgSrc);
+    // // const image = await faceapi.fetchImage('/images/stock_disgusted2.jpg');
+    // const canvas = faceapi.createCanvasFromMedia(image);
 
-    // console.log(canvas);
-    // const detection = await faceapi.detectAllFaces(image)
+    // // console.log(canvas);
+    // // const detection = await faceapi.detectAllFaces(image)
+    // //                                 .withFaceLandmarks()
+    // //                                 .withFaceExpressions();
+    // const detection = await faceapi.detectSingleFace(image)
     //                                 .withFaceLandmarks()
     //                                 .withFaceExpressions();
-    const detection = await faceapi.detectSingleFace(image)
-                                    .withFaceLandmarks()
-                                    .withFaceExpressions();
                                     
-    // console.log(detection);
-    // console.log(detection.expressions);
+    // // console.log(detection);
+    // // console.log(detection.expressions);
 
-    let emotions = {...detection.expressions};
+    // let emotions = {...detection.expressions};
 
     //  const dimensions = {
     //      width: image.width,
@@ -61,17 +61,17 @@ class App extends React.Component{
 
     //  const resizedDimensions = faceapi.resizeResults(detection, dimensions);
 
-    //  document.body.append(canvas);
-    // document.getElementById("faceImageWrapper").append(canvas);
-    // var c = document.getElementById("faceImageWrapper");
-    // console.log(c);
+    // // document.body.append(canvas);
+    // // document.getElementById("faceImageWrapper").append(canvas);
+    // // var c = document.getElementById("faceImageWrapper");
+    // // console.log(c);
 
     // faceapi.draw.drawDetections(canvas, resizedDimensions);
-    //  faceapi.draw.drawFaceLandmarks(canvas, resizedDimensions);
+    // faceapi.draw.drawFaceLandmarks(canvas, resizedDimensions);
     // faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
 
-    this.setState({selectedImage: imgSrc, faceRecEmotions: emotions, landmarks: canvas});
-    // console.log(this.state);
+    //  this.setState({selectedImage: imgSrc, faceRecEmotions: emotions, landmarks: canvas});
+     this.setState({selectedImage: imgSrc});
 }
 
   //Application mount and the emotionObjects is imported and set this.state (emotionsObject)
@@ -79,18 +79,27 @@ class App extends React.Component{
     let emotionsObject = new EmotionObject();
     const data = objectList;
     const mapRows = data.map(emotion => (
-          emotionsObject.addEmotion(emotion.id, emotion.emotionCat, emotion.emotions, emotion.boolean, emotion.value)
+          emotionsObject.addEmotion(emotion.id, emotion.emotionCat, emotion.emotions, emotion.boolean, emotion.value, emotion.faceRecEmotion, emotion.barColor, emotion.resultImages)
     ));
     this.setState({emotionsObject: emotionsObject.emotionsObject});
-    
   }
 
   //Trigger an Image from IKAROS and the response is converted to json if the repsonse is to be used
   takePicture = () => {
-    fetch('http://127.0.0.1:8000/control/ImageTrigger.data/0/0/1')
-        .then(response => response.json());
-    fetch('http://127.0.0.1:8000/control/ImageTrigger.data/0/0/0')
-        .then(response => response.json());
+    fetch('http://192.168.1.140:8000/control/ImageTrigger.data/0/0/1', {
+        method: 'POST',
+        mode: 'CORS',
+        body: ' ',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => {
+        return res;
+    }).catch(err => console.log(err));
+    // fetch('http://192.168.1.140:8000/control/ImageTrigger.data/0/0/1')
+    //     .then(response => response.json());
+    // fetch('http://192.168.1.140:8000/control/ImageTrigger.data/0/0/0')
+    //     .then(response => response.json());
   }
 
   getPicture = () => {
@@ -128,24 +137,34 @@ class App extends React.Component{
             }
         })
     })
-    this.setState({currentState : stateValue, emotionsObject : tempEmotionsObj});
+    this.setState({currentState : stateValue, emotionsObject : tempEmotionsObj, faceRecEmotions: this.state.faceRecEmotions});
   }
 
   //Update the current experiment-state and set this.state
   updateExp = (expNumberObject) => {
-    // console.log('state')
-    // console.log(this.state)
+
     let tempExp = [...this.state.expObject];
     if (this.state.currentState == 0){
       tempExp[this.state.currentState].expOne = expNumberObject;
-  } else if (this.state.currentState == 1){
-      tempExp[this.state.currentState].expTwo = expNumberObject;
-  } else if (this.state.currentState == 2){
-      tempExp[this.state.currentState].expThree = expNumberObject;
-  }
+    } else if (this.state.currentState == 1){
+        tempExp[this.state.currentState].expTwo = expNumberObject;
+    } else if (this.state.currentState == 2){
+        tempExp[this.state.currentState].expThree = expNumberObject;
+    }
     this.setState(prevState => ({
-        expObject: tempExp
+        expObject: tempExp,
+        faceRecEmotions: this.state.faceRecEmotions
       }))
+  }
+
+  setFaceRecEmotions = (emotions) => {
+    //console.log('state')
+    // console.log(this.state)
+    // console.log(emotions);
+    if(Object.keys(this.state.faceRecEmotions).length === 0)
+      this.setState({expObject : this.state.expObject, 
+                     emotionsObject : this.state.emotionsObject, 
+                     faceRecEmotions: emotions});
   }
 
   //If exit from experiment -> clear the states. If DB were to be used you would need to handle it in this method
@@ -160,18 +179,19 @@ class App extends React.Component{
     let experiment = this.state.expObject;
     let selectedImage = this.state.selectedImage;
     let faceRecEmotions = this.state.faceRecEmotions;
-    let landmarks = this.state.landmarks;
+  //let landmarks = this.state.landmarks; // kolla om används, annars ta bort
+    let currentEmotion;
 
     const expEyeColorElem = (params) => <ExpEyeColor {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
     const expPupilSizeElem = (params) => <ExpPupilSize {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
     const expPupilOrientationElem = (params) => <ExpPupilOrientation {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
-    const prevResultElem = (params) => <PrevResult {...params} currentState={stateValue} callbackFromParent={this.changeCurrentState}/>;
-    const resultElem = (params) => <Result {...params} expObject={experiment} faceRecEmotions = {faceRecEmotions} selectedImage={selectedImage} callbackFromParent={this.exitExp}/>;
+    const prevResultElem = (params) => <PrevResult {...params} currentState={stateValue} faceRecEmotions = {faceRecEmotions} callbackFromParent={this.changeCurrentState}/>;
+    const resultElem = (params) => <Result {...params} expObject={experiment} faceRecEmotions = {faceRecEmotions} selectedImage={selectedImage} emotionsObject={emotions} callbackFromParent={this.exitExp}/>;
     const expMainElem = (params) => <ExpMain {...params}  callbackFromParent={this.startExp}/>;
     const expSelectApproachElem = (params) => <ExpSelectApproach {...params}  callbackFromParent={this.exitExp}/>;
     const expChoosePictureElem = (params) => <ExpChoosePicture {...params}  callbackFromParent={this.faceRec}/>;
     const expTakePictureElem = (params) => <ExpTakePicture {...params}  callbackFromParent={this.takePicture}/>;
-    const expPreGameInstructionElem = (params) => <ExpPreGameInstruction {...params} selectedImage={selectedImage} faceRecEmotions = {faceRecEmotions} landmarks = {landmarks}/>;
+    const expPreGameInstructionElem = (params) => <ExpPreGameInstruction {...params} selectedImage={selectedImage} callbackFromParent={this.setFaceRecEmotions}/>;
 
     let val = JSON.stringify(this.state.expObject);
 

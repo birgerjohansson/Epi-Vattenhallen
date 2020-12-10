@@ -108,3 +108,7 @@ html, body{
     max-width: 50%;
     height: auto;
 }
+
+canvas{
+    width: 300px;
+}

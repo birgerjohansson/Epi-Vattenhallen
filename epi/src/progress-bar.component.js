@@ -22,14 +22,19 @@ const ProgressBar = (props) => {
   
     const labelStyles = {
       padding: 5,
-      color: 'white',
+      color: 'black',
       fontWeight: 'bold'
+    }
+
+    let roundOff = (num, places) => {
+      const x = Math.pow(10,places);
+      return Math.round(num * x) / x;
     }
   
     return (
       <div style={containerStyles}>
         <div style={fillerStyles}>
-          <span style={labelStyles}>{`${completed}%`}</span>
+          <span style={labelStyles}>{`${roundOff(completed, 2)}%`}</span>
         </div>
       </div>
     );

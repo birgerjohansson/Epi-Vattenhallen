@@ -1,11 +1,20 @@
 import React from 'react';
 import ai_image from './images/abstract_ai.jpg';
 import profilePic from './images/profilePic.jpg';
-import { Container, Row, Col } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip, Button, Container, Row, Col } from 'react-bootstrap';
+
+let selectedCount = 0;
 
 class ExpEyeColor extends React.Component{
     constructor(props) {
         super();
+    }
+
+    disableButton = () => {
+        if(selectedCount <= 0 || selectedCount > 5)
+            return true;
+        else
+            return false;
     }
 
     //Transition to the next path/state
@@ -26,12 +35,14 @@ class ExpEyeColor extends React.Component{
                     tempExpObject.map(expEmotion =>{
                         if (expEmotion.emotionCat == emObj.emotionCat){
                             emotion.boolean ? expEmotion.value += 1 : expEmotion.value -= 1;
+                            emotion.boolean ? selectedCount += 1 : selectedCount -= 1;
                             this.props.callbackFromParent(tempExpObject);
                         }
                     })
                 }
             })
         })
+        console.log(selectedCount);
     }
 
     //Simply render the different emotionsObject received from the parent
@@ -80,8 +91,8 @@ class ExpEyeColor extends React.Component{
             // </Container>
             <div className="experiment-wrapper" style={{backgroundImage: `url(${ai_image}` }}>
                 <div className="experiment-buttons">
-                    <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-danger">Avbryt</button>
-                    <button  onClick={(e) => this.handleClick(e, '/PrevResult')} type="submit" className="btn btn-success button-next">Nästa</button>
+                    <button onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-danger">Avbryt</button>
+                    <Button disabled={this.disableButton()} onClick={(e) => this.handleClick(e, '/PrevResult')} type="submit" className="btn btn-success button-next">Nästa</Button>
                 </div>
                 <div  className="experiment-options" >
                     <div onClick={(e) => this.handleEmotionChange(e)}>

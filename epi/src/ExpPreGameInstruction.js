@@ -4,6 +4,13 @@ import * as faceapi from 'face-api.js';
 import Spinner from 'react-bootstrap/Spinner'
 
 const imageWrapper = {
+    display: 'inline-block',
+    textAlign: 'center'
+}
+
+const drawCanvas = {
+    display: 'inline-block',
+    float: 'right',
     textAlign: 'center'
 }
 
@@ -20,13 +27,15 @@ const spinner = {
     height: '300px'
 }
 
+var emotions = {};
+
 class ExpPreGameInstruction extends React.Component{
     constructor(props) {
         super()
     }
     
     componentDidMount(){
-        console.log(this.props.faceRecEmotions);
+        // console.log(this.props.faceRecEmotions);
         this.drawCanvas();
     }
 
@@ -34,24 +43,59 @@ class ExpPreGameInstruction extends React.Component{
         this.props.history.push(path);
     }
 
-    drawCanvas = () => {
-        // const dimensions = {
-        //     width: 640,
-        //     height: 640
-        // };
+    async drawCanvas() {
+        await faceapi.nets.ssdMobilenetv1.loadFromUri('/models');
+        await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
+        await faceapi.nets.faceExpressionNet.loadFromUri('/models');
+        // const image = await faceapi.fetchImage('/images/stock_disgusted2.jpg');
 
-        // const resizedDimensions = faceapi.resizeResults(this.props.faceRecEmotions, dimensions);
-        // console.log(this.props.landsmarks);
-        // document.body.append(this.props.landsmarks);
+        const image = await faceapi.fetchImage(this.props.selectedImage);
+        
+        const canvas = faceapi.createCanvasFromMedia(image);
 
-        // faceapi.draw.drawDetections(this.props.landsmarks, resizedDimensions);
-        // faceapi.draw.drawFaceLandmarks(this.props.landsmarks, resizedDimensions);
-        // faceapi.draw.drawFaceExpressions(this.props.landsmarks, resizedDimensions);
+        // const detection = await faceapi.detectAllFaces(image)
+        //                                 .withFaceLandmarks()
+        //                                 .withFaceExpressions();
+        const detection = await faceapi.detectSingleFace(image)
+                                        .withFaceLandmarks()
+                                        .withFaceExpressions();
+                                        
+        // console.log(detection);
+        // console.log(detection.expressions);
+    
+        emotions = {...detection.expressions};
+        console.log(emotions);
+         const dimensions = {
+             width: image.width,
+             height: image.height
+         };
+    
+         const resizedDimensions = faceapi.resizeResults(detection, dimensions);
+    
+        // document.body.append(canvas);
+        // document.getElementById("faceImageWrapper").append(canvas);
+        // var c = document.getElementById("faceImageWrapper");
+        // console.log(c);
+
+        // this.setState({faceRecEmotions: emotions});
+
+        let div = document.getElementById('drawCanvas'); 
+
+        div.appendChild(canvas)
+    
+        // faceapi.draw.drawDetections(canvas, resizedDimensions);
+        faceapi.draw.drawFaceLandmarks(canvas, resizedDimensions);
+
+
+        this.props.callbackFromParent(emotions);
+        // faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
+        // console.log(this.state);
     }
 
     renderInstructions(){        
         return(
             <div>
+                <div id="drawCanvas" style={drawCanvas}></div>
                 <div style={imageWrapper} id="faceImageWrapper">
                     <img id="faceImage" style={imageStyle} src={this.props.selectedImage}/>
                 </div>
@@ -76,15 +120,29 @@ class ExpPreGameInstruction extends React.Component{
 
     render() {
         return (
-            <div>
-                { 
-                    Object.entries(this.props.faceRecEmotions).length === 0 ? 
-                        <div style={loaderWrapper}> 
-                            <Spinner style={spinner} animation="border" variant="primary" />
-                        </div>  
-                    : this.renderInstructions()
-                }
-            </div>
+            // <div>
+            //     { 
+            //         Object.entries(this.props.faceRecEmotions).length === 0 ? 
+            //             <div style={loaderWrapper}> 
+            //                 <Spinner style={spinner} animation="border" variant="primary" />
+            //             </div>  
+            //         : this.renderInstructions()
+            //     }
+            // </div>
+        //     <div>
+        //     { 
+        //         Object.entries(emotions).length === 0 ? 
+        //             <div style={loaderWrapper}> 
+        //                 <Spinner style={spinner} animation="border" variant="primary" />
+        //             </div>  
+        //         : this.renderInstructions()
+        //     }
+        // </div>
+        <div>
+        { 
+            this.renderInstructions()
+        }
+    </div>
         );
     }
 }
