@@ -41,18 +41,19 @@ class PrevResult extends React.Component {
         //     }
             // this.setState({ })}, 12000);
             // this.setState({ })}, 20000);
+            console.log(this.props.currentEmotion);
         }
 
         getRecording = () =>{
-          let faceRecEmotions = this.props.faceRecEmotions;
+        //   let faceRecEmotions = this.props.faceRecEmotions;
 
-          const max = Object.keys(faceRecEmotions).reduce((a, b) => faceRecEmotions[a] > faceRecEmotions[b] ? a : b);
+        //   const max = Object.keys(faceRecEmotions).reduce((a, b) => faceRecEmotions[a] > faceRecEmotions[b] ? a : b);
 
-          const currRec = objectList.find(x => x.faceRecEmotion === max).resultImages[this.props.currentState].emVidSrc;
-          console.log()
+        //   const currRec = objectList.find(x => x.faceRecEmotion === max).resultImages[this.props.currentState].emVidSrc;
+        //   console.log()
 
-          console.log(currRec);
-          return currRec;
+        //   console.log(currRec);
+          return this.props.currentEmotion.resultImages[0].emVidSrc;
         }
             
     //Transition to the next path/state
@@ -64,20 +65,10 @@ class PrevResult extends React.Component {
     // }
 
     videoEnded = () => {
-        if (this.props.currentState === 0){
-            tempPath = '/ExpPupilSize';
-            this.props.callbackFromParent(1);
-        }
-        else if (this.props.currentState === 1){
-            tempPath = '/ExpPupilOrientation'
-            this.props.callbackFromParent(2);
-        }
-        else if (this.props.currentState === 2){
-            tempPath = '/Result'
-            this.props.callbackFromParent(3);
-        }
-        else
-            tempPath = 0
+        // tempPath = '/Result'
+        tempPath = '/ExpEyeColor';
+        this.props.callbackFromParent(3);
+
 
         console.log('Video Ended');
         console.log(this.props.currentState);

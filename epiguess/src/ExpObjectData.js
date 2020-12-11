@@ -14,9 +14,7 @@ export const objectList = [
             {id: 13, emotion: 'Offended', boolean: false}
         ],
         resultImages: [
-            {id: 1, order: 1, src: '/images/Arg1.jpg', emVidSrc: '/videos/Arg1.mp4'},
-            {id: 2, order: 2, src: '/images/Arg2.jpg', emVidSrc: '/videos/Arg2.mp4'},
-            {id: 3, order: 3, src: '/images/Arg3.jpg', emVidSrc: '/videos/Arg3.mp4'}
+            {id: 1, order: 1, src: '/images/Arg3.jpg', emVidSrc: '/videos/Arg3.mp4'}
         ]
     },
     { 
@@ -32,9 +30,7 @@ export const objectList = [
             {id: 16, emotion: 'Confident', boolean: false}
         ],
         resultImages: [
-            {id: 1, order: 1, src: '/images/Glad1.jpg', emVidSrc: './videos/Glad1.mp4'},
-            {id: 2, order: 2, src: '/images/Glad2.jpg', emVidSrc: './videos/Glad2.mp4'},
-            {id: 3, order: 3, src: '/images/Glad3.jpg', emVidSrc: './videos/Glad3.mp4'}
+            {id: 1, order: 1, src: '/images/Glad3.jpg', emVidSrc: './videos/Glad3.mp4'}
         ]
     },
     { 
@@ -50,9 +46,7 @@ export const objectList = [
             {id: 19, emotion: 'Lonely', boolean: false}
         ],
         resultImages: [
-            {id: 1, order: 1, src: '/images/Ledsen1.jpg', emVidSrc: '/videos/Ledsen1.mp4'},
-            {id: 2, order: 2, src: '/images/Ledsen2.jpg', emVidSrc: '/videos/Ledsen2.mp4'},
-            {id: 3, order: 3, src: '/images/Ledsen3.jpg', emVidSrc: '/videos/Ledsen3.mp4'}
+            {id: 1, order: 1, src: '/images/Ledsen3.jpg', emVidSrc: '/videos/Ledsen3.mp4'},
         ]
     },
     { 
@@ -68,9 +62,7 @@ export const objectList = [
             {id: 22, emotion: 'Startled', boolean: false}
         ],
         resultImages: [
-            {id: 1, order: 1, src: '/images/Överaskad1.jpg', emVidSrc: '/videos/Överaskad1.mp4'},
-            {id: 2, order: 2, src: '/images/Överaskad2.jpg', emVidSrc: '/videos/Överaskad2.mp4'},
-            {id: 3, order: 3, src: '/images/Överaskad3.jpg', emVidSrc: '/videos/Överaskad3.mp4'}
+            {id: 1, order: 1, src: '/images/Överaskad3.jpg', emVidSrc: '/videos/Överaskad3.mp4'}
         ]
     },
     { 
@@ -86,9 +78,7 @@ export const objectList = [
             {id: 25, emotion: 'Insecure', boolean: false}
         ],
         resultImages: [
-            {id: 1, order: 1, src: '/images/Rädd1.jpg', emVidSrc: '/videos/Rädd1.mp4'},
-            {id: 2, order: 2, src: '/images/Rädd2.jpg', emVidSrc: '/videos/Rädd2.mp4'},
-            {id: 3, order: 3, src: '/images/Rädd3.jpg', emVidSrc: '/videos/Rädd3.mp4'}
+            {id: 1, order: 1, src: '/images/Rädd3.jpg', emVidSrc: '/videos/Rädd3.mp4'}
         ]
     },
     { 
@@ -104,9 +94,7 @@ export const objectList = [
             {id: 28, emotion: 'Averse', boolean: false}
         ],
         resultImages: [
-            {id: 1, order: 1, src: '/images/Äcklad1.jpg', emVidSrc: '/videos/Äcklad1.mp4'},
-            {id: 2, order: 2, src: '/images/Äcklad2.jpg', emVidSrc: '/videos/Äcklad2.mp4'},
-            {id: 3, order: 3, src: '/images/Äcklad3.jpg', emVidSrc: '/videos/Äcklad3.mp4'}
+            {id: 1, order: 1, src: '/images/Äcklad3.jpg', emVidSrc: '/videos/Äcklad3.mp4'}
         ]
     },
     { 
@@ -117,14 +105,10 @@ export const objectList = [
         value: 0,
         barColor: "#FFFFFF",
         emotions: [
-            {id: 29, emotion: 'Neutral', boolean: false},
-            {id: 30, emotion: 'Neutral', boolean: false},
-            {id: 31, emotion: 'Neutral', boolean: false}
+            {id: 29, emotion: 'Neutral', boolean: false}
         ],
         resultImages: [
-            {id: 1, order: 1, src: '', emVidSrc: '/videos/Neutral3.mp4'},
-            {id: 2, order: 2, src: '', emVidSrc: '/videos/Neutral3.mp4'},
-            {id: 3, order: 3, src: '', emVidSrc: '/videos/Neutral3.mp4'}
+            {id: 1, order: 1, src: '', emVidSrc: '/videos/Neutral3.mp4'}
         ]
     }      
 ]

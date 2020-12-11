@@ -1,7 +1,9 @@
 import React from 'react';
 // import * as canvas from 'canvas';
 import * as faceapi from 'face-api.js';
-import Spinner from 'react-bootstrap/Spinner'
+// import Spinner from 'react-bootstrap/Spinner'
+import {objectList} from './ExpObjectData';
+import ProgressBar from "./progress-bar.component";
 
 const imageWrapper = {
     display: 'inline-block',
@@ -27,7 +29,17 @@ const spinner = {
     height: '300px'
 }
 
+const epiResultWrapper = {
+    display: 'flex'
+}
+
+const epiEmotionBar = {
+    flex: '8'
+}
+
+
 var emotions = {};
+let epiResult = [];
 
 class ExpPreGameInstruction extends React.Component{
     constructor(props) {
@@ -37,6 +49,31 @@ class ExpPreGameInstruction extends React.Component{
     componentDidMount(){
         // console.log(this.props.faceRecEmotions);
         this.drawCanvas();
+    }
+
+    renderEpiResults(){
+        const eR = Object.entries(emotions);
+
+        eR.forEach(([key, value]) => {
+            epiResult.push({emotionCat: key, value: value});
+        })
+        
+        return(
+            <div style={epiResultWrapper}>
+                <div>Epi gissning</div>
+                {/* <div style={resultImageWrapper}>
+                    <img style={resultImage} src={this.props.selectedImage}/>
+                </div>   */}
+                <div style={epiEmotionBar}>
+                    {epiResult.map((item) => (
+                        <div>
+                            { item.value * 100 > 5 ? <div className="emotion-category">{item.emotionCat}</div> : null}
+                            { item.value * 100 > 5 ?<ProgressBar bgcolor={objectList.find(x => x.faceRecEmotion === item.emotionCat).barColor} completed={item.value * 100} /> : null}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        )
     }
 
     handleClick = (event, path) => {
@@ -99,6 +136,9 @@ class ExpPreGameInstruction extends React.Component{
                 <div style={imageWrapper} id="faceImageWrapper">
                     <img id="faceImage" style={imageStyle} src={this.props.selectedImage}/>
                 </div>
+                <div>
+                    {Object.keys(emotions).length != 0 ? this.renderEpiResults() : null}
+                </div>
 
                 <div>
                     Epi kommer försöka lära sig känslan som du har demonstrerat (input), men eftersom att Epi inte har något självmedvetande måste han få en bedömning (feedback) på hur hans känslouttryck (output) uppfattas, dvs, hur han ser ut, så att han kan lära sig att försbättra sitt uttryck.
@@ -109,7 +149,9 @@ class ExpPreGameInstruction extends React.Component{
                 
                 <div className= "jumbotron text-center">
                     <button  onClick={(e) => this.handleClick(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Ny bild</button>
-                    <button  onClick={(e) => this.handleClick(e, '/ExpEyeColor')} type="submit" className="btn btn-primary">Starta spelet</button>
+                    {/* <button  onClick={(e) => this.handleClick(e, '/ExpEyeColor')} type="submit" className="btn btn-primary">Starta spelet</button> */}
+                    <button  onClick={(e) => this.handleClick(e, '/PrevResult')} type="submit" className="btn btn-primary">Starta spelet</button>
+                    
                 </div>
 
                 <div className="form-group mt-20">

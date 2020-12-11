@@ -1,5 +1,4 @@
 import React from 'react';
-import Webcam from 'react-webcam';
 
 class ExpTakePicture extends React.Component{
     constructor(props) {
@@ -14,45 +13,11 @@ class ExpTakePicture extends React.Component{
         this.props.callbackFromParent();
     }
 
-    state = {
-        imageData: null,
-        image_name: "",
-        saveImage: false
-    }
-
-    setRef = (webcam) => {
-        this.webcam = webcam;
-    }
-
-    capture = () => {
-        const imageSrc = this.webcam.getScreenshot();
-        this.setState({
-            iamgeData: imageSrc
-        })
-    };
-
     render() {
-
-        const videoConstraints = {
-            width: 1280,
-            height: 720,
-            facingMode: 'user',
-        };
-
         return (
             <div>
-
-                <Webcam 
-                    audio={false}
-                    height={350}
-                    ref ={this.setRef}
-                    screenshotFormat="image/jpeg"
-                    width={350}
-                    videoConstraints={videoConstraints}
-                />
-
                 <div>
-                    <button onClick={this.capture}>Capture Photo</button>
+                    <button>Capture Photo</button>
                 </div>
 
                 <div className= "jumbotron text-center"> 
