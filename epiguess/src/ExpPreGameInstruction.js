@@ -65,7 +65,6 @@ class ExpPreGameInstruction extends React.Component{
         
         return(
             <div>
-                <div>Epi gissning</div>
                 <div style={epiEmotionBar}>
                     {epiResult.map((item) => (
                         <div>
@@ -141,23 +140,10 @@ class ExpPreGameInstruction extends React.Component{
                     <div style={epiResultWrapper}> 
                         {Object.keys(emotions).length != 0 ? this.renderEpiResults() : null}
                     </div>
-                </div>
-
-                <div>
-                    Epi kommer försöka lära sig känslan som du har demonstrerat (input), men eftersom att Epi inte har något självmedvetande måste han få en bedömning (feedback) på hur hans känslouttryck (output) uppfattas, dvs, hur han ser ut, så att han kan lära sig att försbättra sitt uttryck.
-                </div>
-                <div>
-                    Epi kommer försöka uttrycka känslan fler gånger. Efter varje försök bedömer du Epis uttryck. Epi använder din bedömning för att justera sitt nästa försök.
-                </div>
-                
+                </div>                
                 <div className= "jumbotron text-center">
                     <button  onClick={(e) => this.handleClick(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Ny bild</button>
-                    {/* <button  onClick={(e) => this.handleClick(e, '/ExpEyeColor')} type="submit" className="btn btn-primary">Starta spelet</button> */}
-                    <button  onClick={(e) => this.handleClick(e, '/PrevResult')} type="submit" className="btn btn-primary">Starta spelet</button>
-                    
-                </div>
-
-                <div className="form-group mt-20">
+                    <button  onClick={(e) => this.handleClick(e, '/PrevResult')} type="submit" className="btn btn-primary">Gå vidare</button>
                 </div>
             </div>
         )

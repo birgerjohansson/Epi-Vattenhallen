@@ -64,6 +64,7 @@ class Summary extends React.Component {
                 <div>
                     <div style={score}>Epi gissade rätt på 4 av 4 emotioner</div>
                     <div style={score}>Du gissade rätt på 3 av 4 emotioner</div>
+                    <div>Tillsammans fick ni 7 av 8 poäng, bra jobbat!</div>
                 </div>
             </div>
         )
@@ -72,7 +73,7 @@ class Summary extends React.Component {
     render() {
         return (
             <div>
-                Summary
+                Sammanfattning av dina och Epi´s gissningar:
                 <div>
                     {this.renderResultSummary()}
                 </div>

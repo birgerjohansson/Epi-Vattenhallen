@@ -115,8 +115,8 @@ class Result extends React.Component {
             <div>
                 <div>
                     <div style={summaryWrapper}>
-                        <img style={summaryImage} src={result.value.selectedImage} />
-                        <div style={summaryGuess}>Epi är {this.getHighestEmotion(result.value.faceRecEmotions).value}% säker på att du är {this.getHighestEmotion(result.value.faceRecEmotions).emotion} på den här bilden.</div>
+                        {/* <img style={summaryImage} src={result.value.selectedImage} />
+                        <div style={summaryGuess}>Epi är {this.getHighestEmotion(result.value.faceRecEmotions).value}% säker på att du är {this.getHighestEmotion(result.value.faceRecEmotions).emotion} på den här bilden.</div> */}
                         <img style={summaryImage} src={result.value.epiEmotion.resultImages[0].src} />
                         <div style={summaryGuess}>Du gissade att Epi var {result.value.guesses[0].emotion}</div>
                         {/* <img src={item.value.selectedImage}/> */}
@@ -157,7 +157,7 @@ class Result extends React.Component {
             </div> */}
 
             <div className="epiEmotionRec">
-                <div>Hur epi analyserade dina känslor</div>
+                {/* <div>Hur epi analyserade dina känslor</div> */}
                 {this.renderEpiResults()}
             </div>
 

@@ -23,17 +23,13 @@ class ExpSelectApproach extends React.Component{
             <div>
                 <div className= "jumbotron text-center"> 
                     <div className="info-text">
-                        Välj input
+                        Epi behöver få en input för att ha något att gissa på.
                     </div>
                     <div>
-                        Epi försöker förstå och uttrycka känslor hon ser i människors ansiktsuttryck.
-                    </div>
-                    <div>
-                        Låt Epi spara en bild av ditt ansikte i minnet (Epi har fotografiskt minne) eller välj en bild åt Epi från galleriet.
+                        Låt Epi spara en bild av ditt ansiktsuttryck i minnet (Epi har fotografiskt minne) eller välj en bild åt Epi från galleriet.
                     </div>
                     <div className="image-selects">
                         <div className="take">
-                            {/* <FontAwesomeIcon icon={["fal", "coffee"]} /> */}
                             <FontAwesomeIcon icon={faCamera} />
                             <button  onClick={(e) => this.handleClick(e, '/ExpTakePicture')} type="submit" className="btn btn-primary">Ta bild</button>
                         </div>
@@ -42,10 +38,8 @@ class ExpSelectApproach extends React.Component{
                             <button  onClick={(e) => this.handleClick(e, '/ExpChoosePicture')} type="submit" className="btn btn-primary">Välj bild</button>
                         </div>
                     </div>
-                    
                     <button  onClick={(e) => this.exitExperiment(e, '/')} type="submit" className="btn btn-primary">Tillbaka</button>
                 </div>
-                
                 <div className="form-group mt-20"> </div>
             </div>             
         );

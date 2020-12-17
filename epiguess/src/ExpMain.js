@@ -17,39 +17,23 @@ class ExpMain extends React.Component{
     render() {
         return (
             <div>
-                {/* <Loader type="Grid" color="#00BFFF" height={80} width={80} />
-                <Loader type="Circles" color="#00BFFF" height={80} width={80}/> 
-                <Loader type="BallTriangle" color="#00BFFF" height={80} width={80} />
-                <Loader type="Audio" color="#00BFFF" height={80} width={80} />
-                <Loader type="Hearts" color="#00BFFF" height={80} width={80} />
-                <Loader type="Oval" color="#00BFFF" height={80} width={80} />
-                <Loader type="Puff" color="#00BFFF" height={80} width={80} />
-                <Loader type="Rings" color="#00BFFF" height={80} width={80} />
-                <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
-                <Loader type="ThreeDots" color="#00BFFF" height={80} width={80} /> */}
                 <div className= "jumbotron text-center">
                     <div>Emotion AI:</div>
-                    <div>Träningsprogram</div>
+                    <div>Gissa känslan!</div>
                 </div>
-
                 <div className="start-info">
                     <div>Syfte: Maskiner som anpassar sig efter känslor är bättre på att möta människors behov.</div>
-                    <div> Ditt uppdrag: Hjälp Epi att utveckla en grundläggande emotionell intelligens.</div>
-                    <div>Mål: Epi ska lära sig att förstå din känsla och att uttrycka samma känsla själv.</div>
+                    <div> Uppdrag: Du och Epi skall gissa på varandras emotionella uttryck.</div>
+                    <div>Mål: Du och Epi har ett gemensamt mål, nämnligen att gissa rätt på så många av varandras emotionella uttryck som möjligt. Ni får poäng både om du eller Epi gissar rätt, och målet är att få en så hög gemensam poäng som möjligt.</div>
+                    <div>Tips: Det är därför viktigt att visa ett så tydligt emotionellt uttryck för Epi som du kan (ju tydligare ditt uttryck är desto lättare blir det för Epi att gissa rätt och ni får därmed en högre gemensamt poäng).</div>
                 </div>
-                
                 <div className= "jumbotron text-center"> 
                     <button  onClick={(e) => this.handleClick(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Starta</button>
                 </div>
-                
                 <div className="form-group mt-20">
-                
-                
                 </div>
             </div>
-          
-             
-            );
+        );
     }
 }
 

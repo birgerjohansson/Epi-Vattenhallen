@@ -78,15 +78,6 @@ class PrevResult extends React.Component {
         // }
         // else
         //     tempPath = 0
-        
-        console.log('this.props.currentState');
-        console.log(this.props.currentState);
-
-        let curr = 0;
-        this.props.currentState > 0? curr = this.props.currentState + 1 : curr = this.props.currentState;
-        
-        console.log('curr');
-        console.log(curr);
 
         if (this.props.currentState === 0){
             tempPath = '/ExpEyeColor';
@@ -100,7 +91,7 @@ class PrevResult extends React.Component {
             tempPath = '/ExpPupilOrientation'
             this.props.callbackFromParent(2);
         }
-        else if (this.props.currentState === 3){
+        else if (this.props.currentState === 3){ //kan nog ta bort
             tempPath = '/Result'
             this.props.callbackFromParent(3);
         }
