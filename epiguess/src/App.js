@@ -35,7 +35,7 @@ class App extends React.Component{
 
   faceRec(imgSrc) {
      this.setState({selectedImage: imgSrc});
-}
+  }
 
   //Application mount and the emotionObjects is imported and set this.state (emotionsObject)
   componentDidMount() {
@@ -51,27 +51,39 @@ class App extends React.Component{
     var emotion = emotionsList[Math.floor(Math.random() * emotionsList.length)];
     emotionsList.splice(emotionsList.indexOf(emotion), 1);
     
-    var guessResulsts = [{selectedImage: '', faceRecEmotions: {}, epiEmotion: {}, guesses: []}] //guesses = tempExp?
+    var guessResults = [{selectedImage: '', faceRecEmotions: {}, epiEmotion: {}, guesses: []}] //guesses = tempExp?
 
-    this.setState({emotionsObject: emotionsObject.emotionsObject, currentEmotion: emotion, emotionsList: emotionsList, guessResults: guessResulsts});
+    this.setState({emotionsObject: emotionsObject.emotionsObject, currentEmotion: emotion, emotionsList: emotionsList, guessResults: guessResults});
+  }
 
-    console.log(this.state)
+  initData = () =>{
+    
   }
 
   //skall anropas från resultatlistan
-  playNewEmotion = () =>{
+  setNewEmotion = () =>{
+
+    let newExpObject = new ExpObject();
+    const data = this.state.emotionsObject;
+    const mapRows = data.map(emotion => (
+          newExpObject.addEmotionObject(1, ({id: emotion.id, emotionCat: emotion.emotionCat, boolean: emotion.boolean, value: emotion.value, emotions: []}))
+    ));
+
+
     var emotionsList = [...this.state.emotionsList];
-    console.log('emotionsList');
+    console.log('setNewEmotion emotionsList');
     console.log(emotionsList);
     var emotion = emotionsList[Math.floor(Math.random() * emotionsList.length)];
+    console.log('setNewEmotion emotion');
+    console.log(emotion);
     emotionsList.splice(emotionsList.indexOf(emotion), 1);
 
     var guessResults = [...this.state.guessResults];
-    guessResults.push({});
+    guessResults.push({selectedImage: '', faceRecEmotions: {}, epiEmotion: {}, guesses: []});
 
-     this.setState({emotionsObject: this.state.emotionsObject, currentEmotion: emotion, emotionsList: emotionsList});
+    this.setState({expObject: newExpObject.expObject, emotionsObject: this.state.emotionsObject, faceRecEmotions: {}, currentEmotion: emotion, emotionsList: emotionsList, guessResults: guessResults});
 
-     console.log(this.state);
+    // console.log(this.state);
 
   }
 
@@ -110,8 +122,6 @@ class App extends React.Component{
     const data = this.state.emotionsObject;
     const mapRows = data.map(emotion => (
           newExpObject.addEmotionObject(1, ({id: emotion.id, emotionCat: emotion.emotionCat, boolean: emotion.boolean, value: emotion.value, emotions: []}))
-          // newExpObject.addEmotionObject(2, ({id: emotion.id, emotionCat: emotion.emotionCat, boolean: emotion.boolean, value: emotion.value, emotions: []})),
-          // newExpObject.addEmotionObject(3, ({id: emotion.id, emotionCat: emotion.emotionCat, boolean: emotion.boolean, value: emotion.value, emotions: []}))
     ));
 
     let randomEmotion = Math.floor((Math.random() * objectList.length ) + 1);
@@ -133,7 +143,6 @@ class App extends React.Component{
 
   //Update the current experiment-state and set this.state
   updateExp = (expNumberObject, selectedEmotion) => {
-
     let tempExp = [...this.state.expObject];
     if (this.state.currentState == 0){
       tempExp[this.state.currentState].expOne = expNumberObject;
@@ -144,6 +153,11 @@ class App extends React.Component{
     // }
 
     var guessResults = [...this.state.guessResults];
+
+
+    console.log(guessResults);
+    console.log(guessResults[guessResults.length -1].guesses);
+    console.log(selectedEmotion);
 
     // var selectedGuess = expNumberObject.filter(obj => {
     //   return obj.value > 0
@@ -178,7 +192,9 @@ class App extends React.Component{
 
   //If exit from experiment -> clear the states. If DB were to be used you would need to handle it in this method
   exitExp = () => {
-    this.setState({expObject : [], emotionDisplay: '', counter : 1, currentState: 0});
+    // this.setState({expObject : [], emotionDisplay: '', counter : 1, currentState: 0});
+    this.setState({emotionsObject: {}, currentEmotion: {}, emotionsList: [], guessResults: []});
+    console.log(this.state);
   };
 
   render() {
@@ -198,7 +214,7 @@ class App extends React.Component{
     // const expPupilSizeElem = (params) => <ExpPupilSize {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
     // const expPupilOrientationElem = (params) => <ExpPupilOrientation {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
     const prevResultElem = (params) => <PrevResult {...params} currentState={stateValue} faceRecEmotions = {faceRecEmotions} currentEmotion = {currentEmotion} callbackFromParent={this.changeCurrentState}/>;
-    const resultElem = (params) => <Result {...params} expObject={experiment} faceRecEmotions = {faceRecEmotions} selectedImage={selectedImage} emotionsObject={emotions} guessResults={guessResults} callbackFromParent={this.exitExp}/>;
+    const resultElem = (params) => <Result {...params} expObject={experiment} faceRecEmotions = {faceRecEmotions} selectedImage={selectedImage} emotionsObject={emotions} guessResults={guessResults} callbackSetNewEmotion={this.setNewEmotion} callbackFromParent={this.exitExp}/>;
     const summaryElem = (params) => <Summary {...params} guessResults={guessResults} callbackFromParent={this.exitExp}/>;
     const expMainElem = (params) => <ExpMain {...params}  callbackFromParent={this.startExp}/>;
     const expSelectApproachElem = (params) => <ExpSelectApproach {...params}  callbackFromParent={this.exitExp}/>;

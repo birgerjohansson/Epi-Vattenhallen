@@ -182,9 +182,9 @@ class App extends React.Component{
   //let landmarks = this.state.landmarks; // kolla om används, annars ta bort
     let currentEmotion;
 
-    const expEyeColorElem = (params) => <ExpEyeColor {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
-    const expPupilSizeElem = (params) => <ExpPupilSize {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
-    const expPupilOrientationElem = (params) => <ExpPupilOrientation {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
+    const expEyeColorElem = (params) => <ExpEyeColor {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp} callbackFromParentChangeCurrentState={this.changeCurrentState}/>;
+    const expPupilSizeElem = (params) => <ExpPupilSize {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp} callbackFromParentChangeCurrentState={this.changeCurrentState}/>;
+    const expPupilOrientationElem = (params) => <ExpPupilOrientation {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp} callbackFromParentChangeCurrentState={this.changeCurrentState}/>;
     const prevResultElem = (params) => <PrevResult {...params} currentState={stateValue} faceRecEmotions = {faceRecEmotions} callbackFromParent={this.changeCurrentState}/>;
     const resultElem = (params) => <Result {...params} expObject={experiment} faceRecEmotions = {faceRecEmotions} selectedImage={selectedImage} emotionsObject={emotions} callbackFromParent={this.exitExp}/>;
     const expMainElem = (params) => <ExpMain {...params}  callbackFromParent={this.startExp}/>;

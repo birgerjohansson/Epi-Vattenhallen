@@ -30,13 +30,17 @@ const spinner = {
 }
 
 const epiResultWrapper = {
-    display: 'flex'
-}
-
-const epiEmotionBar = {
+    // display: 'flex'
     flex: '8'
 }
 
+const epiEmotionBar = {
+    // flex: '8'
+}
+
+const epiGuessWrapper = {
+    display: 'flex'
+}
 
 var emotions = {};
 let epiResult = [];
@@ -47,23 +51,21 @@ class ExpPreGameInstruction extends React.Component{
     }
     
     componentDidMount(){
-        // console.log(this.props.faceRecEmotions);
+        emotions = {};
+        epiResult = [];
+
         this.drawCanvas();
     }
 
     renderEpiResults(){
         const eR = Object.entries(emotions);
-
         eR.forEach(([key, value]) => {
             epiResult.push({emotionCat: key, value: value});
         })
         
         return(
-            <div style={epiResultWrapper}>
+            <div>
                 <div>Epi gissning</div>
-                {/* <div style={resultImageWrapper}>
-                    <img style={resultImage} src={this.props.selectedImage}/>
-                </div>   */}
                 <div style={epiEmotionBar}>
                     {epiResult.map((item) => (
                         <div>
@@ -101,7 +103,7 @@ class ExpPreGameInstruction extends React.Component{
         // console.log(detection.expressions);
     
         emotions = {...detection.expressions};
-        console.log(emotions);
+        // console.log(emotions);
          const dimensions = {
              width: image.width,
              height: image.height
@@ -126,18 +128,19 @@ class ExpPreGameInstruction extends React.Component{
 
         this.props.callbackFromParent(emotions);
         // faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
-        // console.log(this.state);
     }
 
     renderInstructions(){        
         return(
             <div>
-                <div id="drawCanvas" style={drawCanvas}></div>
-                <div style={imageWrapper} id="faceImageWrapper">
-                    <img id="faceImage" style={imageStyle} src={this.props.selectedImage}/>
-                </div>
-                <div>
-                    {Object.keys(emotions).length != 0 ? this.renderEpiResults() : null}
+                <div style={epiGuessWrapper}>
+                    <div style={imageWrapper} id="faceImageWrapper">
+                        <img id="faceImage" style={imageStyle} src={this.props.selectedImage}/>
+                    </div>
+                    <div id="drawCanvas" style={drawCanvas}></div>
+                    <div style={epiResultWrapper}> 
+                        {Object.keys(emotions).length != 0 ? this.renderEpiResults() : null}
+                    </div>
                 </div>
 
                 <div>
@@ -162,29 +165,11 @@ class ExpPreGameInstruction extends React.Component{
 
     render() {
         return (
-            // <div>
-            //     { 
-            //         Object.entries(this.props.faceRecEmotions).length === 0 ? 
-            //             <div style={loaderWrapper}> 
-            //                 <Spinner style={spinner} animation="border" variant="primary" />
-            //             </div>  
-            //         : this.renderInstructions()
-            //     }
-            // </div>
-        //     <div>
-        //     { 
-        //         Object.entries(emotions).length === 0 ? 
-        //             <div style={loaderWrapper}> 
-        //                 <Spinner style={spinner} animation="border" variant="primary" />
-        //             </div>  
-        //         : this.renderInstructions()
-        //     }
-        // </div>
         <div>
-        { 
-            this.renderInstructions()
-        }
-    </div>
+            { 
+                this.renderInstructions()
+            }
+        </div>
         );
     }
 }

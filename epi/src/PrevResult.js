@@ -64,15 +64,43 @@ class PrevResult extends React.Component {
     // }
 
     videoEnded = () => {
+        // if (this.props.currentState === 0){
+        //     tempPath = '/ExpPupilSize';
+        //     this.props.callbackFromParent(1);
+        // }
+        // else if (this.props.currentState === 1){
+        //     tempPath = '/ExpPupilOrientation'
+        //     this.props.callbackFromParent(2);
+        // }
+        // else if (this.props.currentState === 2){
+        //     tempPath = '/Result'
+        //     this.props.callbackFromParent(3);
+        // }
+        // else
+        //     tempPath = 0
+        
+        console.log('this.props.currentState');
+        console.log(this.props.currentState);
+
+        let curr = 0;
+        this.props.currentState > 0? curr = this.props.currentState + 1 : curr = this.props.currentState;
+        
+        console.log('curr');
+        console.log(curr);
+
         if (this.props.currentState === 0){
-            tempPath = '/ExpPupilSize';
-            this.props.callbackFromParent(1);
+            tempPath = '/ExpEyeColor';
+            this.props.callbackFromParent(0);
         }
         else if (this.props.currentState === 1){
+            tempPath = '/ExpPupilSize'
+            this.props.callbackFromParent(1);
+        }
+        else if (this.props.currentState === 2){
             tempPath = '/ExpPupilOrientation'
             this.props.callbackFromParent(2);
         }
-        else if (this.props.currentState === 2){
+        else if (this.props.currentState === 3){
             tempPath = '/Result'
             this.props.callbackFromParent(3);
         }

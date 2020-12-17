@@ -19,6 +19,7 @@ class ExpEyeColor extends React.Component{
 
     //Transition to the next path/state
     handleClick = (event, path) => {
+        this.props.callbackFromParentChangeCurrentState(1);
         this.props.history.push(path);
     }
 

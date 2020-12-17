@@ -8,7 +8,7 @@ import {objectList} from './ExpObjectData';
       {expThree: [], totVal: 0}
   ]
   
-  let epiResult = [];
+  let summary = [];
 
   const imageStyle = {
     maxWidth: '300px'
@@ -37,6 +37,24 @@ const resultImage = {
     height: '100%'
 }
 
+const summaryWrapper = {
+    width: '100%'
+}
+
+const summaryImage = {
+    maxWidth: '200px'
+}
+
+const summaryGuess = {
+    display: 'inline-block'
+}
+
+const score = {
+    display: 'inline-block',
+    width: '50%',
+    fontWeight: 'bold'
+}
+
 class Result extends React.Component {
     constructor(props){
         super();
@@ -52,41 +70,57 @@ class Result extends React.Component {
         this.props.history.push('/')
     }
 
-    newExperiment = (event, path) => {
-        this.props.callbackFromParent();
-        this.props.history.push(path)
+    // newExperiment = (event, path) => {
+    //     this.props.callbackFromParent();
+    //     this.props.history.push(path)
+    // }
+
+    newEmotion = (event, path) => {
+        this.props.callbackSetNewEmotion();
+        this.props.history.push(path);
     }
 
     componentDidMount(){
         console.log(this.props.guessResults);
     }
 
-    getResultImage(faceRecEmotions){
-        const max = Object.keys(faceRecEmotions).reduce((a, b) => faceRecEmotions[a] > faceRecEmotions[b] ? a : b);
+    roundOff = (num, places) => {
+      const x = Math.pow(10,places);
+      return Math.round(num * x) / x;
+    }
 
-        const currImg = objectList.find(x => x.faceRecEmotion === max).resultImages[0].src;
-        return currImg;
+    getHighestEmotion(faceRecEmotions){
+        // const max = Object.keys(faceRecEmotions).reduce((a, b) => faceRecEmotions[a] > faceRecEmotions[b] ? a : b);
+
+        // const currImg = objectList.find(x => x.faceRecEmotion === max).resultImages[0].src;
+        // return currImg;
+        console.log({emotion: Object.keys(faceRecEmotions).reduce((a, b) => faceRecEmotions[a] > faceRecEmotions[b] ? a : b), 
+                     value: this.roundOff(faceRecEmotions[Object.keys(faceRecEmotions).reduce((a, b) => faceRecEmotions[a] > faceRecEmotions[b] ? a : b)] * 100, 2)});
+        // return Object.keys(faceRecEmotions).reduce((a, b) => faceRecEmotions[a] > faceRecEmotions[b] ? a : b);
+        return {emotion: Object.keys(faceRecEmotions).reduce((a, b) => faceRecEmotions[a] > faceRecEmotions[b] ? a : b), 
+            value: this.roundOff(faceRecEmotions[Object.keys(faceRecEmotions).reduce((a, b) => faceRecEmotions[a] > faceRecEmotions[b] ? a : b)] * 100, 2)};
     }
 
     renderEpiResults(){
-        const eR = Object.entries(this.props.faceRecEmotions);
+        const sum = Object.entries(this.props.guessResults);
 
-        eR.forEach(([key, value]) => {
-            epiResult.push({emotionCat: key, value: value});
+        sum.forEach(([key, value]) => {
+            summary.push({key: key, value: value});
         })
+
+        let result = summary[summary.length -1];
+        console.log(result);
         
         return(
-            <div style={epiResultWrapper}>
-                <div style={resultImageWrapper}>
-                    <img style={resultImage} src={this.props.selectedImage}/>
-                </div>  
-                <div style={epiEmotionBar}>
-                    {epiResult.map((item) => (
-                        <div>
-                            { item.value * 100 > 5 ? <div className="emotion-category">{item.emotionCat}</div> : null}
-                            { item.value * 100 > 5 ?<ProgressBar bgcolor={objectList.find(x => x.faceRecEmotion === item.emotionCat).barColor} completed={item.value * 100} /> : null}
-                        </div>
-                    ))}
+            <div>
+                <div>
+                    <div style={summaryWrapper}>
+                        <img style={summaryImage} src={result.value.selectedImage} />
+                        <div style={summaryGuess}>Epi är {this.getHighestEmotion(result.value.faceRecEmotions).value}% säker på att du är {this.getHighestEmotion(result.value.faceRecEmotions).emotion} på den här bilden.</div>
+                        <img style={summaryImage} src={result.value.epiEmotion.resultImages[0].src} />
+                        <div style={summaryGuess}>Du gissade att Epi var {result.value.guesses[0].emotion}</div>
+                        {/* <img src={item.value.selectedImage}/> */}
+                    </div>
                 </div>
             </div>
         )
@@ -105,8 +139,8 @@ class Result extends React.Component {
 
     return (
         <div className="result-wrapper">
-            <div>Epi är xxx% säker på att du är ***** på den här bilden!</div>
-            <div>
+            {/* <div>Epi är xxx% säker på att du är ***** på den här bilden!</div> */}
+            {/* <div>
                 <div style={epiResultWrapper}>
                     <div  style={resultImageWrapper}>
                         <img style={resultImage} src={this.getResultImage(this.props.faceRecEmotions)}/>
@@ -120,7 +154,7 @@ class Result extends React.Component {
                         ))}
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div className="epiEmotionRec">
                 <div>Hur epi analyserade dina känslor</div>
@@ -128,7 +162,7 @@ class Result extends React.Component {
             </div>
 
             <div className="jumbotron text-center" style={{backgroundColor: 'white'}}>
-                <button  onClick={(e) => this.newExperiment(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Ny emotion</button>  
+                <button  onClick={(e) => this.newEmotion(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Ny emotion</button>  
                 <button  onClick={(e) => this.handleClick(e, '/Summary')} type="submit" className="btn btn-primary">Summary</button>  
                 <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-primary">Avsluta</button>  
             </div>

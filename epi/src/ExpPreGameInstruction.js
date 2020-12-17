@@ -109,7 +109,7 @@ class ExpPreGameInstruction extends React.Component{
                 
                 <div className= "jumbotron text-center">
                     <button  onClick={(e) => this.handleClick(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Ny bild</button>
-                    <button  onClick={(e) => this.handleClick(e, '/ExpEyeColor')} type="submit" className="btn btn-primary">Starta spelet</button>
+                    <button  onClick={(e) => this.handleClick(e, '/PrevResult')} type="submit" className="btn btn-primary">Starta spelet</button>
                 </div>
 
                 <div className="form-group mt-20">

@@ -9,6 +9,7 @@ class ExpPupilOrientation extends React.Component{
 
     //Transition to the next path/state
     handleClick = (event, path) => {
+        this.props.callbackFromParentChangeCurrentState(3);
         this.props.history.push(path);
     }
 
@@ -80,7 +81,7 @@ class ExpPupilOrientation extends React.Component{
             <div className="experiment-wrapper" style={{backgroundImage: `url(${ai_image}` }}>
                 <div className="experiment-buttons">
                     <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-danger">Avbryt</button>
-                    <button  onClick={(e) => this.handleClick(e, '/PrevResult')} type="submit" className="btn btn-success button-next">Nästa</button>
+                    <button  onClick={(e) => this.handleClick(e, '/Result')} type="submit" className="btn btn-success button-next">Nästa</button>
                 </div>
                 <div  className="experiment-options" >
                     <div onClick={(e) => this.handleEmotionChange(e)}>

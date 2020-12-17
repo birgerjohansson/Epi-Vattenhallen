@@ -9,6 +9,7 @@ class ExpPupilSize extends React.Component{
 
     //Transition to the next path/state
     handleClick = (event, path) => {
+        this.props.callbackFromParentChangeCurrentState(2);
         this.props.history.push(path);
     }
 
@@ -16,6 +17,8 @@ class ExpPupilSize extends React.Component{
     //Trigger parent method UpdateExp()
     //increasing the emotion category chosen by one
     handleEmotionChange = (emotionId) => {
+        console.log(this.props.expObject);
+        console.log(this.props.currentState);
         let tempEmotionsObj = [...this.props.emotionsObject];
         let tempExpObject = [...this.props.expObject[this.props.currentState].expTwo];
         tempEmotionsObj.map(emObj =>{

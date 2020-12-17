@@ -10,6 +10,11 @@ class ExpEyeColor extends React.Component{
         super();
     }
 
+    componentDidMount() {
+        selectedCount = 0;
+    }
+    
+
     disableButton = () => {
         // if(selectedCount <= 0 || selectedCount > 5)
         console.log(selectedCount);
