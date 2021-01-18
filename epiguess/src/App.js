@@ -186,8 +186,25 @@ class App extends React.Component{
                      emotionsObject : this.state.emotionsObject, 
                      faceRecEmotions: emotions,
                      guessResults: guessResults});
+  }
 
-    console.log(this.state);
+  setUserFeedback = (feedback) =>{
+    var guessResults = [...this.state.guessResults];
+    // guessResults[guessResults.length -1].faceRecEmotions = emotions;
+    // guessResults[guessResults.length -1].selectedImage = this.state.selectedImage;
+    // guessResults[guessResults.length -1].epiEmotion = this.state.currentEmotion;
+    // console.log("callbackfromparentsetfeedback");
+    // console.log(feedback);
+    // console.log(guessResults);
+    guessResults[guessResults.length -1].epiGuess = feedback;
+    this.setState(
+      {
+        expObject : this.state.expObject, 
+        emotionsObject : this.state.emotionsObject, 
+        faceRecEmotions: this.state.faceRexEmotions,
+        guessResults: guessResults
+      });
+      console.log(this.state.guessResults);
   }
 
   //If exit from experiment -> clear the states. If DB were to be used you would need to handle it in this method
@@ -220,7 +237,7 @@ class App extends React.Component{
     const expSelectApproachElem = (params) => <ExpSelectApproach {...params}  callbackFromParent={this.exitExp}/>;
     const expChoosePictureElem = (params) => <ExpChoosePicture {...params}  callbackFromParent={this.faceRec}/>;
     const expTakePictureElem = (params) => <ExpTakePicture {...params}  callbackFromParent={this.takePicture}/>;
-    const expPreGameInstructionElem = (params) => <ExpPreGameInstruction {...params} selectedImage={selectedImage} callbackFromParent={this.setFaceRecEmotions}/>;
+    const expPreGameInstructionElem = (params) => <ExpPreGameInstruction {...params} selectedImage={selectedImage} guessResults={guessResults} callbackFromParent={this.setFaceRecEmotions} callbackFromParentFeedback={this.setUserFeedback}/>;
 
     let val = JSON.stringify(this.state.expObject);
 

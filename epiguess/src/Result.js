@@ -38,6 +38,7 @@ const resultImage = {
 }
 
 const summaryWrapper = {
+    textAlign: 'center',
     width: '100%'
 }
 
@@ -64,16 +65,10 @@ class Result extends React.Component {
         this.props.history.push(path);
     }
 
-    //Trigger parent method exiExp() and return to home-page
     exitExperiment = (event) => {
         this.props.callbackFromParent();
         this.props.history.push('/')
     }
-
-    // newExperiment = (event, path) => {
-    //     this.props.callbackFromParent();
-    //     this.props.history.push(path)
-    // }
 
     newEmotion = (event, path) => {
         this.props.callbackSetNewEmotion();

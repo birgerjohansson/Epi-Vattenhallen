@@ -4,6 +4,7 @@ import * as faceapi from 'face-api.js';
 // import Spinner from 'react-bootstrap/Spinner'
 import {objectList} from './ExpObjectData';
 import ProgressBar from "./progress-bar.component";
+import { Button } from 'react-bootstrap';
 
 const imageWrapper = {
     display: 'inline-block',
@@ -45,6 +46,9 @@ const epiGuessWrapper = {
 var emotions = {};
 let epiResult = [];
 
+var disableButton = true;
+var feedbackGiven = false;
+
 class ExpPreGameInstruction extends React.Component{
     constructor(props) {
         super()
@@ -53,16 +57,44 @@ class ExpPreGameInstruction extends React.Component{
     componentDidMount(){
         emotions = {};
         epiResult = [];
+        feedbackGiven = false;
+        disableButton = true;
 
         this.drawCanvas();
     }
 
+    handleGuessFeedback = (correct) => {
+        console.log("Correct " + correct);
+
+        disableButton = false;
+        feedbackGiven = correct;
+
+        console.log("disableButton " + disableButton);
+        console.log("feedbackGiven " + feedbackGiven);
+        // this.props.callbackFromParentFeedback(feedbackGiven); 
+        this.forceUpdate();
+    }
+
+    disableButton = () => {
+        // console.log(feedbackGiven);
+        console.log("disableButton " + disableButton);
+        if(disableButton == true)
+            return true;
+        else
+            return false;
+    }
+
     renderEpiResults(){
-        const eR = Object.entries(emotions);
+        epiResult = [];
+        // console.log(this.props.guessResults[this.props.guessResults.length -1].faceRecEmotions);
+        console.log(this.props.guessResults);
+        // console.log("guessResults")
+        // console.log(this.props.guessResults);
+
+        const eR = Object.entries(this.props.guessResults[this.props.guessResults.length -1].faceRecEmotions);
         eR.forEach(([key, value]) => {
             epiResult.push({emotionCat: key, value: value});
         })
-        
         return(
             <div>
                 <div style={epiEmotionBar}>
@@ -129,6 +161,11 @@ class ExpPreGameInstruction extends React.Component{
         // faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
     }
 
+    continue = (event) => {
+        this.props.callbackFromParentFeedback(feedbackGiven); //pass image
+        this.handleClick(event, '/PrevResult')
+    }
+
     renderInstructions(){        
         return(
             <div>
@@ -140,10 +177,16 @@ class ExpPreGameInstruction extends React.Component{
                     <div style={epiResultWrapper}> 
                         {Object.keys(emotions).length != 0 ? this.renderEpiResults() : null}
                     </div>
+                </div>
+                <div className= "jumbotron text-center">
+                    <div>Gissade Epi rätt?</div>
+                    <button  onClick={(e) => this.handleGuessFeedback(true)} type="submit" className="btn btn-primary">Ja</button>
+                    <button  onClick={(e) => this.handleGuessFeedback(false)} type="submit" className="btn btn-danger">Nej</button>
                 </div>                
                 <div className= "jumbotron text-center">
-                    <button  onClick={(e) => this.handleClick(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Ny bild</button>
-                    <button  onClick={(e) => this.handleClick(e, '/PrevResult')} type="submit" className="btn btn-primary">Gå vidare</button>
+                    {/* <button  onClick={(e) => this.handleClick(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Ny bild</button> */}
+                    <Button  disabled={this.disableButton()} onClick={(e) => this.continue(e)} type="submit" className="btn btn-primary">Gå vidare</Button>
+                    {/* <Button disabled={this.disableButton()} onClick={(e) => this.handleClick(e, '/Result')} type="submit" className="btn btn-success button-next">Nästa</Button> */}
                 </div>
             </div>
         )

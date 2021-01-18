@@ -22,40 +22,21 @@ class PrevResult extends React.Component {
     //Based on the current state, currentState will be changed
     //also introduce a timeout before moving to the next path/state
     componentDidMount(){
-        // this.state.tempStateValue = this.props.currentState;
-        // console.log(this.props.history);
-        // curr = this.props.currentState;
+        console.log(this.props.currentEmotion);
+    }
 
-        // // this.timeoutHandle = setTimeout(()=>{
-        //     if (this.state.tempStateValue == 0){
-        //         this.state.tempPath = '/ExpPupilSize';
-        //         this.props.callbackFromParent(1);
-        //     }else if (this.state.tempStateValue == 1){
-        //         this.state.tempPath = '/ExpPupilOrientation'
-        //         this.props.callbackFromParent(2);
-        //     }else if (this.state.tempStateValue == 2){
-        //         this.state.tempPath = '/Result'
-        //         this.props.callbackFromParent(3);
-        //     }else{
-        //         this.state.tempPath = 0
-        //     }
-            // this.setState({ })}, 12000);
-            // this.setState({ })}, 20000);
-            console.log(this.props.currentEmotion);
-        }
+    getRecording = () =>{
+    //   let faceRecEmotions = this.props.faceRecEmotions;
 
-        getRecording = () =>{
-        //   let faceRecEmotions = this.props.faceRecEmotions;
+    //   const max = Object.keys(faceRecEmotions).reduce((a, b) => faceRecEmotions[a] > faceRecEmotions[b] ? a : b);
 
-        //   const max = Object.keys(faceRecEmotions).reduce((a, b) => faceRecEmotions[a] > faceRecEmotions[b] ? a : b);
+    //   const currRec = objectList.find(x => x.faceRecEmotion === max).resultImages[this.props.currentState].emVidSrc;
+    //   console.log()
 
-        //   const currRec = objectList.find(x => x.faceRecEmotion === max).resultImages[this.props.currentState].emVidSrc;
-        //   console.log()
-
-        //   console.log(currRec);
-          return this.props.currentEmotion.resultImages[0].emVidSrc;
-        }
-            
+    //   console.log(currRec);
+        return this.props.currentEmotion.resultImages[0].emVidSrc;
+    }
+        
     //Transition to the next path/state
     // componentWillUnmount(){
     //     if (this.state.tempPath != 0){

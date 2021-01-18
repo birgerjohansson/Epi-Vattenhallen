@@ -3,7 +3,7 @@ import ai_image from './images/abstract_ai.jpg';
 import profilePic from './images/profilePic.jpg';
 import { OverlayTrigger, Tooltip, Button, Container, Row, Col } from 'react-bootstrap';
 
-let selectedCount = 0;
+var selectedCount = 0;
 
 class ExpEyeColor extends React.Component{
     constructor(props) {
@@ -13,7 +13,7 @@ class ExpEyeColor extends React.Component{
     componentDidMount() {
         selectedCount = 0;
     }
-    
+
 
     disableButton = () => {
         // if(selectedCount <= 0 || selectedCount > 5)
@@ -32,27 +32,58 @@ class ExpEyeColor extends React.Component{
     //If any emotion is chosen it will directly update the expObject param in this.state received from parent
     //Trigger parent method UpdateExp()
     //increasing the emotion category chosen by one
+    // handleEmotionChange = (emotion, emotionId) => {
+    //     console.log(emotion);
+    //     // console.log(emotionId);
+    //     // console.log(this.props.emotionsObject);
+    //     // console.log(this.props.expObject);
+    //     let tempEmotionsObj = [...this.props.emotionsObject];
+    //     let tempExpObject = [...this.props.expObject[0].expOne];
+    //     tempEmotionsObj.map(emObj =>{
+    //         emObj.emotions.map(emotion=>{
+    //             if (emotion.id === emotionId){
+    //                 emotion.boolean = !emotion.boolean;
+    //                 tempExpObject.map(expEmotion =>{
+    //                     if (expEmotion.emotionCat == emObj.emotionCat){
+    //                         debugger;
+    //                         emotion.boolean ? expEmotion.value += 1 : expEmotion.value -= 1;
+    //                         emotion.boolean ? selectedCount += 1 : selectedCount -= 1;
+    //                         this.props.callbackFromParent(tempExpObject, emotion);
+    //                     }
+    //                 })
+    //             }
+    //         })
+    //     })
+    //     this.forceUpdate();
+    // }
+
     handleEmotionChange = (emotion, emotionId) => {
         console.log(emotion);
+        console.log(emotionId);
         // console.log(emotionId);
         // console.log(this.props.emotionsObject);
         // console.log(this.props.expObject);
         let tempEmotionsObj = [...this.props.emotionsObject];
+        console.log(tempEmotionsObj);
         let tempExpObject = [...this.props.expObject[0].expOne];
+        console.log(tempExpObject);
         tempEmotionsObj.map(emObj =>{
             emObj.emotions.map(emotion=>{
                 if (emotion.id === emotionId){
                     emotion.boolean = !emotion.boolean;
                     tempExpObject.map(expEmotion =>{
                         if (expEmotion.emotionCat == emObj.emotionCat){
-                            emotion.boolean ? expEmotion.value += 1 : expEmotion.value -= 1;
+                            // debugger;
+                            emotion.boolean ? emotion.value += 1 : emotion.value -= 1;
                             emotion.boolean ? selectedCount += 1 : selectedCount -= 1;
+                            console.log('selectedCount ' + selectedCount);
                             this.props.callbackFromParent(tempExpObject, emotion);
                         }
                     })
                 }
             })
         })
+        // this.forceUpdate();
     }
 
     //Simply render the different emotionsObject received from the parent
