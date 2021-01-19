@@ -130,6 +130,14 @@ const images = [
     },
   ];
 
+  const buttonStyle = {
+      marginLeft: '25px',
+      marginRight: '25px',
+      width: '150px',
+      height: '50px',
+      fontSize: '22px'
+  }
+
 class ExpChoosePicture extends React.Component{
     constructor(props) {
         super()
@@ -170,8 +178,8 @@ class ExpChoosePicture extends React.Component{
                 </div>
                 {/* Removed class jumbotron */}
                 <div className= "text-center"> 
-                    <button  onClick={(e) => this.handleClick(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Tillbaka</button>
-                    <button  onClick={(e) => this.choosePicture(e)} type="submit" className="btn btn-primary">Nästa</button>
+                    <button style={buttonStyle} onClick={(e) => this.handleClick(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Tillbaka</button>
+                    <button style={buttonStyle} onClick={(e) => this.choosePicture(e)} type="submit" className="btn btn-primary">Nästa</button>
                 </div>
                 <div className="form-group mt-20"></div>
             </div>

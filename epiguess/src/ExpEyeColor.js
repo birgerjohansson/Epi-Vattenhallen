@@ -5,6 +5,38 @@ import { OverlayTrigger, Tooltip, Button, Container, Row, Col } from 'react-boot
 
 var selectedCount = 0;
 
+const chooseText = {
+    color: 'white',
+    width: '100%',
+    textAlign: 'center',
+    fontSize: '24px',
+    fontWeight: 'bold',
+    paddingTop: '30px'
+}
+
+const choosewrapper = {
+    textAlign: 'center'
+}
+
+const experimentOptions = {
+    maxWidth: '70%',
+    marginLeft: '150px',
+    paddingTop: '30px'
+}
+
+const buttonWrapper = {
+    paddingTop: '20px',
+    paddingBottom: '50px'
+}
+
+const chooseButton = {
+    marginLeft: '25px',
+    marginRight: '25px',
+    width: '150px',
+    height: '50px',
+    fontSize: '22px'
+}
+
 class ExpEyeColor extends React.Component{
     constructor(props) {
         super();
@@ -17,7 +49,7 @@ class ExpEyeColor extends React.Component{
 
     disableButton = () => {
         // if(selectedCount <= 0 || selectedCount > 5)
-        console.log(selectedCount);
+        // console.log(selectedCount);
         if(selectedCount != 1)
             return true;
         else
@@ -58,15 +90,15 @@ class ExpEyeColor extends React.Component{
     // }
 
     handleEmotionChange = (emotion, emotionId) => {
-        console.log(emotion);
-        console.log(emotionId);
+        // console.log(emotion);
+        // console.log(emotionId);
         // console.log(emotionId);
         // console.log(this.props.emotionsObject);
         // console.log(this.props.expObject);
         let tempEmotionsObj = [...this.props.emotionsObject];
-        console.log(tempEmotionsObj);
+        // console.log(tempEmotionsObj);
         let tempExpObject = [...this.props.expObject[0].expOne];
-        console.log(tempExpObject);
+        // console.log(tempExpObject);
         tempEmotionsObj.map(emObj =>{
             emObj.emotions.map(emotion=>{
                 if (emotion.id === emotionId){
@@ -130,19 +162,24 @@ class ExpEyeColor extends React.Component{
             //         </Col>
             //     </Row>
             // </Container>
-            <div className="experiment-wrapper" style={{backgroundImage: `url(${ai_image}` }}>
-                <div className="experiment-buttons">
-                    <button onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-danger">Avbryt</button>
-                    <Button disabled={this.disableButton()} onClick={(e) => this.handleClick(e, '/Result')} type="submit" className="btn btn-success button-next">Nästa</Button>
-                </div>
-                <div  className="experiment-options" >
-                    <div onClick={(e) => this.handleEmotionChange(e)}>
-                        {this.renderItems()}
+            <div className="" style={{backgroundImage: `url(${ai_image}` }}>
+                <div style={choosewrapper}>
+                    <div style={chooseText}>Välj den känsla som du tycker bäst beskriver vad Epi visade!</div>
+
+                    <div  style={experimentOptions} >
+                        <div onClick={(e) => this.handleEmotionChange(e)}>
+                            {this.renderItems()}
+                        </div>
                     </div>
+
+                    <div style={buttonWrapper}>
+                        <button style={chooseButton} onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-danger">Avbryt</button>
+                        <Button style={chooseButton} disabled={this.disableButton()} onClick={(e) => this.handleClick(e, '/Result')} type="submit" className="btn btn-success button-next">Nästa</Button>
+                    </div>
+                    {/* <div className="experiment-image">
+                        <img src={this.props.selectedImage}/>
+                    </div> */}
                 </div>
-                {/* <div className="experiment-image">
-                    <img src={this.props.selectedImage}/>
-                </div> */}
             </div>
         );
     }

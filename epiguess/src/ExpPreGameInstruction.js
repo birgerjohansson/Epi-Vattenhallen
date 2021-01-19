@@ -8,13 +8,17 @@ import { Button } from 'react-bootstrap';
 
 const imageWrapper = {
     display: 'inline-block',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: '30px',
+    marginLeft: '100px'
 }
 
 const drawCanvas = {
     display: 'inline-block',
     float: 'right',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: '30px',
+    marginRight: '100px'
 }
 
 const imageStyle = {
@@ -32,7 +36,9 @@ const spinner = {
 
 const epiResultWrapper = {
     // display: 'flex'
-    flex: '8'
+    flex: '8',
+    textAlign: 'center',
+    paddingTop: '50px'
 }
 
 const epiEmotionBar = {
@@ -40,7 +46,25 @@ const epiEmotionBar = {
 }
 
 const epiGuessWrapper = {
-    display: 'flex'
+    // display: 'flex'
+}
+
+const buttonStyle = {
+    marginLeft: '25px',
+    marginRight: '25px',
+    width: '150px',
+    height: '50px',
+    fontSize: '22px'
+}
+
+const guessText = {
+    paddingTop: '50px',
+    paddingBottom: '25px',
+    fontSize: '30px'
+}
+
+const backgroundWhite = {
+    backgroundColor: 'white'
 }
 
 var emotions = {};
@@ -86,10 +110,7 @@ class ExpPreGameInstruction extends React.Component{
 
     renderEpiResults(){
         epiResult = [];
-        // console.log(this.props.guessResults[this.props.guessResults.length -1].faceRecEmotions);
         console.log(this.props.guessResults);
-        // console.log("guessResults")
-        // console.log(this.props.guessResults);
 
         const eR = Object.entries(this.props.guessResults[this.props.guessResults.length -1].faceRecEmotions);
         eR.forEach(([key, value]) => {
@@ -174,18 +195,19 @@ class ExpPreGameInstruction extends React.Component{
                         <img id="faceImage" style={imageStyle} src={this.props.selectedImage}/>
                     </div>
                     <div id="drawCanvas" style={drawCanvas}></div>
-                    <div style={epiResultWrapper}> 
+
+                </div>
+                <div style={epiResultWrapper}> 
                         {Object.keys(emotions).length != 0 ? this.renderEpiResults() : null}
                     </div>
-                </div>
-                <div className= "jumbotron text-center">
-                    <div>Gissade Epi rätt?</div>
-                    <button  onClick={(e) => this.handleGuessFeedback(true)} type="submit" className="btn btn-primary">Ja</button>
-                    <button  onClick={(e) => this.handleGuessFeedback(false)} type="submit" className="btn btn-danger">Nej</button>
+                <div className= "text-center">
+                    <div style={guessText}>Gissade Epi rätt?</div>
+                    <button style={buttonStyle} onClick={(e) => this.handleGuessFeedback(true)} type="submit" className="btn btn-primary">Ja</button>
+                    <button style={buttonStyle} onClick={(e) => this.handleGuessFeedback(false)} type="submit" className="btn btn-danger">Nej</button>
                 </div>                
-                <div className= "jumbotron text-center">
+                <div className= "jumbotron text-right" style={backgroundWhite}>
                     {/* <button  onClick={(e) => this.handleClick(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Ny bild</button> */}
-                    <Button  disabled={this.disableButton()} onClick={(e) => this.continue(e)} type="submit" className="btn btn-primary">Gå vidare</Button>
+                    <Button style={buttonStyle} disabled={this.disableButton()} onClick={(e) => this.continue(e)} type="submit" className="btn btn-primary">Gå vidare</Button>
                     {/* <Button disabled={this.disableButton()} onClick={(e) => this.handleClick(e, '/Result')} type="submit" className="btn btn-success button-next">Nästa</Button> */}
                 </div>
             </div>

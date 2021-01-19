@@ -75,7 +75,7 @@ export const objectList = [
         emotions: [
             {id: 23, catId: 5,  emotion: 'Rädd', boolean: false},
             {id: 24, catId: 5,  emotion: 'Orolig', boolean: false},
-            {id: 25, catId: 6,  emotion: 'Osäker', boolean: false}
+            {id: 25, catId: 5,  emotion: 'Osäker', boolean: false}
         ],
         resultImages: [
             {id: 1, order: 1, src: '/images/Rädd3.jpg', emVidSrc: '/videos/Rädd3.mp4'}
@@ -105,10 +105,11 @@ export const objectList = [
         value: 0,
         barColor: "#FFFFFF",
         emotions: [
-            {id: 29, catId: 7,  emotion: 'Neutral', boolean: false}
+            {id: 29, catId: 7,  emotion: 'Neutral', boolean: false},
+            {id: 30, catId: 7,  emotion: 'Likgiltig', boolean: false}
         ],
         resultImages: [
-            {id: 1, order: 1, src: '', emVidSrc: '/videos/Neutral3.mp4'}
+            {id: 1, order: 1, src: '/images/Neutral.jpg', emVidSrc: '/videos/Neutral3.mp4'}
         ]
     }      
 ]

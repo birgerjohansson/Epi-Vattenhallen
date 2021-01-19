@@ -11,8 +11,8 @@ select {
     border-radius:50px;
     margin: 20px;
     background-color:transparent;
-    width: 95px;
-    height:95px;
+    width: 100px;
+    height:100px;
     background-color:white;
 }
 
@@ -24,6 +24,7 @@ select {
     text-align:center;
     max-width: 80%;
     margin:auto;
+    padding-top: 50px;
 }
 
 .experiment-wrapper{
@@ -82,10 +83,17 @@ html, body{
   .image-selects .take, 
   .image-selects .choose{
       display: inline-block;
+      width: 300px;
   }
+
+  .image-selects .take button, 
+  .image-selects .choose button{
+      margin-top: 20px;
+  }
+
   .image-selects svg{
     width:100% !important; 
-    font-size: 60px
+    font-size: 100px
   }
 
 
@@ -96,9 +104,9 @@ html, body{
     display: inline-block;
 }
 
-/* .slider-wrapper{
-    max-height:80vh;
-} */
+.slider-wrapper{
+    width:85% !important;
+}
 ¨
 .slider .slide div{
     width: auto;
@@ -111,4 +119,8 @@ html, body{
 
 canvas{
     width: 300px;
+}
+
+.stickyfooter{
+    box-shadow: 2px 2px 8px 3px #00000091;
 }

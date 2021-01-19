@@ -2,6 +2,33 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faCoffee, faImage } from '@fortawesome/free-solid-svg-icons'
 
+const infoText1 = {
+    paddingBottom: '25px',
+    fontWeight: 'bold',
+    fontSize: '24px'
+}
+const infoText2 = {
+    paddingBottom: '25px',
+    fontWeight: 'bold'
+}
+
+const imageSelects = {
+    paddingTop: '100px',
+    paddingBottom: '100px'
+}
+
+const background = {
+    backgroundColor: 'white'
+}
+
+const button = {
+    marginLeft: '25px',
+    marginRight: '25px',
+    width: '150px',
+    height: '50px',
+    fontSize: '22px'
+}
+
 class ExpSelectApproach extends React.Component{
     constructor(props) {
         super()
@@ -21,24 +48,24 @@ class ExpSelectApproach extends React.Component{
     render() {
         return (
             <div>
-                <div className= "jumbotron text-center"> 
-                    <div className="info-text">
+                <div className= "jumbotron text-center" style={background}> 
+                    <div className="info-text" style={infoText1}>
                         Epi behöver få en input för att ha något att gissa på.
                     </div>
-                    <div>
+                    <div style={infoText2}>
                         Låt Epi spara en bild av ditt ansiktsuttryck i minnet (Epi har fotografiskt minne) eller välj en bild åt Epi från galleriet.
                     </div>
-                    <div className="image-selects">
+                    <div className="image-selects" style={imageSelects}>
                         <div className="take">
                             <FontAwesomeIcon icon={faCamera} />
-                            <button  onClick={(e) => this.handleClick(e, '/ExpTakePicture')} type="submit" className="btn btn-primary">Ta bild</button>
+                            <button style={button} onClick={(e) => this.handleClick(e, '/ExpTakePicture')} type="submit" className="btn btn-primary">Ta bild</button>
                         </div>
                         <div className="choose">
                             <FontAwesomeIcon icon={faImage}/>
-                            <button  onClick={(e) => this.handleClick(e, '/ExpChoosePicture')} type="submit" className="btn btn-primary">Välj bild</button>
+                            <button style={button} onClick={(e) => this.handleClick(e, '/ExpChoosePicture')} type="submit" className="btn btn-primary">Välj bild</button>
                         </div>
                     </div>
-                    <button  onClick={(e) => this.exitExperiment(e, '/')} type="submit" className="btn btn-primary">Tillbaka</button>
+                    <button  style={button} onClick={(e) => this.exitExperiment(e, '/')} type="submit" className="btn btn-primary">Avsluta</button>
                 </div>
                 <div className="form-group mt-20"> </div>
             </div>             
