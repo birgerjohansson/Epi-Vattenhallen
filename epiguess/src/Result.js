@@ -74,6 +74,16 @@ const largerText = {
     fontSize: '40px'
 }
 
+const buttonRed = {
+    marginLeft: '25px',
+    marginRight: '25px',
+    width: '150px',
+    height: '70px',
+    fontSize: '19px',
+    backgroundColor: '#f44336',
+    color: 'white'
+}
+
 class Result extends React.Component {
     constructor(props){
         super();
@@ -99,7 +109,7 @@ class Result extends React.Component {
 
     renderResult = ()=>{
         if(correct){
-          return <div>Det var rätt!</div>
+          return <div>Det var rätt!<div style={largerText}>1 poäng till Epi!</div></div>
         } else{
           return <div><span style={largerText}>0 poäng till Epi! </span><div>Epi försökte vara {this.props.guessResults[this.props.guessResults.length -1].epiEmotion.faceRecEmotion}</div></div>
         }
@@ -188,7 +198,7 @@ class Result extends React.Component {
             </div>
 
             <div className="jumbotron text-center" style={{backgroundColor: 'white'}}>
-                <button style={buttonStyle} onClick={(e) => this.handleClick(e, '/Summary')} type="submit" className="btn btn-primary">Avsluta och visa resultat</button>  
+                <button style={buttonRed} onClick={(e) => this.handleClick(e, '/Summary')} type="submit" className="btn">Avsluta och visa resultat</button>  
                 <button style={buttonStyle} onClick={(e) => this.newEmotion(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Nästa runda</button>  
                 {/* <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-primary">Avsluta</button>   */}
             </div>

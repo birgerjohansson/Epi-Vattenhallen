@@ -6,7 +6,7 @@ import { OverlayTrigger, Tooltip, Button, Container, Row, Col } from 'react-boot
 var selectedCount = 0;
 
 const chooseText = {
-    color: 'white',
+    color: 'black',
     width: '100%',
     textAlign: 'center',
     fontSize: '24px',
@@ -35,6 +35,16 @@ const chooseButton = {
     width: '150px',
     height: '50px',
     fontSize: '22px'
+}
+
+const buttonRed = {
+    marginLeft: '25px',
+    marginRight: '25px',
+    width: '150px',
+    height: '50px',
+    fontSize: '22px',
+    backgroundColor: '#f44336',
+    color: 'white'
 }
 
 class ExpEyeColor extends React.Component{
@@ -162,9 +172,9 @@ class ExpEyeColor extends React.Component{
             //         </Col>
             //     </Row>
             // </Container>
-            <div className="" style={{backgroundImage: `url(${ai_image}` }}>
+            <div className="">
                 <div style={choosewrapper}>
-                    <div style={chooseText}>Välj den känsla som du tycker bäst beskriver vad Epi visade!</div>
+                    <div style={chooseText}>Gissa vilken känsla Epi försökte visa!</div>
 
                     <div  style={experimentOptions} >
                         <div onClick={(e) => this.handleEmotionChange(e)}>
@@ -173,8 +183,8 @@ class ExpEyeColor extends React.Component{
                     </div>
 
                     <div style={buttonWrapper}>
-                        <button style={chooseButton} onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-danger">Avbryt</button>
-                        <Button style={chooseButton} disabled={this.disableButton()} onClick={(e) => this.handleClick(e, '/Result')} type="submit" className="btn btn-success button-next">Nästa</Button>
+                        <button style={buttonRed} onClick={(e) => this.exitExperiment(e)} type="submit" className="btn">Avbryt</button>
+                        <Button style={chooseButton} disabled={this.disableButton()} onClick={(e) => this.handleClick(e, '/Result')} type="submit" className="btn btn-primary button-next">Nästa</Button>
                     </div>
                     {/* <div className="experiment-image">
                         <img src={this.props.selectedImage}/>

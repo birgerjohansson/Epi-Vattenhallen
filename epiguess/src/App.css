@@ -42,7 +42,11 @@
   color: black;
 }
 .btn.btn-light.btn-rounded.selected {
-  background-color:black;
-  color:white;
-  border-color:white;
+  background-color:#e2e2e2  !important;
+  color:rgb(0, 0, 0);
+  border-color:rgb(0, 0, 0);
+}
+
+.legend{
+  display: none;
 }

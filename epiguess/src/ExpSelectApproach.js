@@ -4,12 +4,10 @@ import { faCamera, faCoffee, faImage } from '@fortawesome/free-solid-svg-icons'
 
 const infoText1 = {
     paddingBottom: '25px',
-    fontWeight: 'bold',
-    fontSize: '24px'
+    fontSize: '32px'
 }
 const infoText2 = {
-    paddingBottom: '25px',
-    fontWeight: 'bold'
+    paddingBottom: '25px'
 }
 
 const imageSelects = {
@@ -27,6 +25,16 @@ const button = {
     width: '150px',
     height: '50px',
     fontSize: '22px'
+}
+
+const buttonRed = {
+    marginLeft: '25px',
+    marginRight: '25px',
+    width: '150px',
+    height: '50px',
+    fontSize: '22px',
+    backgroundColor: '#f44336',
+    color: 'white'
 }
 
 class ExpSelectApproach extends React.Component{
@@ -50,7 +58,7 @@ class ExpSelectApproach extends React.Component{
             <div>
                 <div className= "jumbotron text-center" style={background}> 
                     <div className="info-text" style={infoText1}>
-                        Epi behöver få en input för att ha något att gissa på.
+                        Visa en känsla som Epi kan gissa på.
                     </div>
                     <div style={infoText2}>
                         Låt Epi spara en bild av ditt ansiktsuttryck i minnet (Epi har fotografiskt minne) eller välj en bild åt Epi från galleriet.
@@ -65,7 +73,7 @@ class ExpSelectApproach extends React.Component{
                             <button style={button} onClick={(e) => this.handleClick(e, '/ExpChoosePicture')} type="submit" className="btn btn-primary">Välj bild</button>
                         </div>
                     </div>
-                    <button  style={button} onClick={(e) => this.exitExperiment(e, '/')} type="submit" className="btn btn-primary">Avsluta</button>
+                    <button  style={buttonRed} onClick={(e) => this.exitExperiment(e, '/')} type="submit" className="btn">Avsluta</button>
                 </div>
                 <div className="form-group mt-20"> </div>
             </div>             

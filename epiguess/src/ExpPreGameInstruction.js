@@ -67,11 +67,32 @@ const backgroundWhite = {
     backgroundColor: 'white'
 }
 
+const epiPoints = {
+    fontSize: '22px',
+    paddingBottom: '20px'
+}
+
+const buttonRed = {
+    marginLeft: '25px',
+    marginRight: '25px',
+    width: '150px',
+    height: '50px',
+    fontSize: '22px',
+    backgroundColor: '#f44336',
+    color: 'white'
+}
+
+const emotionCategory = {
+    fontSize: '20px'
+}
+
 var emotions = {};
 let epiResult = [];
 
 var disableButton = true;
 var feedbackGiven = false;
+
+var hasAnswered = null;
 
 class ExpPreGameInstruction extends React.Component{
     constructor(props) {
@@ -83,6 +104,7 @@ class ExpPreGameInstruction extends React.Component{
         epiResult = [];
         feedbackGiven = false;
         disableButton = true;
+        hasAnswered = null;
 
         this.drawCanvas();
     }
@@ -92,6 +114,7 @@ class ExpPreGameInstruction extends React.Component{
 
         disableButton = false;
         feedbackGiven = correct;
+        hasAnswered = correct;
 
         console.log("disableButton " + disableButton);
         console.log("feedbackGiven " + feedbackGiven);
@@ -108,6 +131,29 @@ class ExpPreGameInstruction extends React.Component{
             return false;
     }
 
+    renderEpiPoints = () => {
+        if(hasAnswered != null){
+            if(hasAnswered == true){
+                return <div style={guessText}>Epi får 1 Poäng!</div>
+            } 
+            else if(hasAnswered == false)
+            {
+                return <div style={guessText}>Epi får 0 Poäng!</div>
+            }
+        }
+    }
+
+    renderEpiGuess = () => {
+        
+            if(hasAnswered){
+                return null
+            } 
+            else if(hasAnswered == null)
+            {
+                return <div style={guessText}>Gissade Epi rätt?</div>
+            }
+    }
+
     renderEpiResults(){
         epiResult = [];
         console.log(this.props.guessResults);
@@ -119,9 +165,10 @@ class ExpPreGameInstruction extends React.Component{
         return(
             <div>
                 <div style={epiEmotionBar}>
+                    <div style={emotionCategory}>Epi gissar:</div>
                     {epiResult.map((item) => (
                         <div>
-                            { item.value * 100 > 5 ? <div className="emotion-category">{item.emotionCat}</div> : null}
+                            { item.value * 100 > 5 ? <div style={emotionCategory} className="emotion-category">{item.emotionCat}</div> : null}
                             { item.value * 100 > 5 ?<ProgressBar bgcolor={objectList.find(x => x.faceRecEmotion === item.emotionCat).barColor} completed={item.value * 100} /> : null}
                         </div>
                     ))}
@@ -201,13 +248,14 @@ class ExpPreGameInstruction extends React.Component{
                         {Object.keys(emotions).length != 0 ? this.renderEpiResults() : null}
                     </div>
                 <div className= "text-center">
-                    <div style={guessText}>Gissade Epi rätt?</div>
+                    {this.renderEpiGuess()}
+                    {this.renderEpiPoints()}
+                    <button style={buttonRed} onClick={(e) => this.handleGuessFeedback(false)} type="submit" className="btn">Nej</button>
                     <button style={buttonStyle} onClick={(e) => this.handleGuessFeedback(true)} type="submit" className="btn btn-primary">Ja</button>
-                    <button style={buttonStyle} onClick={(e) => this.handleGuessFeedback(false)} type="submit" className="btn btn-danger">Nej</button>
                 </div>                
                 <div className= "jumbotron text-right" style={backgroundWhite}>
                     {/* <button  onClick={(e) => this.handleClick(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Ny bild</button> */}
-                    <Button style={buttonStyle} disabled={this.disableButton()} onClick={(e) => this.continue(e)} type="submit" className="btn btn-primary">Gå vidare</Button>
+                    <Button style={buttonStyle} disabled={this.disableButton()} onClick={(e) => this.continue(e)} type="submit" className="btn btn-primary">Epis tur</Button>
                     {/* <Button disabled={this.disableButton()} onClick={(e) => this.handleClick(e, '/Result')} type="submit" className="btn btn-success button-next">Nästa</Button> */}
                 </div>
             </div>

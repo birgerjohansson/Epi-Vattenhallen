@@ -1,5 +1,6 @@
 import React from 'react';
-import ai_image from './images/bgtest.jpg';
+// import ai_image from './images/bgtest.jpg';
+// import _image from './images/bgtest.jpg';
 // import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 // import Loader from 'react-loader-spinner'
 
@@ -46,7 +47,7 @@ class ExpMain extends React.Component{
     render() {
         return (
             <div>
-                <div className= "jumbotron text-center"  style={{backgroundImage: `url(${ai_image}` }}>
+                <div className= "jumbotron text-center">
                     <div style={header}>Emotion AI: Gissa känslan!</div>
                     <div></div>
                 </div>
