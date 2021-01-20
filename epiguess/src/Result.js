@@ -109,9 +109,9 @@ class Result extends React.Component {
 
     renderResult = ()=>{
         if(correct){
-          return <div>Det var rätt!<div style={largerText}>1 poäng till Epi!</div></div>
+          return <div>Det var rätt!<div style={largerText}>Du får 1 poäng!</div></div>
         } else{
-          return <div><span style={largerText}>0 poäng till Epi! </span><div>Epi försökte vara {this.props.guessResults[this.props.guessResults.length -1].epiEmotion.faceRecEmotion}</div></div>
+          return <div><span style={largerText}>Du får 0 poäng! </span><div>Epi försökte vara {this.props.guessResults[this.props.guessResults.length -1].epiEmotion.faceRecEmotion}</div></div>
         }
       }
 
