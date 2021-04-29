@@ -93,6 +93,13 @@ class Result extends React.Component {
         this.props.history.push(path);
     }
 
+    disableButton = () => {
+        if(this.props.emotionsList.length === 0)
+            return true;
+        else
+            return false;
+    }
+
     exitExperiment = (event) => {
         this.props.callbackFromParent();
         this.props.history.push('/')
@@ -199,7 +206,7 @@ class Result extends React.Component {
 
             <div className="jumbotron text-center" style={{backgroundColor: 'white'}}>
                 <button style={buttonRed} onClick={(e) => this.handleClick(e, '/Summary')} type="submit" className="btn">Avsluta och visa resultat</button>  
-                <button style={buttonStyle} onClick={(e) => this.newEmotion(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Nästa runda</button>  
+                <button style={buttonStyle} disabled={this.disableButton()} onClick={(e) => this.newEmotion(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Nästa runda</button>
                 {/* <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-primary">Avsluta</button>   */}
             </div>
 

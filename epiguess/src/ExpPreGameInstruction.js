@@ -160,15 +160,17 @@ class ExpPreGameInstruction extends React.Component{
 
         const eR = Object.entries(this.props.guessResults[this.props.guessResults.length -1].faceRecEmotions);
         eR.forEach(([key, value]) => {
-            epiResult.push({emotionCat: key, value: value});
+            var emotionCatSV = objectList.find(x => x.faceRecEmotion === key).emotions[0].emotion;
+            epiResult.push({emotionCat: key, emotionCatSV: emotionCatSV, value: value});
         })
+        console.log(epiResult)
         return(
             <div>
                 <div style={epiEmotionBar}>
                     <div style={emotionCategory}>Epi gissar:</div>
                     {epiResult.map((item) => (
                         <div>
-                            { item.value * 100 > 5 ? <div style={emotionCategory} className="emotion-category">{item.emotionCat}</div> : null}
+                            { item.value * 100 > 5 ? <div style={emotionCategory} className="emotion-category">{item.emotionCatSV}</div> : null}
                             { item.value * 100 > 5 ?<ProgressBar bgcolor={objectList.find(x => x.faceRecEmotion === item.emotionCat).barColor} completed={item.value * 100} /> : null}
                         </div>
                     ))}

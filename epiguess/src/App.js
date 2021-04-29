@@ -110,9 +110,10 @@ class App extends React.Component{
   }
 
   playEmotion = () => {
-    fetch('http://127.0.0.1:8000/control/MotionTrigger.data/0/0/1 ')
-        .then(response => response.json());
-  }
+    var currEmotion = this.state.currentEmotion.epiRecID;
+      fetch('http://127.0.0.1:8000/control/MotionTrigger.data/'+currEmotion+'/0/1 ')
+          .then(response => response.json());
+    }
 
   //Start experiment -> create an ExpObject, generate a random number to be chosen as basis for the interaction
   // the random number represent an emotion category. Set this.state (expObject and emotionDisplay)
@@ -223,6 +224,7 @@ class App extends React.Component{
     let faceRecEmotions = this.state.faceRecEmotions;
   //let landmarks = this.state.landmarks; // kolla om används, annars ta bort
 //this.setState({emotionsObject: emotionsObject.emotionsObject, currentEmotion: emotion, emotionsList: emotionsList});
+    let emotionsList = this.state.emotionsList;
 
     let currentEmotion = this.state.currentEmotion;
     let guessResults = this.state.guessResults;
@@ -231,7 +233,7 @@ class App extends React.Component{
     // const expPupilSizeElem = (params) => <ExpPupilSize {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
     // const expPupilOrientationElem = (params) => <ExpPupilOrientation {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
     const prevResultElem = (params) => <PrevResult {...params} currentState={stateValue} faceRecEmotions = {faceRecEmotions} currentEmotion = {currentEmotion} callbackFromParent={this.changeCurrentState}/>;
-    const resultElem = (params) => <Result {...params} expObject={experiment} faceRecEmotions = {faceRecEmotions} selectedImage={selectedImage} emotionsObject={emotions} guessResults={guessResults} callbackSetNewEmotion={this.setNewEmotion} callbackFromParent={this.exitExp}/>;
+    const resultElem = (params) => <Result {...params} expObject={experiment} emotionsList={emotionsList} faceRecEmotions = {faceRecEmotions} selectedImage={selectedImage} emotionsObject={emotions} guessResults={guessResults} callbackSetNewEmotion={this.setNewEmotion} callbackFromParent={this.exitExp}/>;
     const summaryElem = (params) => <Summary {...params} guessResults={guessResults} callbackFromParent={this.exitExp}/>;
     const expMainElem = (params) => <ExpMain {...params}  callbackFromParent={this.startExp}/>;
     const expSelectApproachElem = (params) => <ExpSelectApproach {...params}  callbackFromParent={this.exitExp}/>;

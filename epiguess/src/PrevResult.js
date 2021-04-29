@@ -14,10 +14,11 @@ class PrevResult extends React.Component {
     startEmotion = () => {
     }
 
-    // playEmotion = () => {
-    //   fetch('http://127.0.0.1:8000/control/MotionTrigger.data/0/0/1 ')
-    //       .then(response => response.json());
-    // }
+    playEmotion = () => {
+    var currEmotion = this.props.currentEmotion.epiRecID;
+      fetch('http://127.0.0.1:8000/control/MotionTrigger.data/'+currEmotion+'/0/1 ')
+          .then(response => response.json());
+    }
 
     //Based on the current state, currentState will be changed
     //also introduce a timeout before moving to the next path/state
