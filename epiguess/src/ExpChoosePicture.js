@@ -7,6 +7,11 @@ import $ from 'jquery';
 
 const images = [
     {
+        id: 124664646,
+        original: '/images/landscape.jpg',
+        thumbnail: '/images/landscape.jpg',
+      },
+      {
         id: 1436436,
         original: '/images/EpiImage.jpg',
         thumbnail: '/images/EpiImage.jpg',

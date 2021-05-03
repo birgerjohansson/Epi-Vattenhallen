@@ -111,6 +111,8 @@ class App extends React.Component{
 
   playEmotion = () => {
     var currEmotion = this.state.currentEmotion.epiRecID;
+    console.log('Trigger emotion')
+    console.log('http://127.0.0.1:8000/control/MotionTrigger.data/'+currEmotion+'/0/1 ')
       fetch('http://127.0.0.1:8000/control/MotionTrigger.data/'+currEmotion+'/0/1 ')
           .then(response => response.json());
     }
@@ -206,6 +208,8 @@ class App extends React.Component{
         guessResults: guessResults
       });
       console.log(this.state.guessResults);
+      this.changeCurrentState(3);
+      this.playEmotion();
   }
 
   //If exit from experiment -> clear the states. If DB were to be used you would need to handle it in this method
@@ -232,7 +236,7 @@ class App extends React.Component{
     const expEyeColorElem = (params) => <ExpEyeColor {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
     // const expPupilSizeElem = (params) => <ExpPupilSize {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
     // const expPupilOrientationElem = (params) => <ExpPupilOrientation {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp}/>;
-    const prevResultElem = (params) => <PrevResult {...params} currentState={stateValue} faceRecEmotions = {faceRecEmotions} currentEmotion = {currentEmotion} callbackFromParent={this.changeCurrentState}/>;
+    //const prevResultElem = (params) => <PrevResult {...params} currentState={stateValue} faceRecEmotions = {faceRecEmotions} currentEmotion = {currentEmotion} callbackFromParent={this.changeCurrentState}/>;
     const resultElem = (params) => <Result {...params} expObject={experiment} emotionsList={emotionsList} faceRecEmotions = {faceRecEmotions} selectedImage={selectedImage} emotionsObject={emotions} guessResults={guessResults} callbackSetNewEmotion={this.setNewEmotion} callbackFromParent={this.exitExp}/>;
     const summaryElem = (params) => <Summary {...params} guessResults={guessResults} callbackFromParent={this.exitExp}/>;
     const expMainElem = (params) => <ExpMain {...params}  callbackFromParent={this.startExp}/>;
@@ -265,7 +269,7 @@ class App extends React.Component{
                     <Route path='/ExpEyeColor' component={expEyeColorElem}/>
                     {/* <Route path='/ExpPupilSize' component={expPupilSizeElem}/>
                     <Route path='/ExpPupilOrientation' component={expPupilOrientationElem}/> */}
-                    <Route path='/PrevResult' component={prevResultElem}/>
+                    {/* <Route path='/PrevResult' component={prevResultElem}/> */}
                     <Route path='/Result' component={resultElem}/>
                     <Route path='/Summary' component={summaryElem}/>
                   </Switch>

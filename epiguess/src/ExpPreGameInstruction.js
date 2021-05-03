@@ -86,6 +86,13 @@ const emotionCategory = {
     fontSize: '20px'
 }
 
+const thinkingText = {
+    textAlign: 'center',
+    paddingTop: '200px',
+    fontWeight: 'bold',  
+    fontSize: '48px'
+}
+
 var emotions = {};
 let epiResult = [];
 
@@ -93,6 +100,10 @@ var disableButton = true;
 var feedbackGiven = false;
 
 var hasAnswered = null;
+var canvasReady = false;
+var canvas = null;
+
+var hasRenderedCanvas = false;
 
 class ExpPreGameInstruction extends React.Component{
     constructor(props) {
@@ -105,6 +116,7 @@ class ExpPreGameInstruction extends React.Component{
         feedbackGiven = false;
         disableButton = true;
         hasAnswered = null;
+        canvasReady = false;
 
         this.drawCanvas();
     }
@@ -182,6 +194,23 @@ class ExpPreGameInstruction extends React.Component{
     handleClick = (event, path) => {
         this.props.history.push(path);
     }
+    
+
+    renderCanvas = () => {
+        // let div = document.getElementById('drawCanvas'); 
+        if(!hasRenderedCanvas){
+            window.requestAnimationFrame(function(){
+                document.getElementById('drawCanvas').appendChild(canvas); 
+                hasRenderedCanvas = true;
+            });
+        }
+    }
+
+    // componentDidUpdate(){
+    //     this.renderCanvas();
+    // }
+
+    
 
     async drawCanvas() {
         await faceapi.nets.ssdMobilenetv1.loadFromUri('/models');
@@ -191,7 +220,7 @@ class ExpPreGameInstruction extends React.Component{
 
         const image = await faceapi.fetchImage(this.props.selectedImage);
         
-        const canvas = faceapi.createCanvasFromMedia(image);
+        canvas = faceapi.createCanvasFromMedia(image);
 
         // const detection = await faceapi.detectAllFaces(image)
         //                                 .withFaceLandmarks()
@@ -202,48 +231,53 @@ class ExpPreGameInstruction extends React.Component{
                                         
         // console.log(detection);
         // console.log(detection.expressions);
-    
+        
+
         emotions = {...detection.expressions};
         // console.log(emotions);
-         const dimensions = {
-             width: image.width,
-             height: image.height
-         };
-    
-         const resizedDimensions = faceapi.resizeResults(detection, dimensions);
-    
+        const dimensions = {
+            width: image.width,
+            height: image.height
+        };
+
+        const resizedDimensions = faceapi.resizeResults(detection, dimensions);
+
         // document.body.append(canvas);
         // document.getElementById("faceImageWrapper").append(canvas);
         // var c = document.getElementById("faceImageWrapper");
         // console.log(c);
 
         // this.setState({faceRecEmotions: emotions});
+        canvasReady = true;
+        
+        // let div = document.getElementById('drawCanvas'); 
 
-        let div = document.getElementById('drawCanvas'); 
+        // div.appendChild(canvas) 
 
-        div.appendChild(canvas)
-    
         // faceapi.draw.drawDetections(canvas, resizedDimensions);
         faceapi.draw.drawFaceLandmarks(canvas, resizedDimensions);
 
 
+
         this.props.callbackFromParent(emotions);
+        // this.renderCanvas();
         // faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
     }
 
     continue = (event) => {
         this.props.callbackFromParentFeedback(feedbackGiven); //pass image
-        this.handleClick(event, '/PrevResult')
+        // this.handleClick(event, '/PrevResult')
+        this.handleClick(event, '/ExpEyeColor')
     }
 
-    renderInstructions(){        
+    renderInstructions(){      
         return(
             <div>
                 <div style={epiGuessWrapper}>
                     <div style={imageWrapper} id="faceImageWrapper">
                         <img id="faceImage" style={imageStyle} src={this.props.selectedImage}/>
                     </div>
-                    <div id="drawCanvas" style={drawCanvas}></div>
+                    <div id="drawCanvas" style={drawCanvas}>{this.renderCanvas()}</div>
 
                 </div>
                 <div style={epiResultWrapper}> 
@@ -262,16 +296,26 @@ class ExpPreGameInstruction extends React.Component{
                 </div>
             </div>
         )
+
     }
 
     render() {
+        if(canvasReady){
         return (
-        <div>
-            { 
-                this.renderInstructions()
-            }
-        </div>
-        );
+            <div>
+                { 
+                    this.renderInstructions()
+                }
+            </div>
+            )
+        }
+        else{
+            return(
+                <div style={thinkingText}>
+                    Epi tänker...
+                </div>
+            )
+        };
     }
 }
 
