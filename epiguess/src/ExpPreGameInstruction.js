@@ -222,43 +222,33 @@ class ExpPreGameInstruction extends React.Component{
         
         canvas = faceapi.createCanvasFromMedia(image);
 
-        // const detection = await faceapi.detectAllFaces(image)
-        //                                 .withFaceLandmarks()
-        //                                 .withFaceExpressions();
         const detection = await faceapi.detectSingleFace(image)
                                         .withFaceLandmarks()
                                         .withFaceExpressions();
                                         
-        // console.log(detection);
+        //console.log(detection);
         // console.log(detection.expressions);
         
+		if (detection !== undefined){
+			emotions = {...detection.expressions};
+			console.log(emotions);
+			const dimensions = {
+				width: image.width,
+				height: image.height
+			};
 
-        emotions = {...detection.expressions};
-        // console.log(emotions);
-        const dimensions = {
-            width: image.width,
-            height: image.height
-        };
-
-        const resizedDimensions = faceapi.resizeResults(detection, dimensions);
-
-        // document.body.append(canvas);
-        // document.getElementById("faceImageWrapper").append(canvas);
-        // var c = document.getElementById("faceImageWrapper");
-        // console.log(c);
-
-        // this.setState({faceRecEmotions: emotions});
-        canvasReady = true;
-        
-        // let div = document.getElementById('drawCanvas'); 
-
-        // div.appendChild(canvas) 
-
-        // faceapi.draw.drawDetections(canvas, resizedDimensions);
-        faceapi.draw.drawFaceLandmarks(canvas, resizedDimensions);
+			const resizedDimensions = faceapi.resizeResults(detection, dimensions);
 
 
+			canvasReady = true;
 
+			faceapi.draw.drawFaceLandmarks(canvas, resizedDimensions);
+
+
+		} else {
+			emotions = {neutral: 1.0, happy: 0.0, sad: 0.0, angry: 0.0, fearful: 0.0, disgusted: 0.0, surprised: 0.0 }
+			canvasReady = true;
+		}
         this.props.callbackFromParent(emotions);
         // this.renderCanvas();
         // faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
