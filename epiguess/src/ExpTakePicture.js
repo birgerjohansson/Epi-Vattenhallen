@@ -20,18 +20,7 @@ class ExpTakePicture extends React.Component{
     handleClick = (event, path) => {
         this.props.history.push(path);
     }
-    //Trigger method takePicture() in parent
-    takePicture2 = (event) => {
-		this.refs.webcam.getCanvas().toBlob(
-			function(blob){
-				var newImg = document.createElement('img');
-				var url = URL.createObjectURL(blob);
-				newImg.src = url;
-				newImg.id = "ss";
-				document.body.appendChild(newImg);	
-				
-			});
-    }
+
 	
     choosePicture = (event) => {
         //let imageSrc = $('#ss').attr('src');
