@@ -125,13 +125,18 @@ class App extends React.Component {
 
   }
   stopEmotion = () => {
+
     var currEmotion = this.state.currentEmotion.epiRecID;
     console.log('Trigger emotion STOP')
-    console.log(currEmotion)
-    console.log('http://127.0.0.1:8000/control/MotionTrigger.data/' + currEmotion + '/0/0 ')
-    fetch('http://127.0.0.1:8000/control/MotionTrigger.data/' + currEmotion + '/0/0 ')
-      .then(response => response.json());
 
+    var i;
+    for (i = 0; i < 7; i++)
+    {
+      console.log("Reset motions")
+      console.log(i)
+      fetch('http://127.0.0.1:8000/control/MotionTrigger.data/' + i + '/0/0 ')
+      .then(response => response.json());
+    }
 
 
   }
