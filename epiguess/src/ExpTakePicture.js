@@ -28,9 +28,6 @@ class ExpTakePicture extends React.Component{
 		let image=this.refs.webcam.getScreenshot({width: 800, height: 600});
 		//console.log(image);
         this.props.callbackFromParent(image); //pass image
-        
-        
-        global.myImage = image; // HELP!! Jens fix this!
 
         this.handleClick(event, '/ExpPreGameInstruction')
     }
