@@ -267,7 +267,7 @@ class App extends React.Component {
     const expMainElem = (params) => <ExpMain {...params} callbackFromParent={this.startExp} />;
     const expSelectApproachElem = (params) => <ExpSelectApproach {...params} callbackFromParent={this.exitExp} />;
     const expChoosePictureElem = (params) => <ExpChoosePicture {...params} callbackFromParent={this.faceRec} />;
-    const expTakePictureElem = (params) => <ExpTakePicture {...params} callbackFromParent={this.takePicture} />;
+    const expTakePictureElem = (params) => <ExpTakePicture {...params} callbackFromParent={this.faceRec} />;
     const expPreGameInstructionElem = (params) => <ExpPreGameInstruction {...params} selectedImage={selectedImage} guessResults={guessResults} callbackFromParent={this.setFaceRecEmotions} callbackFromParentFeedback={this.setUserFeedback} />;
 
     let val = JSON.stringify(this.state.expObject);
