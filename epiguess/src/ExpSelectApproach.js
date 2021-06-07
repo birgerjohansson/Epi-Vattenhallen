@@ -73,7 +73,7 @@ class ExpSelectApproach extends React.Component{
                             <button style={button} onClick={(e) => this.handleClick(e, '/ExpChoosePicture')} type="submit" className="btn btn-primary">Välj bild</button>
                         </div>
                     </div>
-                    <button  style={buttonRed} onClick={(e) => this.exitExperiment(e, '/')} type="submit" className="btn">Avsluta</button>
+                    <button  onClick={(e) => window.location.href = "http://localhost:3000/"} className="btn btn-primary">Avsluta</button>
                 </div>
                 <div className="form-group mt-20"> </div>
             </div>             

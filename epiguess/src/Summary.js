@@ -159,7 +159,7 @@ class Summary extends React.Component {
                 </div>
                 <div className="jumbotron text-center stickyfooter" style={exitButton}>
                     <div style={finalScore}>Tillsammans fick ni {epiResultCount + userResultCount} av {this.props.guessResults.length * 2} poäng, bra jobbat!</div>
-                    <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-primary">Avsluta</button>  
+                    <button  onClick={(e) => window.location.href = "http://localhost:3000/"} className="btn btn-primary">Avsluta</button>
                 </div>
             </div>
             );
