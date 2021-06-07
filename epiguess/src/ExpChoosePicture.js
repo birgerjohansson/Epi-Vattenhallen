@@ -7,41 +7,6 @@ import $ from 'jquery';
 
 const images = [
     {
-        id: 124664646,
-        original: '/images/landscape.jpg',
-        thumbnail: '/images/landscape.jpg',
-      },
-      {
-        id: 1436436,
-        original: '/images/EpiImage.jpg',
-        thumbnail: '/images/EpiImage.jpg',
-      },
-      {
-        id: 164363,
-        original: '/images/EpiImage2.jpg',
-        thumbnail: '/images/EpiImage2.jpg',
-      },
-      {
-        id: 1344,
-        original: '/images/EpiImage3.jpg',
-        thumbnail: '/images/EpiImage.jpg',
-      },
-      {
-        id: 1456,
-        original: '/images/EpiImage4.jpg',
-        thumbnail: '/images/EpiImage4.jpg',
-      },
-      {
-        id: 1345,
-        original: '/images/EpiImage5.jpg',
-        thumbnail: '/images/EpiImage5.jpg',
-      },
-      {
-        id: 145,
-        original: '/images/EpiImage.jpg',
-        thumbnail: '/images/EpiImage6.jpg',
-      },
-    {
       id: 1,
       original: '/images/anger1.jpg',
       thumbnail: '/images/anger1.jpg',
