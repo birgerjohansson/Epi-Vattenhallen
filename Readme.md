@@ -42,6 +42,17 @@ Cloning webapp
 git clone https://github.com/birgerjohansson/Epi-Vattenhallen.git
 `
 
+Start fadecandy server
+`
+./fcserver
+`
+
+Start ikaros
+
+`
+../Bin/ikaros ../Projects/2021/Vattenhallen/EpiTorso/ExperimentSetup.ikg -t -r25
+`
+
 Start the web app
 
 `
