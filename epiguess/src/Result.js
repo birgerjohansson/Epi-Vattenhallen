@@ -1,23 +1,23 @@
 import React from 'react';
 import ProgressBar from "./progress-bar.component";
-import {objectList} from './ExpObjectData';
+import { objectList } from './ExpObjectData';
 
-  const emotionData = [
-      {expOne: [], totVal: 0},
-      {expTwo: [], totVal: 0},
-      {expThree: [], totVal: 0}
-  ]
-  
-  let summary = [];
-  var correct = false;
+const emotionData = [
+    { expOne: [], totVal: 0 },
+    { expTwo: [], totVal: 0 },
+    { expThree: [], totVal: 0 }
+]
 
-  const imageStyle = {
+let summary = [];
+var correct = false;
+
+const imageStyle = {
     maxWidth: '300px'
-  }
+}
 
-  const divInlineBlock = {
-      display: 'inline-block'
-  }
+const divInlineBlock = {
+    display: 'inline-block'
+}
 
 const epiResultWrapper = {
     display: 'flex'
@@ -27,10 +27,10 @@ const epiEmotionBar = {
     flex: '8'
 }
 
-const resultImageWrapper ={
-    flex:'2', 
-    width:'200px',
-    height:'200px'
+const resultImageWrapper = {
+    flex: '2',
+    width: '200px',
+    height: '200px'
 }
 
 const resultImage = {
@@ -85,7 +85,7 @@ const buttonRed = {
 }
 
 class Result extends React.Component {
-    constructor(props){
+    constructor(props) {
         super();
     }
 
@@ -94,7 +94,7 @@ class Result extends React.Component {
     }
 
     disableButton = () => {
-        if(this.props.emotionsList.length === 0)
+        if (this.props.emotionsList.length === 0)
             return true;
         else
             return false;
@@ -110,17 +110,41 @@ class Result extends React.Component {
         this.props.history.push(path);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         console.log(this.props.guessResults);
     }
 
-    renderResult = ()=>{
-        if(correct){
-          return <div>Det var rätt!<div style={largerText}>Du får 1 poäng!</div></div>
-        } else{
-          return <div><span style={largerText}>Du får 0 poäng! </span><div>Epi försökte vara {this.props.guessResults[this.props.guessResults.length -1].epiEmotion.faceRecEmotion}</div></div>
+    renderResult = () => {
+        if (correct) {
+            return <div>Det var rätt!<div style={largerText}>Du får 1 poäng!</div></div>
+        } else {
+            // Superhack!
+            this.hack = this.props.guessResults[this.props.guessResults.length - 1].epiEmotion.faceRecEmotion
+            //console.log({this.props.guessResults[this.props.guessResults.length -1].epiEmotion.faceRecEmotion})
+            //console.log(this.hack)
+            switch (this.hack) {
+                case "neutral":
+                    this.hack = "neutral"
+                case "happy":
+                    this.hack = "glad"
+                case "sad":
+                    this.hack = "ledsen"
+                case "angry":
+                    this.hack = "arg"
+                case "fearful":
+                    this.hack = "rädd"
+                case "disgusted":
+                    this.hack = "äklad"
+                case "surprised":
+                    this.hack = "överraskad"
+                    break;
+                default:
+                    this.hack = "neutral"
+            }
+            //console.log(this.hack)
+            return <div><span style={largerText}>Du får 0 poäng! </span><div>Epi försökte vara {this.hack}</div></div>
         }
-      }
+    }
 
     // roundOff = (num, places) => {
     //   const x = Math.pow(10,places);
@@ -139,21 +163,21 @@ class Result extends React.Component {
     //         value: this.roundOff(faceRecEmotions[Object.keys(faceRecEmotions).reduce((a, b) => faceRecEmotions[a] > faceRecEmotions[b] ? a : b)] * 100, 2)};
     // }
 
-    renderEpiResults(){
+    renderEpiResults() {
         const sum = Object.entries(this.props.guessResults);
 
         sum.forEach(([key, value]) => {
-            summary.push({key: key, value: value});
+            summary.push({ key: key, value: value });
         })
 
-        let result = summary[summary.length -1];
+        let result = summary[summary.length - 1];
         console.log(result);
 
-        this.props.guessResults[this.props.guessResults.length -1].guesses[0].catId == this.props.guessResults[this.props.guessResults.length -1].epiEmotion.id ? correct = true : correct = false;
-        
+        this.props.guessResults[this.props.guessResults.length - 1].guesses[0].catId == this.props.guessResults[this.props.guessResults.length - 1].epiEmotion.id ? correct = true : correct = false;
+
         console.log(correct);
 
-        return(
+        return (
             <div>
                 <div>
                     <div style={summaryWrapper}>
@@ -172,18 +196,17 @@ class Result extends React.Component {
     render() {
         const expObject = this.props.expObject
 
-        for (const [key, value] of Object.entries(expObject[0].expOne)) {            
-            if(value.value > 0)
-            {
-                emotionData[0].expOne.push({'emotionCat': value.emotionCat, 'value': value.value})
+        for (const [key, value] of Object.entries(expObject[0].expOne)) {
+            if (value.value > 0) {
+                emotionData[0].expOne.push({ 'emotionCat': value.emotionCat, 'value': value.value })
                 emotionData[0].totVal += value.value;
             }
         }
 
-    return (
-        <div className="result-wrapper">
-            {/* <div>Epi är xxx% säker på att du är ***** på den här bilden!</div> */}
-            {/* <div>
+        return (
+            <div className="result-wrapper">
+                {/* <div>Epi är xxx% säker på att du är ***** på den här bilden!</div> */}
+                {/* <div>
                 <div style={epiResultWrapper}>
                     <div  style={resultImageWrapper}>
                         <img style={resultImage} src={this.getResultImage(this.props.faceRecEmotions)}/>
@@ -199,20 +222,20 @@ class Result extends React.Component {
                 </div>
             </div> */}
 
-            <div className="epiEmotionRec">
-                {/* <div>Hur epi analyserade dina känslor</div> */}
-                {this.renderEpiResults()}
+                <div className="epiEmotionRec">
+                    {/* <div>Hur epi analyserade dina känslor</div> */}
+                    {this.renderEpiResults()}
+                </div>
+
+                <div className="jumbotron text-center" style={{ backgroundColor: 'white' }}>
+                    <button style={buttonRed} onClick={(e) => this.handleClick(e, '/Summary')} type="submit" className="btn">Avsluta och visa resultat</button>
+                    <button style={buttonStyle} disabled={this.disableButton()} onClick={(e) => this.newEmotion(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Nästa runda</button>
+                    {/* <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-primary">Avsluta</button>   */}
+                </div>
+
             </div>
 
-            <div className="jumbotron text-center" style={{backgroundColor: 'white'}}>
-                <button style={buttonRed} onClick={(e) => this.handleClick(e, '/Summary')} type="submit" className="btn">Avsluta och visa resultat</button>  
-                <button style={buttonStyle} disabled={this.disableButton()} onClick={(e) => this.newEmotion(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Nästa runda</button>
-                {/* <button  onClick={(e) => this.exitExperiment(e)} type="submit" className="btn btn-primary">Avsluta</button>   */}
-            </div>
-
-        </div>
-        
-    );
+        );
     }
 }
 
