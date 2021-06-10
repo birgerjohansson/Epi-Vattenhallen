@@ -58,3 +58,9 @@ Start the web app
 `
 npm start
 `
+
+Connect to app using firefox using 
+
+`
+localhost:3000
+`
