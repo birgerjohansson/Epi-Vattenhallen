@@ -1,4 +1,6 @@
-# Mac mini (Epi)
+# Installation instructions
+
+## Mac mini (Epi)
 
 Create Code directory
 
