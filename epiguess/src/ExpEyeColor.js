@@ -20,7 +20,8 @@ const choosewrapper = {
 
 const experimentOptions = {
     maxWidth: '70%',
-    marginLeft: '150px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     paddingTop: '30px'
 }
 
