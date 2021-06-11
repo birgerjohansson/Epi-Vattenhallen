@@ -27,11 +27,11 @@ const images = [
         original: '/images/anger4.jpg',
         thumbnail: '/images/anger4.jpg',
     },
-    {
-        id: 5,
-        original: '/images/stock_disgusted2.jpg',
-        thumbnail: '/images/stock_disgusted2.jpg',
-    },
+    // {
+    //     id: 5,
+    //     original: '/images/stock_disgusted2.jpg',
+    //     thumbnail: '/images/stock_disgusted2.jpg',
+    // },
     {
         id: 6,
         original: '/images/disgust1.jpg',
@@ -88,11 +88,11 @@ const images = [
         original: '/images/surprise1.jpg',
         thumbnail: '/images/surprise1.jpg',
     },
-    {
-        id: 16,
-        original: '/images/surprise2.jpg',
-        thumbnail: '/images/surprise2.jpg',
-    },
+    // {
+    //     id: 16,
+    //     original: '/images/surprise2.jpg',
+    //     thumbnail: '/images/surprise2.jpg',
+    // },
     {
         id: 16,
         original: '/images/surprise3.jpg',
