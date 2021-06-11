@@ -17,6 +17,7 @@ const infoWrapper = {
 
 
 const infoText = {
+    textAlign: 'center' ,
     paddingBottom: '40px',
     fontSize: '20px'
 }
