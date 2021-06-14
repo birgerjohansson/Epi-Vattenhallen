@@ -8,9 +8,10 @@ import { Button } from 'react-bootstrap';
 
 const imageWrapper = {
     display: 'inline-block',
+    float: 'left',
     textAlign: 'center',
     marginTop: '30px',
-    marginLeft: '100px'
+    //marginLeft: '100px',
 }
 
 const drawCanvas = {
@@ -18,7 +19,7 @@ const drawCanvas = {
     float: 'right',
     textAlign: 'center',
     marginTop: '30px',
-    marginRight: '100px'
+    //marginRight: '100px',
 }
 
 const imageStyle = {
@@ -46,7 +47,8 @@ const epiEmotionBar = {
 }
 
 const epiGuessWrapper = {
-    // display: 'flex'
+    //display: 'float-left'
+    height: '400px'
 }
 
 const buttonStyle = {

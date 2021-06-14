@@ -113,36 +113,34 @@ class Result extends React.Component {
     componentDidMount() {
         console.log(this.props.guessResults);
     }
+    getSwedishName(e) {
 
+        switch (e) {
+            case "neutral":
+                return ("neutral")
+            case "happy":
+                return ("glad")
+            case "sad":
+                return ("ledsen")
+            case "angry":
+                return ("arg")
+            case "fearful":
+                return ("rädd")
+            case "disgusted":
+                return ("äklad")
+            case "surprised":
+                return ("överraskad")
+                break;
+            default:
+                return ("neutral")
+        }
+    }
     renderResult = () => {
         if (correct) {
             return <div>Det var rätt!<div style={largerText}>Du får 1 poäng!</div></div>
         } else {
-            // Superhack!
-            this.hack = this.props.guessResults[this.props.guessResults.length - 1].epiEmotion.faceRecEmotion
-            //console.log({this.props.guessResults[this.props.guessResults.length -1].epiEmotion.faceRecEmotion})
-            //console.log(this.hack)
-            switch (this.hack) {
-                case "neutral":
-                    this.hack = "neutral"
-                case "happy":
-                    this.hack = "glad"
-                case "sad":
-                    this.hack = "ledsen"
-                case "angry":
-                    this.hack = "arg"
-                case "fearful":
-                    this.hack = "rädd"
-                case "disgusted":
-                    this.hack = "äklad"
-                case "surprised":
-                    this.hack = "överraskad"
-                    break;
-                default:
-                    this.hack = "neutral"
-            }
-            //console.log(this.hack)
-            return <div><span style={largerText}>Du får 0 poäng! </span><div>Epi försökte vara {this.hack}</div></div>
+            return <div><span style={largerText}>Du får 0 poäng! </span><div>Epi försökte vara {this.getSwedishName(this.props.guessResults[this.props.guessResults.length - 1].epiEmotion.faceRecEmotion)}</div></div>
+            //return <div><span style={largerText}>Du får 0 poäng! </span><div>Epi försökte vara {this.props.guessResults[this.props.guessResults.length - 1].epiEmotion.faceRecEmotion}</div></div>
         }
     }
 

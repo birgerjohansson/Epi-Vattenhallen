@@ -9,7 +9,7 @@ export const objectList = [
         value: 0,
         barColor: "#FB525A",
         emotions: [
-            {id: 11, catId: 1,  emotion: 'Arg', boolean: false}//,
+            {id: 11, catId: 1,  emotion: 'arg', boolean: false}//,
             // {id: 12, catId: 1,  emotion: 'Hotad', boolean: false},
             // {id: 13, catId: 1,  emotion: 'Stött', boolean: false}
         ],
@@ -26,7 +26,7 @@ export const objectList = [
         barColor: "#FFD65D",
         value: 0,
         emotions: [
-            {id: 14, catId: 2, emotion: 'Glad', boolean: false}//,
+            {id: 14, catId: 2, emotion: 'glad', boolean: false}//,
             // {id: 15, catId: 2, emotion: 'Begeistrad', boolean: false},
             // {id: 16, catId: 2, emotion: 'Självsäker', boolean: false}
         ],
@@ -43,7 +43,7 @@ export const objectList = [
         value: 0,
         barColor: "#2884C6",
         emotions: [
-            {id: 17, catId: 3,  emotion: 'Ledsen', boolean: false}//,
+            {id: 17, catId: 3,  emotion: 'ledsen', boolean: false}//,
             // {id: 18, catId: 3,  emotion: 'Sårad', boolean: false},
             // {id: 19, catId: 3,  emotion: 'Ensam', boolean: false}
         ],
@@ -60,7 +60,7 @@ export const objectList = [
         value: 0,
         barColor: "#67F4D8",
         emotions: [
-            {id: 20, catId: 4,  emotion: 'Överaskad', boolean: false}//,
+            {id: 20, catId: 4,  emotion: 'överraskad', boolean: false}//,
             // {id: 21, catId: 4,  emotion: 'Förvånad', boolean: false},
             // {id: 22, catId: 4,  emotion: 'Uppskrämd', boolean: false}
         ],
@@ -77,7 +77,7 @@ export const objectList = [
         value: 0,
         barColor: "#784DA3",
         emotions: [
-            {id: 23, catId: 5,  emotion: 'Rädd', boolean: false}//,
+            {id: 23, catId: 5,  emotion: 'rädd', boolean: false}//,
             // {id: 24, catId: 5,  emotion: 'Orolig', boolean: false},
             // {id: 25, catId: 5,  emotion: 'Osäker', boolean: false}
         ],
@@ -94,7 +94,7 @@ export const objectList = [
         value: 0,
         barColor: "#3CA938",
         emotions: [
-            {id: 26, catId: 6,  emotion: 'Äcklad', boolean: false}//,
+            {id: 26, catId: 6,  emotion: 'äcklad', boolean: false}//,
             // {id: 27, catId: 6,  emotion: 'Förnärmad', boolean: false},
             // {id: 28, catId: 6,  emotion: 'Motvillig', boolean: false}
         ],
@@ -111,7 +111,7 @@ export const objectList = [
         value: 0,
         barColor: "#FFFFFF",
         emotions: [
-            {id: 29, catId: 7,  emotion: 'Neutral', boolean: false}//,
+            {id: 29, catId: 7,  emotion: 'neutral', boolean: false}//,
             // {id: 30, catId: 7,  emotion: 'Likgiltig', boolean: false}
         ],
         resultImages: [

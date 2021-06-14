@@ -27,15 +27,15 @@ const summaryImageEpi = {
 }
 
 const summaryGuess = {
-    display: 'inline-block'
+    //display: 'inline-block'
 }
 
 const score = {
-    display: 'inline-block',
-    width: '50%',
+    //display: 'inline-block',
+    //width: '50%',
     fontWeight: 'bold',
-    textAlign: 'left',
-    paddingBottom: '30px'
+    //textAlign: 'left',
+    paddingBottom: '30px',
 }
 
 const finalScore = {
@@ -48,7 +48,7 @@ const finalScore = {
 
 const answerWrapper = {
     display: 'inline-block',
-    maxWidth: '200px',
+    maxWidth: '250px',
     textAlign: 'left',
     paddingLeft: '25px'
 }
@@ -69,16 +69,16 @@ var userResultCount = 0;
 var totalCount = 0;
 
 class Summary extends React.Component {
-    constructor(props){
+    constructor(props) {
         super();
     }
 
-    componentDidMount(){
+    componentDidMount() {
         // console.log(this.props.guessResults);
     }
 
-    calcEpiResults = () =>{
-        
+    calcEpiResults = () => {
+
     }
 
     exitExperiment = (event) => {
@@ -86,63 +86,84 @@ class Summary extends React.Component {
         this.props.history.push('/')
     }
 
-    getHighestEmotion(faceRecEmotions){
+    getHighestEmotion(faceRecEmotions) {
         return Object.keys(faceRecEmotions).reduce((a, b) => faceRecEmotions[a] > faceRecEmotions[b] ? a : b);
     }
 
-    renderEpiResult = (epiGuess)=>{
+    getSwedishName(e) {
+
+        switch (e) {
+            case "neutral":
+                return ("neutral")
+            case "happy":
+                return ("glad")
+            case "sad":
+                return ("ledsen")
+            case "angry":
+                return ("arg")
+            case "fearful":
+                return ("rädd")
+            case "disgusted":
+                return ("äklad")
+            case "surprised":
+                return ("överraskad")
+                break;
+            default:
+                return ("neutral")
+        }
+    }
+    renderEpiResult = (epiGuess) => {
         // console.log(epiGuess);
-        if(epiGuess == true){
-          return <div>Du angav: rätt!<div>Poäng: 1</div></div>
-        } else{
-          return <div>Du angav: fel!<div>Poäng: 0</div></div>
+        if (epiGuess == true) {
+            return <div>Du angav: rätt!<div>Poäng: 1</div></div>
+        } else {
+            return <div>Du angav: fel!<div>Poäng: 0</div></div>
         }
     }
 
-    renderUserResult = (userGuess)=>{
+    renderUserResult = (userGuess) => {
         console.log(userGuess);
-        if(userGuess.value.guesses[0].catId == userGuess.value.epiEmotion.id){
+        if (userGuess.value.guesses[0].catId == userGuess.value.epiEmotion.id) {
             return <div>Poäng: 1</div>
-        } else{
-            return <div><div>Epi försökte vara: {userGuess.value.epiEmotion.faceRecEmotion}</div>Poäng: 0</div>
+        } else {
+            return <div><div>men Epi försökte vara <b>{this.getSwedishName(userGuess.value.epiEmotion.faceRecEmotion)}</b></div>Poäng: 0</div>
         }
     }
 
-    renderResultSummary(){
+    renderResultSummary() {
         const sum = Object.entries(this.props.guessResults);
 
         sum.forEach(([key, value]) => {
-            summary.push({key: key, value: value});
+            summary.push({ key: key, value: value });
         })
 
         this.props.guessResults.forEach(result => {
             // console.log(result.epiGuess);
-            if(result.epiGuess == true) epiResultCount += 1;
-            if(result.guesses[0].catId == result.epiEmotion.id) userResultCount += 1;
+            if (result.epiGuess == true) epiResultCount += 1;
+            if (result.guesses[0].catId == result.epiEmotion.id) userResultCount += 1;
         })
 
-        return(
+        return (
             <div>
                 <div>
-                    {summary.map((item) => ( 
+                    {summary.map((item) => (
                         <div style={summaryWrapper}>
                             <img style={summaryImage} src={item.value.selectedImage} />
                             <div style={answerWrapper}>
-                                <div style={summaryGuess}>Epi gissade: {this.getHighestEmotion(item.value.faceRecEmotions)}</div>
+                                <div style={summaryGuess}>Epi gissade på <b>{this.getSwedishName(this.getHighestEmotion(item.value.faceRecEmotions))}</b></div>
                                 <div style={summaryGuess}>{this.renderEpiResult(item.value.epiGuess)}</div>
                             </div>
                             <img style={summaryImageEpi} src={item.value.epiEmotion.resultImages[0].src} />
                             <div style={answerWrapper}>
-                                <div style={summaryGuess}>Du gissade: {item.value.guesses[0].emotion}</div>
+                                <div style={summaryGuess}>Du gissade på <b>{item.value.guesses[0].emotion}</b></div>
                                 <div style={summaryGuess}>{this.renderUserResult(item)}</div>
                             </div>
                         </div>
                     ))}
                 </div>
-                <div>
-                    <div style={score}>Epi gissade rätt på {epiResultCount} av {this.props.guessResults.length} emotioner</div>
-                    <div style={score}>Du gissade rätt på {userResultCount} av {this.props.guessResults.length} emotioner</div>
-                    
+                <div style={score} >
+                    Epi gissade rätt på {epiResultCount} av {this.props.guessResults.length} emotioner
+                    och du gissade rätt på {userResultCount} av {this.props.guessResults.length} emotioner
                 </div>
             </div>
         )
@@ -152,18 +173,18 @@ class Summary extends React.Component {
         return (
             <div style={summaryMainWrapper}>
                 <div style={summaryHeader}>
-                    Sammanfattning av dina och Epi´s gissningar:
+                    Sammanfattning av dina och Epis gissningar:
                 </div>
                 <div>
                     {this.renderResultSummary()}
                 </div>
                 <div className="jumbotron text-center stickyfooter" style={exitButton}>
                     <div style={finalScore}>Tillsammans fick ni {epiResultCount + userResultCount} av {this.props.guessResults.length * 2} poäng, bra jobbat!</div>
-                    <button  onClick={(e) => window.location.href = "http://localhost:3000/"} className="btn btn-primary">Avsluta</button>
+                    <button onClick={(e) => window.location.href = "http://localhost:3000/"} className="btn btn-primary">Avsluta</button>
                 </div>
             </div>
-            );
-        }
+        );
     }
+}
 
 export default Summary;

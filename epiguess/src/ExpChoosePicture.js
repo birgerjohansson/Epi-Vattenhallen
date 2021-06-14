@@ -5,6 +5,7 @@ import {Carousel} from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import $ from 'jquery';
 
+
 const images = [
     {
       id: 1,
@@ -141,7 +142,7 @@ class ExpChoosePicture extends React.Component{
 
     render() {
         return (
-            <div>
+            <div style={{maxWidth : '80%', marginLeft : 'auto',marginRight : 'auto' }} >
                 <div className="CarouselWrapper">
                     <Carousel swipeable={true} showArrows={true}>
                         {images.map((image, index) => {
