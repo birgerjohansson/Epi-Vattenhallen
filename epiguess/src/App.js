@@ -56,10 +56,10 @@ class App extends React.Component {
   //Application mount and the emotionObjects is imported and set this.state (emotionsObject)
   componentDidMount() {
     let emotionsObject = new EmotionObject();
-    //const data = objectList;
-    // const mapRows = data.map(emotion => (
-    //   emotionsObject.addEmotion(emotion.id, emotion.emotionCat, emotion.emotions, emotion.boolean, emotion.value, emotion.faceRecEmotion, emotion.barColor, emotion.resultImages)
-    // ));
+    const data = objectList;
+    const mapRows = data.map(emotion => (
+      emotionsObject.addEmotion(emotion.id, emotion.emotionCat, emotion.emotions, emotion.boolean, emotion.value, emotion.faceRecEmotion, emotion.barColor, emotion.resultImages)
+    ));
 
     //set list of emotions, select on at random and remove it from the original list so that it
     //wont be chosen again.
@@ -174,10 +174,10 @@ class App extends React.Component {
   // in this method if DB were to used the counter would also be increased
   startExp = () => {
     let newExpObject = new ExpObject();
-    //const data = this.state.emotionsObject;
-    // const mapRows = data.map(emotion => (
-    //   newExpObject.addEmotionObject(1, ({ id: emotion.id, emotionCat: emotion.emotionCat, boolean: emotion.boolean, value: emotion.value, emotions: [] }))
-    // ));
+    const data = this.state.emotionsObject;
+    const mapRows = data.map(emotion => (
+      newExpObject.addEmotionObject(1, ({ id: emotion.id, emotionCat: emotion.emotionCat, boolean: emotion.boolean, value: emotion.value, emotions: [] }))
+    ));
 
     let randomEmotion = Math.floor(Math.random() * objectList.length + 1);
     this.setState({
