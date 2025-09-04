@@ -34,6 +34,11 @@ Setting up node.js and extensions
 brew install node
 `
 
+brew install nvm
+nvm install 16
+nvm use 16
+npm install
+
 Install node dependings in depending.txt
 
 Cloning webapp
