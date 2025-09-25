@@ -37,7 +37,6 @@ brew install node
 brew install nvm
 nvm install 16
 nvm use 16
-npm install
 
 Install node dependings in depending.txt
 
@@ -45,8 +44,13 @@ Cloning webapp
 
 `
 git clone https://github.com/birgerjohansson/Epi-Vattenhallen.git
+cd Epi-Vattenhallen/epiguess
 `
 
+`
+Install dependencis 
+npm install
+`
 Start fadecandy server
 `
 ./fcserver
