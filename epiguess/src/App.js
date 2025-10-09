@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import robot_image from './images/robot_illu3.png';
 import './App.css';
 import EmotionObject from './EmotionObject';
@@ -28,8 +29,6 @@ import { zeros } from '@tensorflow/tfjs-core';
 //emotionDisplay will store the emotion category acting as basis for the interaction
 //counter only necessary if DB
 //currentState will keep track on the view/state
-
-
 
 class App extends React.Component {
   constructor(props) {
@@ -303,9 +302,6 @@ class App extends React.Component {
               {/* <Route path='/PrevResult' component={prevResultElem}/> */}
               <Route path='/Result' component={resultElem} />
               <Route path='/Summary' component={summaryElem} />
-              <Route path="*">
-    <Redirect to="/" />
-  </Route>
             </Switch>
           </div>
         </div>
