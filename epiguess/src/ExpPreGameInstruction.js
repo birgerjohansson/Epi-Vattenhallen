@@ -119,6 +119,7 @@ class ExpPreGameInstruction extends React.Component{
         disableButton = true;
         hasAnswered = null;
         canvasReady = false;
+        hasRenderedCanvas = false; // Make sure the canvas in not rendered if faceAPI not done.
 
         this.drawCanvas();
     }
