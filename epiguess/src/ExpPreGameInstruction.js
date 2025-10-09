@@ -215,12 +215,22 @@ class ExpPreGameInstruction extends React.Component{
     
 
     async drawCanvas() {
-        await faceapi.nets.ssdMobilenetv1.loadFromUri('/models');
-        await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
-        await faceapi.nets.faceExpressionNet.loadFromUri('/models');
-        // const image = await faceapi.fetchImage('/images/stock_disgusted2.jpg');
+        try {
+            await faceapi.nets.ssdMobilenetv1.loadFromUri('/models');
+            await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
+            await faceapi.nets.faceExpressionNet.loadFromUri('/models');
+            
+            // Kontrollera att selectedImage finns
+            if (!this.props.selectedImage) {
+                console.error('Ingen bild vald (selectedImage är tom)');
+                // Använd en fallback-bild eller sätt standard emotions
+                emotions = {neutral: 1.0, happy: 0.0, sad: 0.0, angry: 0.0, fearful: 0.0, disgusted: 0.0, surprised: 0.0};
+                canvasReady = true;
+                this.props.callbackFromParent(emotions);
+                return;
+            }
 
-        const image = await faceapi.fetchImage(this.props.selectedImage);
+            const image = await faceapi.fetchImage(this.props.selectedImage);
         
         canvas = faceapi.createCanvasFromMedia(image);
 
@@ -252,6 +262,14 @@ class ExpPreGameInstruction extends React.Component{
 			canvasReady = true;
 		}
         this.props.callbackFromParent(emotions);
+        
+        } catch (error) {
+            console.error('Fel vid bildanalys:', error);
+            // Sätt standard emotions vid fel
+            emotions = {neutral: 1.0, happy: 0.0, sad: 0.0, angry: 0.0, fearful: 0.0, disgusted: 0.0, surprised: 0.0};
+            canvasReady = true;
+            this.props.callbackFromParent(emotions);
+        }
         // this.renderCanvas();
         // faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
     }
@@ -292,6 +310,12 @@ class ExpPreGameInstruction extends React.Component{
     }
 
     render() {
+        // Säkerhetscheck: Om ingen bild är vald, starta om hela spelet
+        if (!this.props.selectedImage) {
+            window.location.href = '/';
+            return null;
+        }
+
         if(canvasReady){
         return (
             <div>
