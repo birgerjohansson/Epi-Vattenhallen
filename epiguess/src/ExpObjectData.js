@@ -14,9 +14,9 @@ export const objectList = [
             // {id: 13, catId: 1,  emotion: 'Stött', boolean: false}
         ],
         resultImages: [
-            {id: 1, order: 1, src: '/images/Arg3.jpg', emVidSrc: '/videos/Arg3.mp4'} // arg3 is shown in the result screen but video is not used.
+            {id: 1, order: 1, src: '/images/Arg3.jpg', emVidSrc: '/videos/Arg3.mp4'}
         ],
-        epiRecID: 1 // Corresponds to Epi's internal sequence id for anger
+        epiRecID: 1
     },
     { 
         id: 2, 
