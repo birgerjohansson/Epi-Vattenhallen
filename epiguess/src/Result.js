@@ -90,10 +90,20 @@ class Result extends React.Component {
     }
 
     handleClick = (event, path) => {
+        // Kontrollera att props är satta innan vi fortsätter
+        if (!this.validateProps()) {
+            return;
+        }
+
         this.props.history.push(path);
     }
 
     disableButton = () => {
+        // Kontrollera att props är satta innan vi fortsätter
+        if (!this.validateProps()) {
+            return true; // Disable button om props saknas
+        }
+
         if (this.props.emotionsList.length === 0)
             return true;
         else
@@ -101,17 +111,55 @@ class Result extends React.Component {
     }
 
     exitExperiment = (event) => {
+        // Kontrollera att props är satta innan vi fortsätter
+        if (!this.validateProps()) {
+            return;
+        }
+
         this.props.callbackFromParent();
         this.props.history.push('/')
     }
 
     newEmotion = (event, path) => {
+        // Kontrollera att props är satta innan vi fortsätter
+        if (!this.validateProps()) {
+            return;
+        }
+
         this.props.callbackSetNewEmotion();
         this.props.history.push(path);
     }
 
     componentDidMount() {
         console.log(this.props.guessResults);
+        this.validateProps();
+    }
+
+    // Kontrollera att alla nödvändiga props är satta
+    validateProps = () => {
+        if (!this.props || 
+            !this.props.history || 
+            !this.props.emotionsList || 
+            !Array.isArray(this.props.emotionsList) ||
+            !this.props.guessResults || 
+            !Array.isArray(this.props.guessResults) ||
+            this.props.guessResults.length === 0 ||
+            !this.props.expObject ||
+            !Array.isArray(this.props.expObject) ||
+            this.props.expObject.length === 0 ||
+            !this.props.expObject[0] ||
+            !this.props.expObject[0].expOne ||
+            !this.props.callbackFromParent ||
+            !this.props.callbackSetNewEmotion) {
+            console.warn('Saknade eller felaktig props struktur i Result komponenten, omdirigerar till startsidan');
+            if (this.props && this.props.history) {
+                this.props.history.push('/');
+            } else {
+                window.location.href = '/';
+            }
+            return false;
+        }
+        return true;
     }
     getSwedishName(e) {
 
@@ -136,6 +184,11 @@ class Result extends React.Component {
         }
     }
     renderResult = () => {
+        // Kontrollera att props är satta innan vi fortsätter
+        if (!this.validateProps()) {
+            return <div>Laddar...</div>;
+        }
+
         if (correct) {
             return <div>Det var rätt!<div style={largerText}>Du får 1 poäng!</div></div>
         } else {
@@ -162,6 +215,11 @@ class Result extends React.Component {
     // }
 
     renderEpiResults() {
+        // Kontrollera att props är satta innan vi fortsätter
+        if (!this.validateProps()) {
+            return <div>Laddar...</div>;
+        }
+
         const sum = Object.entries(this.props.guessResults);
 
         sum.forEach(([key, value]) => {
@@ -192,6 +250,11 @@ class Result extends React.Component {
     }
 
     render() {
+        // Kontrollera att props är satta innan vi fortsätter
+        if (!this.validateProps()) {
+            return <div style={summaryWrapper}>Laddar...</div>;
+        }
+
         const expObject = this.props.expObject
 
         for (const [key, value] of Object.entries(expObject[0].expOne)) {
