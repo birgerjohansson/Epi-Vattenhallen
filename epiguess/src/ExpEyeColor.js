@@ -55,6 +55,30 @@ class ExpEyeColor extends React.Component{
 
     componentDidMount() {
         selectedCount = 0;
+        this.validateProps();
+    }
+
+    // Kontrollera att alla nödvändiga props är satta
+    validateProps = () => {
+        if (!this.props || 
+            !this.props.history || 
+            !this.props.emotionsObject || 
+            !this.props.expObject || 
+            !Array.isArray(this.props.expObject) ||
+            this.props.expObject.length === 0 ||
+            !this.props.expObject[0] ||
+            !this.props.expObject[0].expOne ||
+            !this.props.callbackFromParent || 
+            !this.props.callbackFromParentExit) {
+            console.warn('Saknade eller felaktig props struktur i ExpEyeColor komponenten, omdirigerar till startsidan');
+            if (this.props && this.props.history) {
+                this.props.history.push('/');
+            } else {
+                window.location.href = '/';
+            }
+            return false;
+        }
+        return true;
     }
 
 
@@ -69,6 +93,11 @@ class ExpEyeColor extends React.Component{
 
     //Transition to the next path/state
     handleClick = (event, path) => {
+        // Kontrollera att props är satta innan vi fortsätter
+        if (!this.validateProps()) {
+            return;
+        }
+
         this.props.history.push(path);
     }
 
@@ -101,6 +130,11 @@ class ExpEyeColor extends React.Component{
     // }
 
     handleEmotionChange = (emotion, emotionId) => {
+        // Kontrollera att props är satta innan vi fortsätter
+        if (!this.validateProps()) {
+            return;
+        }
+
         // console.log(emotion);
         // console.log(emotionId);
         // console.log(emotionId);
@@ -131,6 +165,11 @@ class ExpEyeColor extends React.Component{
 
     //Simply render the different emotionsObject received from the parent
     renderItems = () => {
+        // Kontrollera att props är satta innan vi fortsätter
+        if (!this.validateProps()) {
+            return <div>Laddar...</div>;
+        }
+
         const data = this.props.emotionsObject;
         const mapRows = data.map(emotionObj => (
             emotionObj.emotions.map(emotion => (
@@ -149,6 +188,11 @@ class ExpEyeColor extends React.Component{
 
     //Trigger parent method exiExp() and return to home-page
     exitExperiment = (event) => {
+        // Kontrollera att props är satta innan vi fortsätter
+        if (!this.validateProps()) {
+            return;
+        }
+
         this.props.callbackFromParentExit();
         this.props.history.push('/')
     }
