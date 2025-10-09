@@ -75,6 +75,26 @@ class Summary extends React.Component {
 
     componentDidMount() {
         // console.log(this.props.guessResults);
+        this.validateProps();
+    }
+
+    // Kontrollera att alla nödvändiga props är satta
+    validateProps = () => {
+        if (!this.props || 
+            !this.props.history || 
+            !this.props.guessResults || 
+            !Array.isArray(this.props.guessResults) ||
+            this.props.guessResults.length === 0 ||
+            !this.props.callbackFromParent) {
+            console.warn('Saknade eller felaktig props struktur i Summary komponenten, omdirigerar till startsidan');
+            if (this.props && this.props.history) {
+                this.props.history.push('/');
+            } else {
+                window.location.href = '/';
+            }
+            return false;
+        }
+        return true;
     }
 
     calcEpiResults = () => {
@@ -82,6 +102,11 @@ class Summary extends React.Component {
     }
 
     exitExperiment = (event) => {
+        // Kontrollera att props är satta innan vi fortsätter
+        if (!this.validateProps()) {
+            return;
+        }
+
         this.props.callbackFromParent();
         this.props.history.push('/')
     }
@@ -131,6 +156,11 @@ class Summary extends React.Component {
     }
 
     renderResultSummary() {
+        // Kontrollera att props är satta innan vi fortsätter
+        if (!this.validateProps()) {
+            return <div>Laddar...</div>;
+        }
+
         const sum = Object.entries(this.props.guessResults);
 
         sum.forEach(([key, value]) => {
