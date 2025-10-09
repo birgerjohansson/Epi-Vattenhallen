@@ -1,23 +1,23 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-//import robot_image from './images/robot_illu3.png';
+import robot_image from './images/robot_illu3.png';
 import './App.css';
 import EmotionObject from './EmotionObject';
 import ExpObject from './ExpObject';
 import ExpEyeColor from './ExpEyeColor';
-//import ExpPupilSize from './ExpPupilSize';
-//import ExpPupilOrientation from './ExpPupilOrientation';
+import ExpPupilSize from './ExpPupilSize';
+import ExpPupilOrientation from './ExpPupilOrientation';
 import { objectList } from './ExpObjectData';
 import ExpMain from './ExpMain';
-//import PrevResult from './PrevResult';
+import PrevResult from './PrevResult';
 import Result from './Result';
 import Summary from './Summary';
 import ExpChoosePicture from './ExpChoosePicture';
 import ExpPreGameInstruction from './ExpPreGameInstruction';
 import ExpTakePicture from './ExpTakePicture';
 import ExpSelectApproach from './ExpSelectApproach';
-//import { ConsoleWriter } from 'istanbul-lib-report';
-//import { zeros } from '@tensorflow/tfjs-core';
+import { ConsoleWriter } from 'istanbul-lib-report';
+import { zeros } from '@tensorflow/tfjs-core';
 
 
 
@@ -45,10 +45,10 @@ class App extends React.Component {
   //Application mount and the emotionObjects is imported and set this.state (emotionsObject)
   componentDidMount() {
     let emotionsObject = new EmotionObject();
-    //const data = objectList;
-    // const mapRows = data.map(emotion => (
-    //   emotionsObject.addEmotion(emotion.id, emotion.emotionCat, emotion.emotions, emotion.boolean, emotion.value, emotion.faceRecEmotion, emotion.barColor, emotion.resultImages)
-    // ));
+    const data = objectList;
+    const mapRows = data.map(emotion => (
+      emotionsObject.addEmotion(emotion.id, emotion.emotionCat, emotion.emotions, emotion.boolean, emotion.value, emotion.faceRecEmotion, emotion.barColor, emotion.resultImages)
+    ));
 
     //set list of emotions, select on at random and remove it from the original list so that it
     //wont be chosen again.
@@ -69,10 +69,10 @@ class App extends React.Component {
   setNewEmotion = () => {
 
     let newExpObject = new ExpObject();
-    //const data = this.state.emotionsObject;
-    // const mapRows = data.map(emotion => (
-    //   newExpObject.addEmotionObject(1, ({ id: emotion.id, emotionCat: emotion.emotionCat, boolean: emotion.boolean, value: emotion.value, emotions: [] }))
-    // ));
+    const data = this.state.emotionsObject;
+    const mapRows = data.map(emotion => (
+      newExpObject.addEmotionObject(1, ({ id: emotion.id, emotionCat: emotion.emotionCat, boolean: emotion.boolean, value: emotion.value, emotions: [] }))
+    ));
 
 
     var emotionsList = [...this.state.emotionsList];
@@ -127,7 +127,7 @@ class App extends React.Component {
   }
   stopEmotion = () => {
 
-    //var currEmotion = this.state.currentEmotion.epiRecID;
+    var currEmotion = this.state.currentEmotion.epiRecID;
     console.log('Trigger emotion STOP')
 
     var i;
@@ -149,10 +149,10 @@ class App extends React.Component {
   // in this method if DB were to used the counter would also be increased
   startExp = () => {
     let newExpObject = new ExpObject();
-    //const data = this.state.emotionsObject;
-    // const mapRows = data.map(emotion => (
-    //   newExpObject.addEmotionObject(1, ({ id: emotion.id, emotionCat: emotion.emotionCat, boolean: emotion.boolean, value: emotion.value, emotions: [] }))
-    // ));
+    const data = this.state.emotionsObject;
+    const mapRows = data.map(emotion => (
+      newExpObject.addEmotionObject(1, ({ id: emotion.id, emotionCat: emotion.emotionCat, boolean: emotion.boolean, value: emotion.value, emotions: [] }))
+    ));
 
     let randomEmotion = Math.floor((Math.random() * objectList.length) + 1);
     this.setState({ expObject: newExpObject.expObject, emotionDisplay: randomEmotion });
@@ -261,7 +261,7 @@ class App extends React.Component {
     //this.setState({emotionsObject: emotionsObject.emotionsObject, currentEmotion: emotion, emotionsList: emotionsList});
     let emotionsList = this.state.emotionsList;
 
-    //let currentEmotion = this.state.currentEmotion;
+    let currentEmotion = this.state.currentEmotion;
     let guessResults = this.state.guessResults;
 
     const expEyeColorElem = (params) => <ExpEyeColor {...params} expObject={experiment} emotionsObject={emotions} currentState={stateValue} emotionDisplay={emDisplay} callbackFromParent={this.updateExp} callbackFromParentExit={this.exitExp} />;
