@@ -253,7 +253,7 @@ class ProcessManager(QMainWindow):
         time.sleep(1)
         
         try:
-            self.log_message("Startar ./fcserver...")
+            self.log_message("Startar fcserver...")
             self.fcserver_process = subprocess.Popen(
                 ["/Users/birger/Code/fadecandy/server/fcserver"],
                 stdout=subprocess.PIPE,
@@ -265,7 +265,7 @@ class ProcessManager(QMainWindow):
             self.log_message(f"✗ Fel vid start av fcserver: {e}")
         
         try:
-            self.log_message("Startar ./ikaros...")
+            self.log_message("Startar ikaros...")
             self.ikaros_process = subprocess.Popen(
                 [
                     "/Users/birger/Code/ikaros-2/Bin/ikaros",
