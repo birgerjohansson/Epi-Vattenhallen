@@ -185,17 +185,20 @@ class App extends React.Component {
     var guessResults = [...this.state.guessResults];
 
 
-    console.log(guessResults);
-    console.log(guessResults[guessResults.length - 1].guesses);
+    // console.log(guessResults);
+    // console.log(guessResults[guessResults.length - 1].guesses);
+    console.log('selected Emotion updateExp');
     console.log(selectedEmotion);
 
-    // var selectedGuess = expNumberObject.filter(obj => {
-    //   return obj.value > 0
-    // })    
-    // console.log(selectedGuess);
+    console.log('Guess results');
+    console.log(guessResults);
 
-    // guessResults[guessResults.length -1].guess = selectedGuess[0]; //ev ändra om man skall kunna gissa på flera
-    selectedEmotion.boolean ? guessResults[guessResults.length - 1].guesses.push(selectedEmotion) : guessResults[guessResults.length - 1].guesses.splice(guessResults[guessResults.length - 1].guesses.indexOf(selectedEmotion), 1);
+    // Den ursprungliga logiken är utkommenterad
+    // selectedEmotion.boolean ? guessResults[...].push(...) : guessResults[...].splice(...)
+
+    // Ny logik: Rensa alltid arrayen och lägg till den nya känslan
+    guessResults[guessResults.length - 1].guesses = [];
+    guessResults[guessResults.length - 1].guesses.push(selectedEmotion);
 
     this.setState(prevState => ({
       expObject: tempExp,
