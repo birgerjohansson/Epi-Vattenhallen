@@ -19,7 +19,7 @@ const choosewrapper = {
 }
 
 const experimentOptions = {
-    maxWidth: '70%',
+    maxWidth: '50%',
     marginLeft: 'auto',
     marginRight: 'auto',
     paddingTop: '30px'
@@ -129,38 +129,30 @@ class ExpEyeColor extends React.Component{
     //     this.forceUpdate();
     // }
 
-    handleEmotionChange = (emotion, emotionId) => {
-        // Kontrollera att props är satta innan vi fortsätter
-        if (!this.validateProps()) {
-            return;
-        }
-
-        // console.log(emotion);
-        // console.log(emotionId);
-        // console.log(emotionId);
-        // console.log(this.props.emotionsObject);
-        // console.log(this.props.expObject);
-        let tempEmotionsObj = [...this.props.emotionsObject];
-        // console.log(tempEmotionsObj);
+    handleEmotionChange = (selEmotion, emotionId) => {
+        let tempEmotionsObj = this.props.emotionsObject;  // INGEN kopia! Muterar direkt
         let tempExpObject = [...this.props.expObject[0].expOne];
-        // console.log(tempExpObject);
-        tempEmotionsObj.map(emObj =>{
-            emObj.emotions.map(emotion=>{
+        tempEmotionsObj.map(emObj => {
+            emObj.emotions.map(emotion => {
                 if (emotion.id === emotionId){
                     emotion.boolean = !emotion.boolean;
-                    tempExpObject.map(expEmotion =>{
+                    tempExpObject.map(expEmotion => {
                         if (expEmotion.emotionCat == emObj.emotionCat){
-                            // debugger;
                             emotion.boolean ? emotion.value += 1 : emotion.value -= 1;
-                            emotion.boolean ? selectedCount += 1 : selectedCount -= 1;
-                            console.log('selectedCount ' + selectedCount);
-                            this.props.callbackFromParent(tempExpObject, emotion);
+                            emotion.boolean ? console.log("true") : console.log("false");
+                            this.props.callbackFromParent(tempExpObject, selEmotion);
                         }
                     })
                 }
+                // ⚠️ NYTT: Avmarkera alla andra känslor
+                if(selEmotion.id != emotion.id)
+                    emotion.boolean = false
+                if(emotion.boolean)
+                    selectedCount += 1
+                
+                this.props.callbackFromParent(tempExpObject, selEmotion);  // Anropas MÅNGA gånger!
             })
         })
-        // this.forceUpdate();
     }
 
     //Simply render the different emotionsObject received from the parent
@@ -222,7 +214,7 @@ class ExpEyeColor extends React.Component{
                     <div style={chooseText}>Gissa vilken känsla Epi försökte visa!</div>
 
                     <div  style={experimentOptions} >
-                        <div onClick={(e) => this.handleEmotionChange(e)}>
+                        <div>
                             {this.renderItems()}
                         </div>
                     </div>
