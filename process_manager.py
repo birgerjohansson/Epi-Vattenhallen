@@ -186,8 +186,8 @@ class ProcessManager(QMainWindow):
             self.log_message("Startar ./ikaros...")
             self.ikaros_process = subprocess.Popen(
                 [
-                    "/Users/epi/Code/ikaros-2/Bin/ikaros",
-                    "/Users/epi/Code/ikaros-2/Projects/2021/Vattenhallen/EpiTorso/ExperimentSetup.ikg",
+                    "/Users/birger/Code/ikaros-2/Bin/ikaros",
+                    "/Users/birger/Code/ikaros-2/Projects/2021/Vattenhallen/EpiTorso/ExperimentSetup.ikg",
                     "-t",
                     "-r25"
                     "simulateRobot=True"
