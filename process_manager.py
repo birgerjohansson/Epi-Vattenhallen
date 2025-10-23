@@ -1,22 +1,26 @@
 #!/usr/bin/env python3
-import tkinter as tk
-from tkinter import ttk
+import sys
+from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, 
+                             QHBoxLayout, QLabel, QPushButton, QTextEdit, 
+                             QGroupBox, QFrame)
+from PyQt6.QtCore import QTimer, Qt
+from PyQt6.QtGui import QFont
 import subprocess
-import threading
 import signal
 import os
 import time
 from datetime import datetime
 
-class ProcessManager:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Process Manager")
-        self.root.geometry("400x300")
+class ProcessManager(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Epi start program")
+        self.setGeometry(100, 100, 500, 450)
         
         # Process handles
-        self.fcsercer_process = None
+        self.fcserver_process = None
         self.ikaros_process = None
+        self.npm_process = None
         
         # Flag för att stoppa status check
         self.running = True
@@ -24,79 +28,139 @@ class ProcessManager:
         # Skapa GUI
         self.create_widgets()
         
-        # Starta status update thread
-        self.status_thread = threading.Thread(target=self.update_status, daemon=True)
-        self.status_thread.start()
-        
-        # Hantera fönster stängning
-        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+        # Starta status update timer
+        self.status_timer = QTimer()
+        self.status_timer.timeout.connect(self.update_status)
+        self.status_timer.start(500)  # Uppdatera var 500ms
     
     def create_widgets(self):
         """Skapa GUI-komponenter"""
         
+        # Huvudwidget och layout
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        main_layout = QVBoxLayout(central_widget)
+        main_layout.setContentsMargins(10, 10, 10, 10)
+        main_layout.setSpacing(10)
+        
         # Titel
-        title_label = ttk.Label(self.root, text="Processhanterare", font=("Arial", 16, "bold"))
-        title_label.pack(pady=10)
+        title_label = QLabel("Processhanterare")
+        title_font = QFont("Arial", 16, QFont.Weight.Bold)
+        title_label.setFont(title_font)
+        title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        main_layout.addWidget(title_label)
         
-        # Frame för lysdioder och status
-        status_frame = ttk.LabelFrame(self.root, text="Status", padding=10)
-        status_frame.pack(padx=10, pady=10, fill="both", expand=True)
+        # Status GroupBox
+        status_group = QGroupBox("Status")
+        status_layout = QHBoxLayout()
+        status_layout.setSpacing(20)
+        status_group.setLayout(status_layout)
         
-        # ikaros lysdiod
-        ikaros_frame = ttk.Frame(status_frame)
-        ikaros_frame.pack(pady=10, fill="x")
+        # ikaros status
+        ikaros_frame = QWidget()
+        ikaros_layout = QVBoxLayout(ikaros_frame)
+        ikaros_layout.setContentsMargins(0, 0, 0, 0)
+        ikaros_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
-        ttk.Label(ikaros_frame, text="ikaros:").pack(side="left", padx=5)
-        self.ikaros_led = tk.Canvas(ikaros_frame, width=20, height=20, bg="white", relief="sunken", bd=1)
-        self.ikaros_led.pack(side="left", padx=5)
-        self.ikaros_status = ttk.Label(ikaros_frame, text="Stoppad", foreground="red")
-        self.ikaros_status.pack(side="left", padx=5)
+        ikaros_label = QLabel("Epi (ikaros)")
+        ikaros_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        ikaros_layout.addWidget(ikaros_label)
         
-        # fcsercer lysdiod
-        fcsercer_frame = ttk.Frame(status_frame)
-        fcsercer_frame.pack(pady=10, fill="x")
+        self.ikaros_led = QFrame()
+        self.ikaros_led.setFixedSize(30, 30)
+        self.ikaros_led.setFrameShape(QFrame.Shape.Box)
+        self.ikaros_led.setStyleSheet("background-color: red; border-radius: 15px; border: 1px solid gray;")
+        ikaros_layout.addWidget(self.ikaros_led, alignment=Qt.AlignmentFlag.AlignCenter)
         
-        ttk.Label(fcsercer_frame, text="fcsercer:").pack(side="left", padx=5)
-        self.fcsercer_led = tk.Canvas(fcsercer_frame, width=20, height=20, bg="white", relief="sunken", bd=1)
-        self.fcsercer_led.pack(side="left", padx=5)
-        self.fcsercer_status = ttk.Label(fcsercer_frame, text="Stoppad", foreground="red")
-        self.fcsercer_status.pack(side="left", padx=5)
+        self.ikaros_status = QLabel("Stoppad")
+        self.ikaros_status.setStyleSheet("color: red;")
+        self.ikaros_status.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        ikaros_layout.addWidget(self.ikaros_status)
+        
+        status_layout.addWidget(ikaros_frame)
+        
+        # fcserver status
+        fcserver_frame = QWidget()
+        fcserver_layout = QVBoxLayout(fcserver_frame)
+        fcserver_layout.setContentsMargins(0, 0, 0, 0)
+        fcserver_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        
+        fcserver_label = QLabel("Epi (fcserver)")
+        fcserver_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        fcserver_layout.addWidget(fcserver_label)
+        
+        self.fcserver_led = QFrame()
+        self.fcserver_led.setFixedSize(30, 30)
+        self.fcserver_led.setFrameShape(QFrame.Shape.Box)
+        self.fcserver_led.setStyleSheet("background-color: red; border-radius: 15px; border: 1px solid gray;")
+        fcserver_layout.addWidget(self.fcserver_led, alignment=Qt.AlignmentFlag.AlignCenter)
+        
+        self.fcserver_status = QLabel("Stoppad")
+        self.fcserver_status.setStyleSheet("color: red;")
+        self.fcserver_status.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        fcserver_layout.addWidget(self.fcserver_status)
+        
+        status_layout.addWidget(fcserver_frame)
+        
+        # npm start status
+        npm_frame = QWidget()
+        npm_layout = QVBoxLayout(npm_frame)
+        npm_layout.setContentsMargins(0, 0, 0, 0)
+        npm_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        
+        npm_label = QLabel("Hemsidan")
+        npm_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        npm_layout.addWidget(npm_label)
+        
+        self.npm_led = QFrame()
+        self.npm_led.setFixedSize(30, 30)
+        self.npm_led.setFrameShape(QFrame.Shape.Box)
+        self.npm_led.setStyleSheet("background-color: red; border-radius: 15px; border: 1px solid gray;")
+        npm_layout.addWidget(self.npm_led, alignment=Qt.AlignmentFlag.AlignCenter)
+        
+        self.npm_status = QLabel("Stoppad")
+        self.npm_status.setStyleSheet("color: red;")
+        self.npm_status.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        npm_layout.addWidget(self.npm_status)
+        
+        status_layout.addWidget(npm_frame)
+        
+        main_layout.addWidget(status_group)
         
         # Knappar
-        button_frame = ttk.Frame(self.root)
-        button_frame.pack(pady=10)
+        button_layout = QHBoxLayout()
         
-        self.start_button = ttk.Button(button_frame, text="Starta/Omstart", command=self.start_processes)
-        self.start_button.pack(side="left", padx=5)
+        self.start_button = QPushButton("Starta/Omstart")
+        self.start_button.clicked.connect(self.start_processes)
+        button_layout.addWidget(self.start_button)
         
-        self.stop_button = ttk.Button(button_frame, text="Avsluta", command=self.stop_processes)
-        self.stop_button.pack(side="left", padx=5)
+        self.stop_button = QPushButton("Avsluta")
+        self.stop_button.clicked.connect(self.stop_processes)
+        button_layout.addWidget(self.stop_button)
         
-        # Log text
-        log_frame = ttk.LabelFrame(self.root, text="Log", padding=5)
-        log_frame.pack(padx=10, pady=5, fill="both", expand=True)
+        main_layout.addLayout(button_layout)
         
-        self.log_text = tk.Text(log_frame, height=6, width=50, state="disabled")
-        self.log_text.pack(fill="both", expand=True)
+        # Log GroupBox
+        log_group = QGroupBox("Log")
+        log_layout = QVBoxLayout()
+        log_group.setLayout(log_layout)
         
-        scrollbar = ttk.Scrollbar(self.log_text)
-        scrollbar.pack(side="right", fill="y")
-        self.log_text.config(yscrollcommand=scrollbar.set)
-        scrollbar.config(command=self.log_text.yview)
+        self.log_text = QTextEdit()
+        self.log_text.setReadOnly(True)
+        self.log_text.setMinimumHeight(150)
+        log_layout.addWidget(self.log_text)
+        
+        main_layout.addWidget(log_group)
     
     def log_message(self, message):
         """Lägg till meddelande i log"""
         timestamp = datetime.now().strftime("%H:%M:%S")
-        self.log_text.config(state="normal")
-        self.log_text.insert("end", f"[{timestamp}] {message}\n")
-        self.log_text.see("end")
-        self.log_text.config(state="disabled")
+        self.log_text.append(f"[{timestamp}] {message}")
     
-    def update_led(self, canvas, is_running, color="green"):
+    def update_led(self, led_frame, is_running, color="green"):
         """Uppdatera lysdiod färg"""
-        canvas.delete("all")
         led_color = color if is_running else "red"
-        canvas.create_oval(2, 2, 18, 18, fill=led_color)
+        led_frame.setStyleSheet(f"background-color: {led_color}; border-radius: 10px; border: 1px solid gray;")
     
     def start_processes(self):
         """Starta eller omstarta processerna"""
@@ -107,27 +171,26 @@ class ProcessManager:
         time.sleep(1)
         
         try:
-            self.log_message("Startar ./fcsercer...")
-            self.fcsercer_process = subprocess.Popen(
-                ["/Users/birger/Code/fadecandy/server/fcsercer"],
+            self.log_message("Startar ./fcserver...")
+            self.fcserver_process = subprocess.Popen(
+                ["/Users/birger/Code/fadecandy/server/fcserver"],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 preexec_fn=os.setsid
             )
-            self.log_message(f"✓ fcsercer startad (PID: {self.fcsercer_process.pid})")
+            self.log_message(f"✓ fcserver startad (PID: {self.fcserver_process.pid})")
         except Exception as e:
-            self.log_message(f"✗ Fel vid start av fcsercer: {e}")
+            self.log_message(f"✗ Fel vid start av fcserver: {e}")
         
         try:
             self.log_message("Startar ./ikaros...")
             self.ikaros_process = subprocess.Popen(
                 [
-                    "/Users/birger/Code/ikaros-2/Bin/ikaros",
-                    "/Users/birger/Code/ikaros-2/Robots/Epi/ExperimentSetup.ikg",
+                    "/Users/epi/Code/ikaros-2/Bin/ikaros",
+                    "/Users/epi/Code/ikaros-2/Projects/2021/Vattenhallen/EpiTorso/ExperimentSetup.ikg",
                     "-t",
-                    "-r25",
-                    "simulateRobot=True",
-                    "EpiName=EpiGreen"
+                    "-r25"
+                    "simulateRobot=True"
                 ],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -136,10 +199,23 @@ class ProcessManager:
             self.log_message(f"✓ ikaros startad (PID: {self.ikaros_process.pid})")
         except Exception as e:
             self.log_message(f"✗ Fel vid start av ikaros: {e}")
+        
+        try:
+            self.log_message("Startar npm start...")
+            self.npm_process = subprocess.Popen(
+                ["npm", "start"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                cwd="/Users/birger/Code/Epi-Vattenhallen/epiguess",
+                preexec_fn=os.setsid
+            )
+            self.log_message(f"✓ npm start startad (PID: {self.npm_process.pid})")
+        except Exception as e:
+            self.log_message(f"✗ Fel vid start av npm start: {e}")
     
     def stop_processes_internal(self):
         """Stoppa processer internt (med timeout)"""
-        for name, process in [("fcsercer", self.fcsercer_process), ("ikaros", self.ikaros_process)]:
+        for name, process in [("fcserver", self.fcserver_process), ("ikaros", self.ikaros_process), ("npm start", self.npm_process)]:
             if process and process.poll() is None:
                 try:
                     self.log_message(f"Skickar SIGTERM till {name}...")
@@ -169,40 +245,40 @@ class ProcessManager:
     
     def update_status(self):
         """Uppdatera status på lysdioder regelbundet"""
-        while self.running:
-            try:
-                # Kontrollera ikaros
-                ikaros_running = self.ikaros_process and self.ikaros_process.poll() is None
-                self.root.after(0, self.update_led, self.ikaros_led, ikaros_running, "green")
-                self.root.after(0, lambda: self.ikaros_status.config(
-                    text="Igång" if ikaros_running else "Stoppad",
-                    foreground="green" if ikaros_running else "red"
-                ))
-                
-                # Kontrollera fcsercer
-                fcsercer_running = self.fcsercer_process and self.fcsercer_process.poll() is None
-                self.root.after(0, self.update_led, self.fcsercer_led, fcsercer_running, "blue")
-                self.root.after(0, lambda: self.fcsercer_status.config(
-                    text="Igång" if fcsercer_running else "Stoppad",
-                    foreground="green" if fcsercer_running else "red"
-                ))
-                
-                time.sleep(0.5)
-            except Exception as e:
-                self.log_message(f"Fel i status update: {e}")
-                time.sleep(1)
+        try:
+            # Kontrollera ikaros
+            ikaros_running = self.ikaros_process and self.ikaros_process.poll() is None
+            self.update_led(self.ikaros_led, ikaros_running, "green")
+            self.ikaros_status.setText("Igång" if ikaros_running else "Stoppad")
+            self.ikaros_status.setStyleSheet("color: green;" if ikaros_running else "color: red;")
+            
+            # Kontrollera fcserver
+            fcserver_running = self.fcserver_process and self.fcserver_process.poll() is None
+            self.update_led(self.fcserver_led, fcserver_running, "blue")
+            self.fcserver_status.setText("Igång" if fcserver_running else "Stoppad")
+            self.fcserver_status.setStyleSheet("color: green;" if fcserver_running else "color: red;")
+            
+            # Kontrollera npm start
+            npm_running = self.npm_process and self.npm_process.poll() is None
+            self.update_led(self.npm_led, npm_running, "yellow")
+            self.npm_status.setText("Igång" if npm_running else "Stoppad")
+            self.npm_status.setStyleSheet("color: green;" if npm_running else "color: red;")
+        except Exception as e:
+            self.log_message(f"Fel i status update: {e}")
     
-    def on_closing(self):
+    def closeEvent(self, event):
         """Hantera fönster stängning"""
         self.log_message("Stänger programmet...")
         self.running = False
+        self.status_timer.stop()
         self.stop_processes_internal()
-        self.root.destroy()
+        event.accept()
 
 def main():
-    root = tk.Tk()
-    manager = ProcessManager(root)
-    root.mainloop()
+    app = QApplication(sys.argv)
+    manager = ProcessManager()
+    manager.show()
+    sys.exit(app.exec())
 
 if __name__ == "__main__":
     main()
