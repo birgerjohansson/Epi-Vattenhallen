@@ -33,12 +33,25 @@ class ExpTakePicture extends React.Component{
     }
 
     render() {
+        console.log("render called");  // ✅ Debug-logg
+
+        setTimeout(function() {  // ✅ 2 sekunders delay
+            document.getElementById("TakePicButton").style.visibility = "visible";
+        }, 2000);
+
         return (
             <div>
 				<Webcam	audio={false} ref="webcam" screenshotFormat="image/jpeg" style={style.video} />
                 <div className= "jumbotron text-center"> 
 					
-                    <button  onClick={(e) => this.choosePicture(e)} type="submit" className="btn btn-primary">Ta bild</button>
+                    <button 
+                        onClick={(e) => this.choosePicture(e)} 
+                        type="submit" 
+                        style={{visibility:"hidden"}}  // Dold initialt
+                        className="btn btn-primary" 
+                        id="TakePicButton">
+                        Ta bild
+                    </button>
 					
                 </div>
                 
