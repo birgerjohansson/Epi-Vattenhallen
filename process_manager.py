@@ -1,3 +1,8 @@
+# Install required packages:
+# brew install python
+# brew install pyqt
+
+
 #!/usr/bin/env python3
 import sys
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, 
