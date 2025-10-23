@@ -44,7 +44,7 @@ class ProcessManager(QMainWindow):
         main_layout.setSpacing(10)
         
         # Titel
-        title_label = QLabel("Processhanterare")
+        title_label = QLabel("Epi startare")
         title_font = QFont("Arial", 16, QFont.Weight.Bold)
         title_label.setFont(title_font)
         title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -130,13 +130,17 @@ class ProcessManager(QMainWindow):
         # Knappar
         button_layout = QHBoxLayout()
         
-        self.start_button = QPushButton("Starta/Omstart")
+        self.start_button = QPushButton("Starta")
         self.start_button.clicked.connect(self.start_processes)
         button_layout.addWidget(self.start_button)
         
         self.stop_button = QPushButton("Avsluta")
         self.stop_button.clicked.connect(self.stop_processes)
         button_layout.addWidget(self.stop_button)
+        
+        self.force_kill_button = QPushButton("Tvångsavsluta")
+        self.force_kill_button.clicked.connect(self.force_kill_processes)
+        button_layout.addWidget(self.force_kill_button)
         
         main_layout.addLayout(button_layout)
         
@@ -161,6 +165,84 @@ class ProcessManager(QMainWindow):
         """Uppdatera lysdiod färg"""
         led_color = color if is_running else "red"
         led_frame.setStyleSheet(f"background-color: {led_color}; border-radius: 10px; border: 1px solid gray;")
+    
+    def force_kill_processes(self):
+        """Sök efter och döda alla ikaros, fcserver, node och npm start processer"""
+        self.log_message("Tvångsavslutar processer...")
+        
+        try:
+            # Sök efter ikaros processer
+            result = subprocess.run(
+                ["pgrep", "-f", "ikaros"],
+                capture_output=True,
+                text=True
+            )
+            if result.stdout.strip():
+                pids = result.stdout.strip().split('\n')
+                for pid in pids:
+                    try:
+                        self.log_message(f"Hittat ikaros process (PID: {pid}), dödar...")
+                        os.kill(int(pid), signal.SIGKILL)
+                    except Exception as e:
+                        self.log_message(f"Kunde inte döda ikaros PID {pid}: {e}")
+            else:
+                self.log_message("Ingen ikaros process hittad")
+            
+            # Sök efter fcserver processer
+            result = subprocess.run(
+                ["pgrep", "-f", "fcserver"],
+                capture_output=True,
+                text=True
+            )
+            if result.stdout.strip():
+                pids = result.stdout.strip().split('\n')
+                for pid in pids:
+                    try:
+                        self.log_message(f"Hittat fcserver process (PID: {pid}), dödar...")
+                        os.kill(int(pid), signal.SIGKILL)
+                    except Exception as e:
+                        self.log_message(f"Kunde inte döda fcserver PID {pid}: {e}")
+            else:
+                self.log_message("Ingen fcserver process hittad")
+            
+            # Sök efter node processer
+            result = subprocess.run(
+                ["pgrep", "-x", "node"],
+                capture_output=True,
+                text=True
+            )
+            if result.stdout.strip():
+                pids = result.stdout.strip().split('\n')
+                for pid in pids:
+                    try:
+                        self.log_message(f"Hittat node process (PID: {pid}), dödar...")
+                        os.kill(int(pid), signal.SIGKILL)
+                    except Exception as e:
+                        self.log_message(f"Kunde inte döda node PID {pid}: {e}")
+            else:
+                self.log_message("Ingen node process hittad")
+            
+            # Sök efter npm start processer
+            result = subprocess.run(
+                ["pgrep", "-f", "npm.*start"],
+                capture_output=True,
+                text=True
+            )
+            if result.stdout.strip():
+                pids = result.stdout.strip().split('\n')
+                for pid in pids:
+                    try:
+                        self.log_message(f"Hittat npm start process (PID: {pid}), dödar...")
+                        os.kill(int(pid), signal.SIGKILL)
+                    except Exception as e:
+                        self.log_message(f"Kunde inte döda npm start PID {pid}: {e}")
+            else:
+                self.log_message("Ingen npm start process hittad")
+            
+            self.log_message("Tvångsavslut klart!")
+            
+        except Exception as e:
+            self.log_message(f"Fel vid tvångsavslut: {e}")
     
     def start_processes(self):
         """Starta eller omstarta processerna"""
@@ -254,13 +336,13 @@ class ProcessManager(QMainWindow):
             
             # Kontrollera fcserver
             fcserver_running = self.fcserver_process and self.fcserver_process.poll() is None
-            self.update_led(self.fcserver_led, fcserver_running, "blue")
+            self.update_led(self.fcserver_led, fcserver_running, "green")
             self.fcserver_status.setText("Igång" if fcserver_running else "Stoppad")
             self.fcserver_status.setStyleSheet("color: green;" if fcserver_running else "color: red;")
             
             # Kontrollera npm start
             npm_running = self.npm_process and self.npm_process.poll() is None
-            self.update_led(self.npm_led, npm_running, "yellow")
+            self.update_led(self.npm_led, npm_running, "green")
             self.npm_status.setText("Igång" if npm_running else "Stoppad")
             self.npm_status.setStyleSheet("color: green;" if npm_running else "color: red;")
         except Exception as e:
