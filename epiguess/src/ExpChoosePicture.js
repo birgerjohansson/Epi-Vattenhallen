@@ -9,8 +9,8 @@ import $ from 'jquery';
 const images = [
     {
       id: 1,
-      original: '/images/anger1.jpg',
-      thumbnail: '/images/anger1.jpg',
+      original: '/images/anger4.jpg',
+      thumbnail: '/images/anger4.jpg',
     },
     {
       id: 2,
@@ -19,86 +19,84 @@ const images = [
     //   legend: 'bild 2',
     },
     {
-        id: 3,
-        original: '/images/anger3.jpg',
-        thumbnail: '/images/anger3.jpg',
-    },
-    {
         id: 4,
-        original: '/images/anger4.jpg',
-        thumbnail: '/images/anger4.jpg',
-    },
-    // {
-    //     id: 5,
-    //     original: '/images/stock_disgusted2.jpg',
-    //     thumbnail: '/images/stock_disgusted2.jpg',
-    // },
-    {
-        id: 6,
         original: '/images/disgust1.jpg',
         thumbnail: '/images/disgust1.jpg',
     },
     {
-        id: 7,
+        id: 5,
         original: '/images/disgust2.jpg',
         thumbnail: '/images/disgust2.jpg',
     },
+
     {
-        id: 8,
-        original: '/images/disgust4.jpg',
-        thumbnail: '/images/disgust4.jpg',
-    },
-    {
-        id: 9,
+        id: 6,
         original: '/images/fear1.jpg',
         thumbnail: '/images/fear1.jpg',
     },
     {
-        id: 10,
+        id: 7,
         original: '/images/fear2.jpg',
         thumbnail: '/images/fear2.jpg',
     },
     {
-        id: 12,
+        id: 8,
         original: '/images/joy2.jpg',
         thumbnail: '/images/joy2.jpg',
         legend: 'joy2',
     },
     {
-        id: 13,
+        id: 9,
         original: '/images/joy3.jpg',
         thumbnail: '/images/joy3.jpg',
     },
+
     {
-        id: 14,
-        original: '/images/joy4.jpg',
-        thumbnail: '/images/joy4.jpg',
-    },
-    {
-        id: 15,
+        id: 10,
         original: '/images/sad1.jpg',
         thumbnail: '/images/sad1.jpg',
     },
     {
-        id: 16,
+        id: 11,
         original: '/images/sad2.jpg',
         thumbnail: '/images/sad2.jpg',
     },
     {
-        id: 16,
+        id: 12,
         original: '/images/surprise1.jpg',
         thumbnail: '/images/surprise1.jpg',
     },
-    // {
+
+    {
+        id: 13,
+        original: '/images/surprise3.jpg',
+        thumbnail: '/images/surprise3.jpg',
+    },
+	    // {
     //     id: 16,
     //     original: '/images/surprise2.jpg',
     //     thumbnail: '/images/surprise2.jpg',
     // },
-    {
-        id: 16,
-        original: '/images/surprise3.jpg',
-        thumbnail: '/images/surprise3.jpg',
-    },
+	    // {
+        // id: 14,
+        // original: '/images/joy4.jpg',
+        // thumbnail: '/images/joy4.jpg',
+    // },
+	    // {
+        // id: 8,
+        // original: '/images/disgust4.jpg',
+        // thumbnail: '/images/disgust4.jpg',
+    // },
+	    // {
+        // id: 4,
+        // original: '/images/anger4.jpg',
+        // thumbnail: '/images/anger4.jpg',
+    // },
+    // {
+    //     id: 5,
+    //     original: '/images/stock_disgusted2.jpg',
+    //     thumbnail: '/images/stock_disgusted2.jpg',
+    // },
   ];
 
   const buttonStyle = {
