@@ -8,10 +8,9 @@ import { Button } from 'react-bootstrap';
 
 const imageWrapper = {
     display: 'inline-block',
-    float: 'left',
     textAlign: 'center',
     marginTop: '30px',
-    //marginLeft: '100px',
+    marginLeft: '100px'  // ← Fast margin
 }
 
 const drawCanvas = {
@@ -19,7 +18,7 @@ const drawCanvas = {
     float: 'right',
     textAlign: 'center',
     marginTop: '30px',
-    //marginRight: '100px',
+    marginRight: '100px'  // ← Fast margin
 }
 
 const imageStyle = {
@@ -287,29 +286,37 @@ class ExpPreGameInstruction extends React.Component{
         return(
             <div>
                 <div style={epiGuessWrapper}>
-                    <div style={imageWrapper} id="faceImageWrapper">
+                    <div style={imageWrapper}>
                         <img id="faceImage" style={imageStyle} src={this.props.selectedImage}/>
                     </div>
-                    <div id="drawCanvas" style={drawCanvas}>{this.renderCanvas()}</div>
-
-                </div>
-                <div style={epiResultWrapper}> 
+                    <div style={epiResultWrapper}> 
                         {Object.keys(emotions).length != 0 ? this.renderEpiResults() : null}
                     </div>
-                <div className= "text-center">
+                    <div id="drawCanvas" style={drawCanvas}>{this.renderCanvas()}</div>
+                </div>
+                <div className="text-center">
                     {this.renderEpiGuess()}
                     {this.renderEpiPoints()}
-                    <button style={buttonRed} onClick={(e) => this.handleGuessFeedback(false)} type="submit" className="btn">Nej</button>
-                    <button style={buttonStyle} onClick={(e) => this.handleGuessFeedback(true)} type="submit" className="btn btn-primary">Ja</button>
+                    {this.renderButtons()}  {/* ← Dynamisk knapp-rendering */}
                 </div>                
-                <div className= "jumbotron text-right" style={backgroundWhite}>
-                    {/* <button  onClick={(e) => this.handleClick(e, '/ExpSelectApproach')} type="submit" className="btn btn-primary">Ny bild</button> */}
-                    <Button style={buttonStyle} disabled={this.disableButton()} onClick={(e) => this.continue(e)} type="submit" className="btn btn-primary">Epis tur</Button>
-                    {/* <Button disabled={this.disableButton()} onClick={(e) => this.handleClick(e, '/Result')} type="submit" className="btn btn-success button-next">Nästa</Button> */}
-                </div>
             </div>
         )
 
+    }
+
+    renderButtons = () => {
+        if(hasAnswered != null){
+            return ( 
+                <Button style={buttonStyle} onClick={(e) => this.continue(e)} type="submit" className="btn btn-primary">Epis tur</Button>
+            )
+        } else {
+            return (      
+                <div>
+                    <button style={buttonRed} onClick={(e) => this.handleGuessFeedback(false)} type="submit" className="btn">Nej</button>
+                    <button style={buttonStyle} onClick={(e) => this.handleGuessFeedback(true)} type="submit" className="btn btn-primary">Ja</button>
+                </div>
+            )
+        }
     }
 
     render() {
