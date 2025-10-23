@@ -6,7 +6,7 @@ const ProgressBar = (props) => {
     const containerStyles = {
       display: 'inline-block',
       height: 20,
-      width: '50%',
+      width: '85%',
       backgroundColor: "#e0e0de",
       borderRadius: 50,
     //   margin: 50
@@ -17,18 +17,13 @@ const ProgressBar = (props) => {
       width: `${completed}%`,
       backgroundColor: bgcolor,
       borderRadius: 'inherit',
-      textAlign: 'right',
-      border: '1px solid #666',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end'
+      textAlign: 'right'
     }
   
     const labelStyles = {
       padding: 5,
       color: 'black',
-      fontWeight: 'bold',
-      lineHeight: 1
+      fontWeight: 'bold'
     }
 
     let roundOff = (num, places) => {
