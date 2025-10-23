@@ -51,9 +51,8 @@ class ExpTakePicture extends React.Component{
 const style = {
 
 	video: {
-		position: 'relative',
-		left: '25%'
-
+		display: "block",
+		margin: "auto"
 	}
 }
 
