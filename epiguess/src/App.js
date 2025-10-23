@@ -119,10 +119,16 @@ class App extends React.Component {
     console.log(currEmotion)
     console.log('http://127.0.0.1:8000/control/MotionTrigger.data/' + currEmotion + '/0/1 ')
     fetch('http://127.0.0.1:8000/control/MotionTrigger.data/' + currEmotion + '/0/1 ')
-      .then(response => response.json());
-
-
-
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .catch(error => {
+        console.error('Fel vid trigger av emotion:', error);
+        // Fortsätt ändå - roboten kanske inte är ansluten
+      });
   }
   stopEmotion = () => {
 
@@ -135,7 +141,16 @@ class App extends React.Component {
       console.log("Reset motions")
       console.log(i)
       fetch('http://127.0.0.1:8000/control/MotionTrigger.data/' + i + '/0/0 ')
-      .then(response => response.json());
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .catch(error => {
+        console.error('Fel vid stopp av emotion:', error);
+        // Fortsätt ändå - roboten kanske inte är ansluten
+      });
     }
 
 
