@@ -17,13 +17,18 @@ const ProgressBar = (props) => {
       width: `${completed}%`,
       backgroundColor: bgcolor,
       borderRadius: 'inherit',
-      textAlign: 'right'
+      textAlign: 'right',
+      border: '1px solid #666',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end'
     }
   
     const labelStyles = {
       padding: 5,
       color: 'black',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      lineHeight: 1
     }
 
     let roundOff = (num, places) => {
