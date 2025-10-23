@@ -47,8 +47,10 @@ const epiEmotionBar = {
 }
 
 const epiGuessWrapper = {
-    //display: 'float-left'
-    height: '400px'
+    display: 'flex',
+    paddingTop: '50px',
+    paddingRight: '50px',
+    paddingLeft: '50px'
 }
 
 const buttonStyle = {
