@@ -7,7 +7,7 @@
 import sys
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, 
                              QHBoxLayout, QLabel, QPushButton, QTextEdit, 
-                             QGroupBox, QFrame)
+                             QGroupBox, QFrame, QCheckBox)
 from PyQt6.QtCore import QTimer, Qt
 from PyQt6.QtGui import QFont
 import subprocess
@@ -30,6 +30,10 @@ class ProcessManager(QMainWindow):
         # Flag för att stoppa status check
         self.running = True
         
+        # Auto-start funktionalitet
+        self.first_start = True
+        self.auto_start_countdown = 5
+        
         # Skapa GUI
         self.create_widgets()
         
@@ -37,6 +41,14 @@ class ProcessManager(QMainWindow):
         self.status_timer = QTimer()
         self.status_timer.timeout.connect(self.update_status)
         self.status_timer.start(500)  # Uppdatera var 500ms
+        
+        # Auto-start timer
+        self.auto_start_timer = QTimer()
+        self.auto_start_timer.timeout.connect(self.auto_start_countdown_tick)
+        
+        # Starta auto-start countdown första gången
+        if self.first_start:
+            self.start_auto_start_countdown()
     
     def create_widgets(self):
         """Skapa GUI-komponenter"""
@@ -132,6 +144,22 @@ class ProcessManager(QMainWindow):
         
         main_layout.addWidget(status_group)
         
+        # Auto-start kontroller
+        auto_start_group = QGroupBox("Automatisk start")
+        auto_start_layout = QVBoxLayout()
+        auto_start_group.setLayout(auto_start_layout)
+        
+        self.cancel_auto_start_button = QPushButton("Avbryt automatisk uppstart")
+        self.cancel_auto_start_button.clicked.connect(self.cancel_auto_start)
+        self.cancel_auto_start_button.setVisible(False)  # Dold som standard
+        auto_start_layout.addWidget(self.cancel_auto_start_button)
+        
+        self.auto_start_status = QLabel("")
+        self.auto_start_status.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        auto_start_layout.addWidget(self.auto_start_status)
+        
+        main_layout.addWidget(auto_start_group)
+        
         # Knappar
         button_layout = QHBoxLayout()
         
@@ -165,6 +193,45 @@ class ProcessManager(QMainWindow):
         """Lägg till meddelande i log"""
         timestamp = datetime.now().strftime("%H:%M:%S")
         self.log_text.append(f"[{timestamp}] {message}")
+    
+    def cancel_auto_start(self):
+        """Avbryt automatisk uppstart"""
+        if self.auto_start_timer.isActive():
+            self.auto_start_timer.stop()
+            self.auto_start_status.setText("")
+            self.cancel_auto_start_button.setVisible(False)
+            self.first_start = False
+            self.log_message("Automatisk uppstart avbruten av användaren")
+    
+    def start_auto_start_countdown(self):
+        """Starta nedräkning för automatisk start"""
+        self.auto_start_countdown = 5
+        self.auto_start_timer.start(1000)  # Uppdatera varje sekund
+        self.cancel_auto_start_button.setVisible(True)  # Visa avbryt-knappen
+        self.log_message("Automatisk start aktiverad - startar om 5 sekunder...")
+        self.update_auto_start_display()
+    
+    def auto_start_countdown_tick(self):
+        """Hantera varje tick i nedräkningen"""
+        self.auto_start_countdown -= 1
+        
+        if self.auto_start_countdown <= 0:
+            self.auto_start_timer.stop()
+            self.auto_start_status.setText("")
+            self.cancel_auto_start_button.setVisible(False)  # Dölj avbryt-knappen
+            self.first_start = False
+            self.log_message("Automatisk start - startar processer nu!")
+            self.start_processes()
+        else:
+            self.update_auto_start_display()
+    
+    def update_auto_start_display(self):
+        """Uppdatera display för auto-start nedräkning"""
+        if self.auto_start_countdown > 0:
+            self.auto_start_status.setText(f"Startar automatiskt om {self.auto_start_countdown} sekunder...")
+            self.auto_start_status.setStyleSheet("color: orange; font-weight: bold;")
+        else:
+            self.auto_start_status.setText("")
     
     def update_led(self, led_frame, is_running, color="green"):
         """Uppdatera lysdiod färg"""
@@ -251,6 +318,14 @@ class ProcessManager(QMainWindow):
     
     def start_processes(self):
         """Starta eller omstarta processerna"""
+        # Stoppa auto-start timer om den körs
+        if self.auto_start_timer.isActive():
+            self.auto_start_timer.stop()
+            self.auto_start_status.setText("")
+            self.cancel_auto_start_button.setVisible(False)  # Dölj avbryt-knappen
+            self.log_message("Automatisk start avbruten - manuell start")
+        
+        self.first_start = False
         self.log_message("Startar processer...")
         
         # Stoppa befintliga processer först
@@ -357,6 +432,7 @@ class ProcessManager(QMainWindow):
         self.log_message("Stänger programmet...")
         self.running = False
         self.status_timer.stop()
+        self.auto_start_timer.stop()
         self.stop_processes_internal()
         event.accept()
 
