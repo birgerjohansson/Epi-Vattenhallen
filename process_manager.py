@@ -261,8 +261,8 @@ class ProcessManager(QMainWindow):
             self.log_message("Startar fcserver...")
             self.fcserver_process = subprocess.Popen(
                 ["/Users/birger/Code/fadecandy/server/fcserver"],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
                 preexec_fn=os.setsid
             )
             self.log_message(f"✓ fcserver startad (PID: {self.fcserver_process.pid})")
@@ -279,8 +279,8 @@ class ProcessManager(QMainWindow):
                     "-r25"
                     "simulateRobot=True"
                 ],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
                 preexec_fn=os.setsid
             )
             self.log_message(f"✓ ikaros startad (PID: {self.ikaros_process.pid})")
@@ -291,8 +291,8 @@ class ProcessManager(QMainWindow):
             self.log_message("Startar npm start...")
             self.npm_process = subprocess.Popen(
                 ["npm", "start"],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
                 cwd="/Users/birger/Code/Epi-Vattenhallen/epiguess",
                 preexec_fn=os.setsid
             )
