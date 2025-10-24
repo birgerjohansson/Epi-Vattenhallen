@@ -4,7 +4,7 @@
 
 Create Code directory
 
-Install ikaros 2. Ikaros 2 is not maintaned by Lund University Cognitive Science anymore. Talk to Birger. Mental note to Biger. Disable feedback from servos. Compile the non existing fadecandy server using old code. Set the LOW_LATENCY flag in ikaros-2.
+Install ikaros 2. Ikaros 2 is not maintaned by Lund University Cognitive Science anymore. Talk to Birger. Mental note to Birger. Disable feedback from servos. Compile the non existing fadecandy server using old code. Set the LOW_LATENCY flag in ikaros-2.
 
 
 Setting up node.js and extensions. The project uses old packaged for node. 
