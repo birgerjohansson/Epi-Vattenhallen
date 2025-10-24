@@ -17,8 +17,8 @@ import ExpChoosePicture from './ExpChoosePicture';
 import ExpPreGameInstruction from './ExpPreGameInstruction';
 import ExpTakePicture from './ExpTakePicture';
 import ExpSelectApproach from './ExpSelectApproach';
-import { ConsoleWriter } from 'istanbul-lib-report';
-import { zeros } from '@tensorflow/tfjs-core';
+//import { ConsoleWriter } from 'istanbul-lib-report';
+//import { zeros } from '@tensorflow/tfjs-core';
 
 
 
