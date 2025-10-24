@@ -4,72 +4,52 @@
 
 Create Code directory
 
-Install ikaros
+Install ikaros 2. Ikaros 2 is not maintaned by Lund University Cognitive Science anymore. Talk to Birger. Mental note to Birger. Disable feedback from servos. Compile the non existing fadecandy server using old code. Set the LOW_LATENCY flag in ikaros-2.
 
-`
-https://github.com/ikaros-project/ikaros/wiki/Install
-`
 
-Compile ikaros
+Setting up node.js and extensions. The project uses old packaged for node. 
 
-`
-https://github.com/ikaros-project/ikaros/wiki/Compile
-`
-
-Install fade candy server (LED controller server)
-
-`
-https://github.com/ikaros-project/ikaros/wiki/Epi-setup
-`
-
-Setting low latency serial communication
-
-`
-https://github.com/ikaros-project/ikaros/wiki/Epi-setup
-`
-
-Setting up node.js and extensions
-
-`
+```
 brew install node
-`
 
 brew install nvm
+
+nvm install *old version of npm* 
+
 nvm install 16
+
 nvm use 16
 
-Install node dependings in depending.txt
-
+```
 Cloning webapp
 
-`
+
+```
 git clone https://github.com/birgerjohansson/Epi-Vattenhallen.git
+
 cd Epi-Vattenhallen/epiguess
-`
 
-`
+```
+
+
 Install dependencis 
+
+```
 npm install
-`
-Start fadecandy server
-`
-./fcserver
-`
 
-Start ikaros
+```
 
-`
-../Bin/ikaros ../Projects/2021/Vattenhallen/EpiTorso/ExperimentSetup.ikg -t -r25
-`
+Start the process script
 
-Start the web app
+```
+python3 ./process_manager.py
 
-`
-npm start
-`
+```
 
-Connect to app using firefox using 
+Connect to app using chome 
 
-`
+
+```
 localhost:3000
-`
+
+```
