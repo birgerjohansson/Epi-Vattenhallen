@@ -260,7 +260,7 @@ class ProcessManager(QMainWindow):
         try:
             self.log_message("Startar fcserver...")
             self.fcserver_process = subprocess.Popen(
-                ["/Users/birger/Code/fadecandy/server/fcserver"],
+                ["/Users/epi/Code/fadecandy/server/fcserver"],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
                 preexec_fn=os.setsid
@@ -273,11 +273,10 @@ class ProcessManager(QMainWindow):
             self.log_message("Startar ikaros...")
             self.ikaros_process = subprocess.Popen(
                 [
-                    "/Users/birger/Code/ikaros-2/Bin/ikaros",
-                    "/Users/birger/Code/ikaros-2/Projects/2021/Vattenhallen/EpiTorso/ExperimentSetup.ikg",
+                    "/Users/epi/Code/ikaros-2/Bin/ikaros",
+                    "/Users/epi/Code/ikaros-2/Projects/2021/Vattenhallen/EpiTorso/ExperimentSetup.ikg",
                     "-t",
                     "-r25"
-                    "simulateRobot=True"
                 ],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
@@ -293,7 +292,7 @@ class ProcessManager(QMainWindow):
                 ["npm", "start"],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
-                cwd="/Users/birger/Code/Epi-Vattenhallen/epiguess",
+                cwd="/Users/epi/Code/Epi-Vattenhallen/epiguess",
                 preexec_fn=os.setsid
             )
             self.log_message(f"✓ npm start startad (PID: {self.npm_process.pid})")

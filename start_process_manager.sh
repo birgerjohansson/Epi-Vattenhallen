@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /Users/birger/Code/Epi-Vattenhallen
+cd /Users/epi/Code/Epi-Vattenhallen
 python3 process_manager.py
